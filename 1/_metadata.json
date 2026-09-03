@@ -1,0 +1,19 @@
+{
+  "extractedAt": "2026-09-03T19:41:30.542Z",
+  "sourceUrl": "https://pgportal.gov.in/",
+  "extremeMode": true,
+  "pagesExtracted": 20,
+  "totalFiles": 65,
+  "totalSizeBytes": 4993329,
+  "failedAssets": 0,
+  "retriedAssets": 0,
+  "technologies": [],
+  "assetBreakdown": {
+    "css": 6,
+    "js": 17,
+    "images": 42,
+    "fonts": 0,
+    "video": 0,
+    "other": 0
+  }
+}

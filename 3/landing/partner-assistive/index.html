@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="en" class="light" data-beasties-container=""><head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <meta charset="utf-8">
+  <title>UMANG</title>
+  
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:title" content="UMANG - One App, Many Government Services">
+  <meta name="og:type" content="website">
+  <meta name="og:url" content="https://web.umang.gov.in">
+  <meta name="og:site_name" content="UMANG">
+  <meta name="og:description" content="UMANG provides a single platform for all Indian Citizens to access pan India e-Gov services ranging from Central to Local Government bodies and other citizen centric services.">
+  <meta name="description" content="UMANG provides a single platform for all Indian Citizens to access pan India e-Gov services ranging from Central to Local Government bodies.">
+  <meta name="google-site-verification" content="zjKPUWk3X_DaY8L852-zJRUL0WqxZIKQ09CMwcaHR5U">
+
+  <!-- Twitter meta tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@UmangOfficial_">
+  <meta name="twitter:title" content="UMANG App India">
+  <meta name="twitter:description" content="UMANG provides a single platform for all Indian Citizens to access pan India e-Gov services ranging from Central to Local Government bodies and other citizen centric services.">
+  <meta name="twitter:image" content="https://media.umangapp.in/cdn/landing/theme/icons/favicon.ico">
+
+  <link rel="canonical" href="https://web.umang.gov.in/landing">
+  <link rel="icon" type="image/x-icon" href="../../_external/media.umangapp.in/cdn/landing/theme/icons/favicon.ico">
+  <style>@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+  <script defer="" src="../../assets/resources/js/common_apis.min.js"></script>
+  <script>
+    // Registering service worker.
+    if (
+      "serviceWorker" in navigator &&
+      !window.location.hostname.includes("localhost")
+    ) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/landing/sw.js")
+          .then((registration) => {
+            console.log(
+              "Service Worker registered with scope:",
+              registration.scope
+            );
+          })
+          .catch((error) => {
+            console.error("Service Worker registration failed:", error);
+          });
+      });
+
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data.action === "reload") {
+          window.location.reload();
+        }
+      });
+      console.log = function () { };
+      console.warn = function () { };
+      if (localStorage.getItem('userInfo') && window.location.href != 'https://web.umang.gov.in/landing/accessibility') {
+        window.location.replace('https://web.umang.gov.in/web_new');
+      }
+    }
+  </script>
+<style>html{--mat-sys-background:#faf9fd;--mat-sys-error:#ba1a1a;--mat-sys-error-container:#ffdad6;--mat-sys-inverse-on-surface:#f2f0f4;--mat-sys-inverse-primary:#abc7ff;--mat-sys-inverse-surface:#2f3033;--mat-sys-on-background:#1a1b1f;--mat-sys-on-error:#ffffff;--mat-sys-on-error-container:#93000a;--mat-sys-on-primary:#ffffff;--mat-sys-on-primary-container:#00458f;--mat-sys-on-primary-fixed:#001b3f;--mat-sys-on-primary-fixed-variant:#00458f;--mat-sys-on-secondary:#ffffff;--mat-sys-on-secondary-container:#3e4759;--mat-sys-on-secondary-fixed:#131c2b;--mat-sys-on-secondary-fixed-variant:#3e4759;--mat-sys-on-surface:#1a1b1f;--mat-sys-on-surface-variant:#44474e;--mat-sys-on-tertiary:#ffffff;--mat-sys-on-tertiary-container:#0000ef;--mat-sys-on-tertiary-fixed:#00006e;--mat-sys-on-tertiary-fixed-variant:#0000ef;--mat-sys-outline:#74777f;--mat-sys-outline-variant:#c4c6d0;--mat-sys-primary:#005cbb;--mat-sys-primary-container:#d7e3ff;--mat-sys-primary-fixed:#d7e3ff;--mat-sys-primary-fixed-dim:#abc7ff;--mat-sys-scrim:#000000;--mat-sys-secondary:#565e71;--mat-sys-secondary-container:#dae2f9;--mat-sys-secondary-fixed:#dae2f9;--mat-sys-secondary-fixed-dim:#bec6dc;--mat-sys-shadow:#000000;--mat-sys-surface:#faf9fd;--mat-sys-surface-bright:#faf9fd;--mat-sys-surface-container:#efedf0;--mat-sys-surface-container-high:#e9e7eb;--mat-sys-surface-container-highest:#e3e2e6;--mat-sys-surface-container-low:#f4f3f6;--mat-sys-surface-container-lowest:#ffffff;--mat-sys-surface-dim:#dbd9dd;--mat-sys-surface-tint:#005cbb;--mat-sys-surface-variant:#e0e2ec;--mat-sys-tertiary:#343dff;--mat-sys-tertiary-container:#e0e0ff;--mat-sys-tertiary-fixed:#e0e0ff;--mat-sys-tertiary-fixed-dim:#bec2ff;--mat-sys-neutral-variant20:#2d3038;--mat-sys-neutral10:#1a1b1f}html{--mat-sys-level0:0px 0px 0px 0px rgba(0, 0, 0, .2), 0px 0px 0px 0px rgba(0, 0, 0, .14), 0px 0px 0px 0px rgba(0, 0, 0, .12)}html{--mat-sys-level1:0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12)}html{--mat-sys-level2:0px 3px 3px -2px rgba(0, 0, 0, .2), 0px 3px 4px 0px rgba(0, 0, 0, .14), 0px 1px 8px 0px rgba(0, 0, 0, .12)}html{--mat-sys-level3:0px 3px 5px -1px rgba(0, 0, 0, .2), 0px 6px 10px 0px rgba(0, 0, 0, .14), 0px 1px 18px 0px rgba(0, 0, 0, .12)}html{--mat-sys-level4:0px 5px 5px -3px rgba(0, 0, 0, .2), 0px 8px 10px 1px rgba(0, 0, 0, .14), 0px 3px 14px 2px rgba(0, 0, 0, .12)}html{--mat-sys-level5:0px 7px 8px -4px rgba(0, 0, 0, .2), 0px 12px 17px 2px rgba(0, 0, 0, .14), 0px 5px 22px 4px rgba(0, 0, 0, .12)}html{--mat-sys-body-large:400 1rem / 1.5rem Roboto;--mat-sys-body-large-font:Roboto;--mat-sys-body-large-line-height:1.5rem;--mat-sys-body-large-size:1rem;--mat-sys-body-large-tracking:.031rem;--mat-sys-body-large-weight:400;--mat-sys-body-medium:400 .875rem / 1.25rem Roboto;--mat-sys-body-medium-font:Roboto;--mat-sys-body-medium-line-height:1.25rem;--mat-sys-body-medium-size:.875rem;--mat-sys-body-medium-tracking:.016rem;--mat-sys-body-medium-weight:400;--mat-sys-body-small:400 .75rem / 1rem Roboto;--mat-sys-body-small-font:Roboto;--mat-sys-body-small-line-height:1rem;--mat-sys-body-small-size:.75rem;--mat-sys-body-small-tracking:.025rem;--mat-sys-body-small-weight:400;--mat-sys-display-large:400 3.562rem / 4rem Roboto;--mat-sys-display-large-font:Roboto;--mat-sys-display-large-line-height:4rem;--mat-sys-display-large-size:3.562rem;--mat-sys-display-large-tracking:-.016rem;--mat-sys-display-large-weight:400;--mat-sys-display-medium:400 2.812rem / 3.25rem Roboto;--mat-sys-display-medium-font:Roboto;--mat-sys-display-medium-line-height:3.25rem;--mat-sys-display-medium-size:2.812rem;--mat-sys-display-medium-tracking:0;--mat-sys-display-medium-weight:400;--mat-sys-display-small:400 2.25rem / 2.75rem Roboto;--mat-sys-display-small-font:Roboto;--mat-sys-display-small-line-height:2.75rem;--mat-sys-display-small-size:2.25rem;--mat-sys-display-small-tracking:0;--mat-sys-display-small-weight:400;--mat-sys-headline-large:400 2rem / 2.5rem Roboto;--mat-sys-headline-large-font:Roboto;--mat-sys-headline-large-line-height:2.5rem;--mat-sys-headline-large-size:2rem;--mat-sys-headline-large-tracking:0;--mat-sys-headline-large-weight:400;--mat-sys-headline-medium:400 1.75rem / 2.25rem Roboto;--mat-sys-headline-medium-font:Roboto;--mat-sys-headline-medium-line-height:2.25rem;--mat-sys-headline-medium-size:1.75rem;--mat-sys-headline-medium-tracking:0;--mat-sys-headline-medium-weight:400;--mat-sys-headline-small:400 1.5rem / 2rem Roboto;--mat-sys-headline-small-font:Roboto;--mat-sys-headline-small-line-height:2rem;--mat-sys-headline-small-size:1.5rem;--mat-sys-headline-small-tracking:0;--mat-sys-headline-small-weight:400;--mat-sys-label-large:500 .875rem / 1.25rem Roboto;--mat-sys-label-large-font:Roboto;--mat-sys-label-large-line-height:1.25rem;--mat-sys-label-large-size:.875rem;--mat-sys-label-large-tracking:.006rem;--mat-sys-label-large-weight:500;--mat-sys-label-large-weight-prominent:700;--mat-sys-label-medium:500 .75rem / 1rem Roboto;--mat-sys-label-medium-font:Roboto;--mat-sys-label-medium-line-height:1rem;--mat-sys-label-medium-size:.75rem;--mat-sys-label-medium-tracking:.031rem;--mat-sys-label-medium-weight:500;--mat-sys-label-medium-weight-prominent:700;--mat-sys-label-small:500 .688rem / 1rem Roboto;--mat-sys-label-small-font:Roboto;--mat-sys-label-small-line-height:1rem;--mat-sys-label-small-size:.688rem;--mat-sys-label-small-tracking:.031rem;--mat-sys-label-small-weight:500;--mat-sys-title-large:400 1.375rem / 1.75rem Roboto;--mat-sys-title-large-font:Roboto;--mat-sys-title-large-line-height:1.75rem;--mat-sys-title-large-size:1.375rem;--mat-sys-title-large-tracking:0;--mat-sys-title-large-weight:400;--mat-sys-title-medium:500 1rem / 1.5rem Roboto;--mat-sys-title-medium-font:Roboto;--mat-sys-title-medium-line-height:1.5rem;--mat-sys-title-medium-size:1rem;--mat-sys-title-medium-tracking:.009rem;--mat-sys-title-medium-weight:500;--mat-sys-title-small:500 .875rem / 1.25rem Roboto;--mat-sys-title-small-font:Roboto;--mat-sys-title-small-line-height:1.25rem;--mat-sys-title-small-size:.875rem;--mat-sys-title-small-tracking:.006rem;--mat-sys-title-small-weight:500}html{--mat-sys-corner-extra-large:28px;--mat-sys-corner-extra-large-top:28px 28px 0 0;--mat-sys-corner-extra-small:4px;--mat-sys-corner-extra-small-top:4px 4px 0 0;--mat-sys-corner-full:9999px;--mat-sys-corner-large:16px;--mat-sys-corner-large-end:0 16px 16px 0;--mat-sys-corner-large-start:16px 0 0 16px;--mat-sys-corner-large-top:16px 16px 0 0;--mat-sys-corner-medium:12px;--mat-sys-corner-none:0;--mat-sys-corner-small:8px}html{--mat-sys-dragged-state-layer-opacity:.16;--mat-sys-focus-state-layer-opacity:.12;--mat-sys-hover-state-layer-opacity:.08;--mat-sys-pressed-state-layer-opacity:.12}:root{--bs-blue:#0d6efd;--bs-indigo:#6610f2;--bs-purple:#6f42c1;--bs-pink:#d63384;--bs-red:#dc3545;--bs-orange:#fd7e14;--bs-yellow:#ffc107;--bs-green:#198754;--bs-teal:#20c997;--bs-cyan:#0dcaf0;--bs-black:#000;--bs-white:#fff;--bs-gray:#6c757d;--bs-gray-dark:#343a40;--bs-gray-100:#f8f9fa;--bs-gray-200:#e9ecef;--bs-gray-300:#dee2e6;--bs-gray-400:#ced4da;--bs-gray-500:#adb5bd;--bs-gray-600:#6c757d;--bs-gray-700:#495057;--bs-gray-800:#343a40;--bs-gray-900:#212529;--bs-primary:#0d6efd;--bs-secondary:#6c757d;--bs-success:#198754;--bs-info:#0dcaf0;--bs-warning:#ffc107;--bs-danger:#dc3545;--bs-light:#f8f9fa;--bs-dark:#212529;--bs-primary-rgb:13,110,253;--bs-secondary-rgb:108,117,125;--bs-success-rgb:25,135,84;--bs-info-rgb:13,202,240;--bs-warning-rgb:255,193,7;--bs-danger-rgb:220,53,69;--bs-light-rgb:248,249,250;--bs-dark-rgb:33,37,41;--bs-primary-text-emphasis:#052c65;--bs-secondary-text-emphasis:#2b2f32;--bs-success-text-emphasis:#0a3622;--bs-info-text-emphasis:#055160;--bs-warning-text-emphasis:#664d03;--bs-danger-text-emphasis:#58151c;--bs-light-text-emphasis:#495057;--bs-dark-text-emphasis:#495057;--bs-primary-bg-subtle:#cfe2ff;--bs-secondary-bg-subtle:#e2e3e5;--bs-success-bg-subtle:#d1e7dd;--bs-info-bg-subtle:#cff4fc;--bs-warning-bg-subtle:#fff3cd;--bs-danger-bg-subtle:#f8d7da;--bs-light-bg-subtle:#fcfcfd;--bs-dark-bg-subtle:#ced4da;--bs-primary-border-subtle:#9ec5fe;--bs-secondary-border-subtle:#c4c8cb;--bs-success-border-subtle:#a3cfbb;--bs-info-border-subtle:#9eeaf9;--bs-warning-border-subtle:#ffe69c;--bs-danger-border-subtle:#f1aeb5;--bs-light-border-subtle:#e9ecef;--bs-dark-border-subtle:#adb5bd;--bs-white-rgb:255,255,255;--bs-black-rgb:0,0,0;--bs-font-sans-serif:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--bs-font-monospace:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--bs-gradient:linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));--bs-body-font-family:var(--bs-font-sans-serif);--bs-body-font-size:1rem;--bs-body-font-weight:400;--bs-body-line-height:1.5;--bs-body-color:#212529;--bs-body-color-rgb:33,37,41;--bs-body-bg:#fff;--bs-body-bg-rgb:255,255,255;--bs-emphasis-color:#000;--bs-emphasis-color-rgb:0,0,0;--bs-secondary-color:rgba(33, 37, 41, .75);--bs-secondary-color-rgb:33,37,41;--bs-secondary-bg:#e9ecef;--bs-secondary-bg-rgb:233,236,239;--bs-tertiary-color:rgba(33, 37, 41, .5);--bs-tertiary-color-rgb:33,37,41;--bs-tertiary-bg:#f8f9fa;--bs-tertiary-bg-rgb:248,249,250;--bs-heading-color:inherit;--bs-link-color:#0d6efd;--bs-link-color-rgb:13,110,253;--bs-link-decoration:underline;--bs-link-hover-color:#0a58ca;--bs-link-hover-color-rgb:10,88,202;--bs-code-color:#d63384;--bs-highlight-color:#212529;--bs-highlight-bg:#fff3cd;--bs-border-width:1px;--bs-border-style:solid;--bs-border-color:#dee2e6;--bs-border-color-translucent:rgba(0, 0, 0, .175);--bs-border-radius:.375rem;--bs-border-radius-sm:.25rem;--bs-border-radius-lg:.5rem;--bs-border-radius-xl:1rem;--bs-border-radius-xxl:2rem;--bs-border-radius-2xl:var(--bs-border-radius-xxl);--bs-border-radius-pill:50rem;--bs-box-shadow:0 .5rem 1rem rgba(0, 0, 0, .15);--bs-box-shadow-sm:0 .125rem .25rem rgba(0, 0, 0, .075);--bs-box-shadow-lg:0 1rem 3rem rgba(0, 0, 0, .175);--bs-box-shadow-inset:inset 0 1px 2px rgba(0, 0, 0, .075);--bs-focus-ring-width:.25rem;--bs-focus-ring-opacity:.25;--bs-focus-ring-color:rgba(13, 110, 253, .25);--bs-form-valid-color:#198754;--bs-form-valid-border-color:#198754;--bs-form-invalid-color:#dc3545;--bs-form-invalid-border-color:#dc3545}*,:after,:before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:var(--bs-body-font-family);font-size:var(--bs-body-font-size);font-weight:var(--bs-body-font-weight);line-height:var(--bs-body-line-height);color:var(--bs-body-color);text-align:var(--bs-body-text-align);background-color:var(--bs-body-bg);-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}:root{--bs-breakpoint-xs:0;--bs-breakpoint-sm:576px;--bs-breakpoint-md:768px;--bs-breakpoint-lg:992px;--bs-breakpoint-xl:1200px;--bs-breakpoint-xxl:1400px}:root{--bs-btn-close-filter: }:root{--bs-carousel-indicator-active-bg:#fff;--bs-carousel-caption-color:#fff;--bs-carousel-control-icon-filter: }@supports (font-variation-settings: normal){@font-face{font-family:notoregular;src:url(https://media.umangapp.in/cdn/landing/fonts/NotoSans-Regular.woff) format("woff2"),url(/fonts/NotoSans-Regular.woff) format("woff2");font-weight:400;font-style:normal;font-display:swap}}@supports not (font-variation-settings: normal){@font-face{font-family:notoregular;src:url(https://media.umangapp.in/cdn/landing/fonts/NotoSans-Regular.woff) format("woff"),url(/fonts/NotoSans-Regular.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}}@supports (font-variation-settings: normal){@font-face{font-family:notoregular;src:url(https://media.umangapp.in/cdn/landing/fonts/NotoSans-Regular.woff) format("woff2"),url(/fonts/NotoSans-Regular.woff) format("woff2");font-weight:400;font-style:normal;font-display:swap}}@supports not (font-variation-settings: normal){@font-face{font-family:notoregular;src:url(https://media.umangapp.in/cdn/landing/fonts/NotoSans-Regular.woff) format("woff"),url(/fonts/NotoSans-Regular.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}}html{--theme-primary-color:#00599f;--theme-primary-light-color:#e7edf5;--theme-color-primary-light:#c9ddec;--theme-background:#ffffff;--hover:#e5e5e5;--theme-body:#f8f8f8;--theme-card-background:#ffffff;--theme-border:#c9c9c9;--theme-border-primary-hover:#003c6c;--theme-text-color:#1a1a1a;--theme-text-gray-color:#5f6368;--theme-text-dark-color:#302f2f;--body:#f3f7f9;--chip:F0F0F0;--view:#F0F0F0;--placeholder:#1a1a1a;--theme-input-border:#d3d3d3;--disabled:#eee;--box-shadow:0 4px 8px 0 rgba(0, 0, 0, .05);--box-shadow-hover:0 4px 8px 0 rgba(0, 0, 0, .08);--text-gray-800:#1a1a1a;--text-gray-900:#302f2f;--text-gray-600:#4c4c4c;--text-gray-300:#e1e6ef;--important-updates-sub-title:#636363;--text-black:#000;--breadcrumb:#f9fafb;--category:#e8f3fd;--counts:#64748b;--tags:#e5e7eb;--search-input:#eee;--result-header:#f5f5f5;--search:#efefef;--theme-color-orange:#D96C24}:root{--swiper-theme-color:#007aff}:root{--swiper-navigation-size:44px}:root{--mb-100:6.25rem;--mb-60:3.75rem;--mb-50:3.125rem;--mb-40:2.5rem;--mb-30:1.875rem;--mb-20:1.25rem;--mb-common:3.75rem}@media (max-width: 576px){:root{--mb-100:2.5rem;--mb-60:1.875rem;--mb-common:1.875rem}}html{scroll-behavior:smooth;font-size:16px}@media (max-width: 1200px){html{font-size:16px}}body{font-family:notoregular;font-size:1rem;background:var(--theme-background)}@media (max-width: 576px){body{padding-bottom:50px}}</style><link rel="stylesheet" href="../styles-RR364HGZ.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-RR364HGZ.css"></noscript><style>@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}html{--theme-primary-color:#00599f;--theme-primary-light-color:#e7edf5;--theme-color-primary-light:#c9ddec;--theme-background:#ffffff;--hover:#e5e5e5;--theme-body:#f8f8f8;--theme-card-background:#ffffff;--theme-border:#c9c9c9;--theme-border-primary-hover:#003c6c;--theme-text-color:#1a1a1a;--theme-text-gray-color:#5f6368;--theme-text-dark-color:#302f2f;--body:#f3f7f9;--chip:F0F0F0;--view:#F0F0F0;--placeholder:#1a1a1a;--theme-input-border:#d3d3d3;--disabled:#eee;--box-shadow:0 4px 8px 0 rgba(0, 0, 0, .05);--box-shadow-hover:0 4px 8px 0 rgba(0, 0, 0, .08);--text-gray-800:#1a1a1a;--text-gray-900:#302f2f;--text-gray-600:#4c4c4c;--text-gray-300:#e1e6ef;--important-updates-sub-title:#636363;--text-black:#000;--breadcrumb:#f9fafb;--category:#e8f3fd;--counts:#64748b;--tags:#e5e7eb;--search-input:#eee;--result-header:#f5f5f5;--search:#efefef;--theme-color-orange:#D96C24}</style><link rel="stylesheet" href="../text-WMPHWZFC.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="text-WMPHWZFC.css"></noscript><style>@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}html{--theme-primary-color:#00599f;--theme-primary-light-color:#e7edf5;--theme-color-primary-light:#c9ddec;--theme-background:#ffffff;--hover:#e5e5e5;--theme-body:#f8f8f8;--theme-card-background:#ffffff;--theme-border:#c9c9c9;--theme-border-primary-hover:#003c6c;--theme-text-color:#1a1a1a;--theme-text-gray-color:#5f6368;--theme-text-dark-color:#302f2f;--body:#f3f7f9;--chip:F0F0F0;--view:#F0F0F0;--placeholder:#1a1a1a;--theme-input-border:#d3d3d3;--disabled:#eee;--box-shadow:0 4px 8px 0 rgba(0, 0, 0, .05);--box-shadow-hover:0 4px 8px 0 rgba(0, 0, 0, .08);--text-gray-800:#1a1a1a;--text-gray-900:#302f2f;--text-gray-600:#4c4c4c;--text-gray-300:#e1e6ef;--important-updates-sub-title:#636363;--text-black:#000;--breadcrumb:#f9fafb;--category:#e8f3fd;--counts:#64748b;--tags:#e5e7eb;--search-input:#eee;--result-header:#f5f5f5;--search:#efefef;--theme-color-orange:#D96C24}</style><link rel="stylesheet" href="../button-HZEZ6P5U.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="button-HZEZ6P5U.css"></noscript><style>@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}html{--theme-primary-color:#00599f;--theme-primary-light-color:#e7edf5;--theme-color-primary-light:#c9ddec;--theme-background:#ffffff;--hover:#e5e5e5;--theme-body:#f8f8f8;--theme-card-background:#ffffff;--theme-border:#c9c9c9;--theme-border-primary-hover:#003c6c;--theme-text-color:#1a1a1a;--theme-text-gray-color:#5f6368;--theme-text-dark-color:#302f2f;--body:#f3f7f9;--chip:F0F0F0;--view:#F0F0F0;--placeholder:#1a1a1a;--theme-input-border:#d3d3d3;--disabled:#eee;--box-shadow:0 4px 8px 0 rgba(0, 0, 0, .05);--box-shadow-hover:0 4px 8px 0 rgba(0, 0, 0, .08);--text-gray-800:#1a1a1a;--text-gray-900:#302f2f;--text-gray-600:#4c4c4c;--text-gray-300:#e1e6ef;--important-updates-sub-title:#636363;--text-black:#000;--breadcrumb:#f9fafb;--category:#e8f3fd;--counts:#64748b;--tags:#e5e7eb;--search-input:#eee;--result-header:#f5f5f5;--search:#efefef;--theme-color-orange:#D96C24}</style><link rel="stylesheet" href="../swiper-XOGSZSZB.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="swiper-XOGSZSZB.css"></noscript><style>@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}html{--theme-primary-color:#00599f;--theme-primary-light-color:#e7edf5;--theme-color-primary-light:#c9ddec;--theme-background:#ffffff;--hover:#e5e5e5;--theme-body:#f8f8f8;--theme-card-background:#ffffff;--theme-border:#c9c9c9;--theme-border-primary-hover:#003c6c;--theme-text-color:#1a1a1a;--theme-text-gray-color:#5f6368;--theme-text-dark-color:#302f2f;--body:#f3f7f9;--chip:F0F0F0;--view:#F0F0F0;--placeholder:#1a1a1a;--theme-input-border:#d3d3d3;--disabled:#eee;--box-shadow:0 4px 8px 0 rgba(0, 0, 0, .05);--box-shadow-hover:0 4px 8px 0 rgba(0, 0, 0, .08);--text-gray-800:#1a1a1a;--text-gray-900:#302f2f;--text-gray-600:#4c4c4c;--text-gray-300:#e1e6ef;--important-updates-sub-title:#636363;--text-black:#000;--breadcrumb:#f9fafb;--category:#e8f3fd;--counts:#64748b;--tags:#e5e7eb;--search-input:#eee;--result-header:#f5f5f5;--search:#efefef;--theme-color-orange:#D96C24}</style><link rel="stylesheet" href="../navbar-72HNWRON.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="navbar-72HNWRON.css"></noscript><style>@supports (font-variation-settings: normal){}@supports not (font-variation-settings: normal){}html{--theme-primary-color:#00599f;--theme-primary-light-color:#e7edf5;--theme-color-primary-light:#c9ddec;--theme-background:#ffffff;--hover:#e5e5e5;--theme-body:#f8f8f8;--theme-card-background:#ffffff;--theme-border:#c9c9c9;--theme-border-primary-hover:#003c6c;--theme-text-color:#1a1a1a;--theme-text-gray-color:#5f6368;--theme-text-dark-color:#302f2f;--body:#f3f7f9;--chip:F0F0F0;--view:#F0F0F0;--placeholder:#1a1a1a;--theme-input-border:#d3d3d3;--disabled:#eee;--box-shadow:0 4px 8px 0 rgba(0, 0, 0, .05);--box-shadow-hover:0 4px 8px 0 rgba(0, 0, 0, .08);--text-gray-800:#1a1a1a;--text-gray-900:#302f2f;--text-gray-600:#4c4c4c;--text-gray-300:#e1e6ef;--important-updates-sub-title:#636363;--text-black:#000;--breadcrumb:#f9fafb;--category:#e8f3fd;--counts:#64748b;--tags:#e5e7eb;--search-input:#eee;--result-header:#f5f5f5;--search:#efefef;--theme-color-orange:#D96C24}</style><link rel="stylesheet" href="../mat-tab-BMIURGWB.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="mat-tab-BMIURGWB.css"></noscript></head>
+
+<body>
+  <app-root></app-root>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <script>
+    // console.log = function () {};
+  </script>
+  <!-- <script src="https://cdn.ux4g.gov.in/accessibility-beta-v1.15/accessibility-widget.js"></script> -->
+  <script src="../../_external/cdn.ux4g.gov.in/tools/accessibility-widget.js" async=""></script>
+  <!-- <script src="https://cdngovai.myscheme.in/64b15bf4c3a58e12cb335ec0/68108e5af2c4864461329009/js/chat.js"></script> -->
+  <!-- <script src="https://web.umang.gov.in/assets/resources/js/chat-umang.js"></script> -->
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // ── Append to <html>, not <body> ──────────────────────────────────────────
+    // Angular CSR route animations often apply CSS transforms to <body> or its
+    // children, which turns position:fixed into position:absolute relative to
+    // that transformed ancestor (per CSS spec). Appending to <html> keeps these
+    // elements outside Angular's containing-block chain entirely.
+    var root = document.documentElement;
+
+    // ── Floating button ───────────────────────────────────────────────────────
+    var chatbotButton = document.createElement("div");
+    chatbotButton.id = "chatbot-button";
+    chatbotButton.style.cssText = `
+      position: fixed;
+      padding-right: 20px;
+      bottom: 20px;
+      right: 0px;
+      width: auto;
+      height: 100px;
+      border-radius: 50%;
+      background-color: transparent;
+      cursor: pointer;
+      z-index: 2147483646;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    `;
+    chatbotButton.innerHTML =
+      '<img src="https://cdngovai.myscheme.in/64b15bf4c3a58e12cb335ec0/68108e5af2c4864461329009/logos/icon_2-icon.png"' +
+      ' alt="UMANG" style="width:50px;height:50px;object-fit:contain;">';
+
+    var askUmangLabel = document.createElement("span");
+    askUmangLabel.classList.add("ask-umang");
+    askUmangLabel.innerText = "Ask UMANG";
+    askUmangLabel.style.cssText = `
+      font-size: 14px;
+      margin: 0;
+      padding-left: 16px;
+      color: #00599f;
+      white-space: nowrap;
+    `;
+    chatbotButton.appendChild(askUmangLabel);
+    root.appendChild(chatbotButton);
+
+    // ── Chat window ───────────────────────────────────────────────────────────
+    var chatbotWindow = document.createElement("div");
+    chatbotWindow.id = "chatbot-window";
+    chatbotWindow.style.cssText = `
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      background-color: #D0E2F5;
+      overflow: hidden;
+      overscroll-behavior: contain;
+      z-index: 2147483645;
+      display: none;
+    `;
+    chatbotWindow.innerHTML =
+      '<iframe id="chatbot-iframe" allow="clipboard-write; microphone"' +
+      ' src="https://chatbot.umangapp.in/"' +
+      ' style="width:100%;height:100%;border:none;overflow:hidden;"' +
+      ' scrolling="no"' +
+      ' sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox">' +
+      '</iframe>';
+    root.appendChild(chatbotWindow);
+
+    // ── Responsive sizing ─────────────────────────────────────────────────────
+    function setChatbotWindowSize() {
+      if (window.innerWidth > 768) {
+        chatbotWindow.style.width = "40vw";
+        chatbotWindow.style.height = "75dvh";
+        chatbotWindow.style.right = "0px";
+      } else {
+        chatbotWindow.style.width = "90vw";
+        chatbotWindow.style.height = "90dvh";
+        chatbotWindow.style.right = "2vw";
+      }
+      chatbotWindow.style.borderRadius = "16px 16px 0px 0px";
+    }
+
+    setChatbotWindowSize();
+    window.addEventListener("resize", setChatbotWindowSize);
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function getChatbotIframe() {
+      var el = document.getElementById("chatbot-iframe");
+      return el ? el.contentWindow : null;
+    }
+
+    // ── Button click: open ────────────────────────────────────────────────────
+    chatbotButton.addEventListener("click", function () {
+      if (typeof window.triggerFromChatbot === "function") {
+        window.triggerFromChatbot({ action: "openChat" });
+      }
+      chatbotWindow.style.display = "block";
+      chatbotButton.style.display = "none";
+      var iframeWin = getChatbotIframe();
+      if (iframeWin) iframeWin.postMessage({ action: "handelOpeningBot" }, "*");
+    });
+
+    // ── postMessage bridge ────────────────────────────────────────────────────
+    var CHATBOT_ORIGIN = "https://chatbot.umangapp.in";
+
+    function isSafeChatbotUrl(url) {
+      try {
+        var parsed = new URL(url, window.location.origin);
+        return parsed.protocol === "http:" || parsed.protocol === "https:";
+      } catch (e) {
+        return false;
+      }
+    }
+
+    window.addEventListener("message", function (event) {
+      // Only trust messages that actually come from the chatbot iframe, never
+      // from an arbitrary window/origin that got a handle on this page.
+      if (event.origin !== CHATBOT_ORIGIN || event.source !== getChatbotIframe()) {
+        return;
+      }
+      if (!event.data || typeof event.data !== "object") return;
+
+      if (event.data.action === "handelCloseBotModal") {
+        chatbotWindow.style.display = "none";
+        chatbotButton.style.display = "flex";
+      }
+      if (event.data.action === "openLink" && event.data.url && isSafeChatbotUrl(event.data.url)) {
+        window.location.href = event.data.url;
+      }
+      if (event.data.action === "micPermissionDenied") {
+        console.warn("Chatbot: microphone permission was denied.");
+      }
+    });
+  });
+</script>
+
+  <script defer="">
+    async function loadScriptWithIntegrity(url) {
+      try {
+        const response = await fetch(url);
+        const scriptText = await response.text();
+        const encoder = new TextEncoder();
+        const data = encoder.encode(scriptText);
+        const hashBuffer = await crypto.subtle.digest("SHA-384", data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashBase64 = btoa(String.fromCharCode.apply(null, hashArray));
+        const scriptElement = document.createElement("script");
+        scriptElement.src = url;
+        scriptElement.defer = true;
+        scriptElement.crossOrigin = "anonymous";
+        scriptElement.integrity = `sha384-${hashBase64}`;
+        document.body.appendChild(scriptElement);
+      } catch (error) {
+        const scriptElement = document.createElement("script");
+        scriptElement.src = url;
+        scriptElement.defer = true;
+        scriptElement.crossOrigin = "anonymous";
+        document.body.appendChild(scriptElement);
+      }
+    }
+
+    const serviceAuthScriptUrl =
+      "https://web.umang.gov.in/assets/resources/js/service_auth.min.js";
+
+    loadScriptWithIntegrity(serviceAuthScriptUrl);
+  </script>
+<link rel="modulepreload" href="../chunk-4QO5SUA6.js"><link rel="modulepreload" href="../chunk-W4BNGQYG.js"><link rel="modulepreload" href="../chunk-5GDLTQPG.js"><link rel="modulepreload" href="../chunk-X5NMUF5I.js"><link rel="modulepreload" href="../chunk-E7HMSD2P.js"><link rel="modulepreload" href="../chunk-MBOYWAZG.js"><link rel="modulepreload" href="../chunk-5M6ZCKMW.js"><link rel="modulepreload" href="../chunk-6IHUOR3S.js"><link rel="modulepreload" href="../chunk-F5X5MWHG.js"><link rel="modulepreload" href="../chunk-LNVVTJSC.js"><script src="../polyfills-B6TNHZQ6.js" type="module"></script><script src="../scripts-H6RMIGGK.js" defer=""></script><script src="../main-I3XCF6QR.js" type="module"></script>
+
+
+</body></html>
