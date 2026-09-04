@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ChevronDown,
@@ -10,12 +10,65 @@ import {
 import CpgramsQrModal from "./CpgramsQrModal";
 import PensionRedirectModal from "./PensionRedirectModal";
 
+const FONT_OPTIONS = [
+  { id: "noto", name: "🥇 Noto Sans (Official UI)", family: "'Noto Sans', sans-serif" },
+  { id: "inter", name: "Inter (Modern Portal)", family: "'Inter', sans-serif" },
+  { id: "source", name: "Source Sans 3 (Body & Forms)", family: "'Source Sans 3', sans-serif" },
+  { id: "ibm", name: "IBM Plex Sans (Dashboard)", family: "'IBM Plex Sans', sans-serif" },
+  { id: "roboto", name: "Roboto (Clean UI)", family: "'Roboto', sans-serif" },
+  { id: "open", name: "Open Sans (Portal)", family: "'Open Sans', sans-serif" },
+  { id: "lato", name: "Lato (Headings & UI)", family: "'Lato', sans-serif" },
+  { id: "notoserif", name: "Noto Serif (Formal)", family: "'Noto Serif', serif" },
+  { id: "merriweather", name: "Merriweather (Long-form)", family: "'Merriweather', serif" },
+  { id: "public", name: "Public Sans (Civic/Gov)", family: "'Public Sans', sans-serif" },
+];
+
 export default function CpgramsHeader() {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isPensionOpen, setIsPensionOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
   const [fontSize, setFontSize] = useState<"normal" | "large" | "larger">("normal");
+  const [selectedFont, setSelectedFont] = useState<string>("noto");
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("cpgrams_font");
+      if (saved && FONT_OPTIONS.some((f) => f.id === saved)) {
+        setSelectedFont(saved);
+        const match = FONT_OPTIONS.find((f) => f.id === saved);
+        if (match) {
+          document.documentElement.style.setProperty("--font-primary", match.family);
+          document.body.style.fontFamily = match.family;
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const handleFontChange = (fontId: string) => {
+    setSelectedFont(fontId);
+    const match = FONT_OPTIONS.find((f) => f.id === fontId);
+    if (match) {
+      document.documentElement.style.setProperty("--font-primary", match.family);
+      document.body.style.fontFamily = match.family;
+      try {
+        localStorage.setItem("cpgrams_font", fontId);
+      } catch {
+        // ignore
+      }
+    }
+  };
+
+  const handleFontSizeChange = (size: "normal" | "large") => {
+    setFontSize(size);
+    if (size === "large") {
+      document.documentElement.style.fontSize = "17px";
+    } else {
+      document.documentElement.style.fontSize = "16px";
+    }
+  };
 
   const languages = [
     { code: "en", label: "English" },
@@ -94,12 +147,29 @@ export default function CpgramsHeader() {
 
             <span className="hidden lg:inline text-slate-300">|</span>
 
+            {/* Font Family Selector */}
+            <div className="hidden md:flex items-center space-x-1 text-[10px] text-slate-600">
+              <span className="font-bold">Font:</span>
+              <select
+                value={selectedFont}
+                onChange={(e) => handleFontChange(e.target.value)}
+                aria-label="Select typography font"
+                className="bg-white border border-slate-300 rounded px-1.5 py-0.5 text-[10px] font-semibold text-slate-700 hover:border-gov-navy focus:outline-none focus:ring-1 focus:ring-gov-navy cursor-pointer transition shadow-xs"
+              >
+                {FONT_OPTIONS.map((f) => (
+                  <option key={f.id} value={f.id}>
+                    {f.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Font Resizing Controls */}
             <div className="hidden sm:flex items-center space-x-1 text-[10px] font-bold text-slate-600">
               <span>Text:</span>
               <button
                 type="button"
-                onClick={() => setFontSize("normal")}
+                onClick={() => handleFontSizeChange("normal")}
                 className={`px-1.5 py-0.5 rounded border ${
                   fontSize === "normal" ? "bg-gov-navy text-white border-gov-navy" : "bg-white border-slate-300 hover:bg-slate-100"
                 }`}
@@ -108,7 +178,7 @@ export default function CpgramsHeader() {
               </button>
               <button
                 type="button"
-                onClick={() => setFontSize("large")}
+                onClick={() => handleFontSizeChange("large")}
                 className={`px-1.5 py-0.5 rounded border ${
                   fontSize === "large" ? "bg-gov-navy text-white border-gov-navy" : "bg-white border-slate-300 hover:bg-slate-100"
                 }`}

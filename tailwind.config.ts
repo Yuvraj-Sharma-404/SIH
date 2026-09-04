@@ -8,6 +8,26 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["'Noto Sans'", "sans-serif"],
+        serif: ["'Noto Serif'", "'Merriweather'", "serif"],
+        noto: ["'Noto Sans'", "sans-serif"],
+        inter: ["'Inter'", "sans-serif"],
+        source: ["'Source Sans 3'", "sans-serif"],
+        "source-sans": ["'Source Sans 3'", "sans-serif"],
+        ibm: ["'IBM Plex Sans'", "sans-serif"],
+        "ibm-plex": ["'IBM Plex Sans'", "sans-serif"],
+        roboto: ["'Roboto'", "sans-serif"],
+        open: ["'Open Sans'", "sans-serif"],
+        "open-sans": ["'Open Sans'", "sans-serif"],
+        lato: ["'Lato'", "sans-serif"],
+        notoserif: ["'Noto Serif'", "serif"],
+        "noto-serif": ["'Noto Serif'", "serif"],
+        merriweather: ["'Merriweather'", "serif"],
+        public: ["'Public Sans'", "sans-serif"],
+        "public-sans": ["'Public Sans'", "sans-serif"],
+        devanagari: ["'Noto Sans Devanagari'", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
