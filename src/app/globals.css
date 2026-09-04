@@ -32,6 +32,11 @@
   --font-public-sans: 'Public Sans', sans-serif;
 }
 
+html {
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

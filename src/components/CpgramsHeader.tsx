@@ -42,6 +42,13 @@ export default function CpgramsHeader() {
           document.body.style.fontFamily = match.family;
         }
       }
+      const savedSize = localStorage.getItem("cpgrams_font_size");
+      if (savedSize === "large") {
+        setFontSize("large");
+        document.documentElement.style.fontSize = "18.5px";
+      } else {
+        document.documentElement.style.fontSize = "17px";
+      }
     } catch {
       // ignore
     }
@@ -64,9 +71,19 @@ export default function CpgramsHeader() {
   const handleFontSizeChange = (size: "normal" | "large") => {
     setFontSize(size);
     if (size === "large") {
-      document.documentElement.style.fontSize = "17px";
+      document.documentElement.style.fontSize = "18.5px";
+      try {
+        localStorage.setItem("cpgrams_font_size", "large");
+      } catch {
+        // ignore
+      }
     } else {
-      document.documentElement.style.fontSize = "16px";
+      document.documentElement.style.fontSize = "17px";
+      try {
+        localStorage.setItem("cpgrams_font_size", "normal");
+      } catch {
+        // ignore
+      }
     }
   };
 
