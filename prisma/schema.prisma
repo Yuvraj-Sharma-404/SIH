@@ -50,6 +50,9 @@ model Problem {
   district          String?
   state             String?   @default("Maharashtra")
   
+  rejectionReason   String?
+  requestNote       String?
+
   evidence          Evidence[]
   aiAnalyses        AIAnalysis[]
   priorityAssessments PriorityAssessment[]
@@ -136,6 +139,7 @@ model Challenge {
   createdBy         String?
   proposals         Proposal[]
   implementations   Implementation[]
+  sponsorships      Sponsorship[]
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
@@ -245,4 +249,17 @@ model AuditLog {
   performedBy String
   details     String?
   createdAt   DateTime @default(now())
+}
+
+model Sponsorship {
+  id               String    @id @default(uuid())
+  challengeId      String
+  challenge        Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  organizationName String
+  contactEmail     String
+  contactPhone     String?
+  pledgeType       String    // CSR_GRANT, MENTORSHIP, HARDWARE_ACCESS, CO_IMPLEMENTATION
+  amountOrDetails  String    // e.g. "₹5,00,000" or "Providing 10 LoRaWAN Gateway Units"
+  status           String    @default("COMMITTED") // COMMITTED, DISBURSED
+  createdAt        DateTime  @default(now())
 }

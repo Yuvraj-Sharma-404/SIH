@@ -14,6 +14,10 @@ import {
   FileText,
   AlertCircle,
   HelpCircle,
+  Camera,
+  Video,
+  Music,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -30,11 +34,13 @@ export default function CitizenReportPage() {
   const [latitude, setLatitude] = useState<number | null>(20.7453);
   const [longitude, setLongitude] = useState<number | null>(78.6022);
   const [address, setAddress] = useState("Wardha, Maharashtra");
+  const [evidenceType, setEvidenceType] = useState<"IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO">("IMAGE");
   const [evidenceUrl, setEvidenceUrl] = useState(
     "https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80"
   );
 
-  // Audio Recording State
+  // Audio Recording State with Multilingual Simulation (PRD FR-06)
+  const [voiceLang, setVoiceLang] = useState<"en" | "hi" | "mr">("en");
   const [isRecording, setIsRecording] = useState(false);
   const [audioTranscript, setAudioTranscript] = useState("");
 
@@ -42,16 +48,31 @@ export default function CitizenReportPage() {
   const [loading, setLoading] = useState(false);
   const [submittedResult, setSubmittedResult] = useState<any | null>(null);
 
-  // Voice recording simulation
+  // Voice recording simulation (Supports English, Hindi, and Marathi)
   const toggleRecording = () => {
     if (!isRecording) {
       setIsRecording(true);
       setTimeout(() => {
         setIsRecording(false);
-        const sampleAudio =
-          "The main bridge connecting Wardha and Sevagram has severe cracks on pier number 3. Water scour has eroded the base. Buses shake badly when crossing.";
+        let sampleAudio = "";
+        let sampleTitle = "";
+
+        if (voiceLang === "hi") {
+          sampleAudio =
+            "वर्धा और सेवाग्राम को जोड़ने वाले मुख्य पुल के पिलर नंबर 3 में गहरी दरारें आ गई हैं। नदी के पानी से नीचे की नींव कट रही है और स्कूल बसें निकलते समय पुल कांपता है।";
+          sampleTitle = "धाम नदी पुल के पिलर में गंभीर दरारें और कंपन";
+        } else if (voiceLang === "mr") {
+          sampleAudio =
+            "वर्धा आणि सेवाग्रामला जोडणाऱ्या मुख्य पुलाच्या खांब क्रमांक ३ ला मोठी उभी भेग पडली आहे. पायाची तीव्र झीज झाली असून बसेस जाताना पूल प्रचंड थरथर कापतो.";
+          sampleTitle = "धाम नदी पुलाच्या खांबाला गंभीर तडे व कंपन";
+        } else {
+          sampleAudio =
+            "The main bridge connecting Wardha and Sevagram has severe vertical cracks on pier number 3. Water scour has eroded the foundation. School buses shake heavily during crossing.";
+          sampleTitle = "Severe Structural Cracks on Dham River Bridge Pier";
+        }
+
         setAudioTranscript(sampleAudio);
-        if (!title) setTitle("Severe Structural Cracks on Dham River Bridge Pier");
+        if (!title) setTitle(sampleTitle);
         if (!description) setDescription(sampleAudio);
       }, 3000);
     } else {
@@ -69,6 +90,8 @@ export default function CitizenReportPage() {
       setCategory("Infrastructure");
       setDepartment("Public Works Department (PWD)");
       setAddress("Sevagram Road, Wardha, Maharashtra");
+      setEvidenceType("IMAGE");
+      setEvidenceUrl("https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80");
     } else if (type === "water") {
       setTitle("High Turbidity & Contaminated Water in Primary School Pipeline");
       setDescription(
@@ -77,6 +100,8 @@ export default function CitizenReportPage() {
       setCategory("Water & Sanitation");
       setDepartment("Jal Jeevan Mission / Water Supply Board");
       setAddress("Zilla Parishad School Ward 4, Wardha");
+      setEvidenceType("DOCUMENT");
+      setEvidenceUrl("https://cpgrams.gov.in/docs/Ward4_Water_Lab_Report.pdf");
     } else if (type === "electric") {
       setTitle("Open Sparking 11kV Transformer Next to Bus Stand");
       setDescription(
@@ -85,6 +110,8 @@ export default function CitizenReportPage() {
       setCategory("Energy");
       setDepartment("State Power Distribution Corporation (DISCOM)");
       setAddress("Central Bus Station, Wardha");
+      setEvidenceType("IMAGE");
+      setEvidenceUrl("https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80");
     }
   };
 
@@ -104,7 +131,7 @@ export default function CitizenReportPage() {
           latitude,
           longitude,
           address,
-          evidenceType: "IMAGE",
+          evidenceType,
           evidenceUrl,
         }),
       });
@@ -172,38 +199,70 @@ export default function CitizenReportPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Multimodal Voice Input Assistant */}
           <div className="gov-card p-5 bg-white border border-slate-200 space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
                   <Mic className="w-4 h-4 text-gov-saffron" />
-                  <span>Assisted Voice Input (Low-Literacy Friendly)</span>
+                  <span>Assisted Voice Input (Low-Literacy Friendly - PRD FR-06)</span>
                 </p>
                 <p className="text-[11px] text-slate-500">
-                  Speak in Hindi, Marathi, or English. Audio is transcribed automatically into the complaint form.
+                  Select your preferred language and speak. Audio is transcribed automatically into the complaint form.
                 </p>
               </div>
 
-              <button
-                type="button"
-                onClick={toggleRecording}
-                className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 shadow-sm ${
-                  isRecording
-                    ? "bg-red-600 text-white animate-pulse"
-                    : "bg-orange-50 text-gov-saffron border border-orange-200 hover:bg-orange-100"
-                }`}
-              >
-                {isRecording ? (
-                  <>
-                    <Square className="w-3.5 h-3.5" />
-                    <span>Listening... (3s)</span>
-                  </>
-                ) : (
-                  <>
-                    <Mic className="w-3.5 h-3.5" />
-                    <span>Record Voice</span>
-                  </>
-                )}
-              </button>
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center border border-slate-200 rounded-lg p-0.5 bg-slate-50 text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => setVoiceLang("en")}
+                    className={`px-2 py-1 rounded font-medium transition ${
+                      voiceLang === "en" ? "bg-gov-navy text-white" : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    English
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setVoiceLang("hi")}
+                    className={`px-2 py-1 rounded font-medium transition font-devanagari ${
+                      voiceLang === "hi" ? "bg-gov-navy text-white" : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    हिंदी
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setVoiceLang("mr")}
+                    className={`px-2 py-1 rounded font-medium transition font-devanagari ${
+                      voiceLang === "mr" ? "bg-gov-navy text-white" : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    मराठी
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={toggleRecording}
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 shadow-sm whitespace-nowrap ${
+                    isRecording
+                      ? "bg-red-600 text-white animate-pulse"
+                      : "bg-orange-50 text-gov-saffron border border-orange-200 hover:bg-orange-100"
+                  }`}
+                >
+                  {isRecording ? (
+                    <>
+                      <Square className="w-3.5 h-3.5" />
+                      <span>Listening... (3s)</span>
+                    </>
+                  ) : (
+                    <>
+                      <Mic className="w-3.5 h-3.5" />
+                      <span>Record Voice</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
             {audioTranscript && (
@@ -308,13 +367,68 @@ export default function CitizenReportPage() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Photo / Document Attachment URL
+                  Evidence Media Attachment (PRD FR-03 / TRD Section 6)
                 </label>
+                <div className="flex items-center space-x-1 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEvidenceType("IMAGE");
+                      setEvidenceUrl("https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80");
+                    }}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
+                      evidenceType === "IMAGE" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    <Camera className="w-3 h-3" />
+                    <span>Photo</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEvidenceType("VIDEO");
+                      setEvidenceUrl("https://assets.mixkit.co/videos/preview/mixkit-traffic-crossing-a-bridge-under-the-sun-41553-large.mp4");
+                    }}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
+                      evidenceType === "VIDEO" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    <Video className="w-3 h-3" />
+                    <span>Video</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEvidenceType("DOCUMENT");
+                      setEvidenceUrl("https://cpgrams.gov.in/docs/Wardha_PWD_Structural_Inspection_Report.pdf");
+                    }}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
+                      evidenceType === "DOCUMENT" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    <FileText className="w-3 h-3" />
+                    <span>Doc/PDF</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEvidenceType("AUDIO");
+                      setEvidenceUrl("https://cpgrams.gov.in/audio/citizen_voice_complaint_0912.mp3");
+                    }}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
+                      evidenceType === "AUDIO" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    <Music className="w-3 h-3" />
+                    <span>Audio</span>
+                  </button>
+                </div>
                 <input
                   type="text"
                   value={evidenceUrl}
                   onChange={(e) => setEvidenceUrl(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
+                  placeholder="https://... URL or file path"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy font-mono"
                 />
               </div>
             </div>
