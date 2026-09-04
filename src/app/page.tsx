@@ -1,301 +1,245 @@
 import Link from "next/link";
 import {
-  PlusCircle,
   Search,
-  FileText,
-  MapPin,
-  Users,
-  Bell,
   ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
-  Building2,
-  Clock,
-  TrendingUp,
-  Bookmark,
-  Sparkles,
-  Award,
+  AlertCircle,
+  Info,
+  PhoneCall,
 } from "lucide-react";
-import { prisma } from "@/lib/db";
+import CpgramsBannerCarousel from "@/components/CpgramsBannerCarousel";
 
 export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
-  const problemCount = await prisma.problem.count();
-  const challengeCount = await prisma.challenge.count();
-  const teamCount = await prisma.team.count();
-
+export default function HomePage() {
   return (
-    <div className="space-y-10 py-2">
-      {/* Official Announcement Strip */}
-      <div className="bg-orange-50 border border-orange-200 rounded-xl p-3 flex flex-wrap items-center justify-between text-xs text-orange-950 gap-2">
-        <div className="flex items-center space-x-2">
-          <span className="px-2 py-0.5 rounded bg-gov-saffron text-white font-bold text-[10px] uppercase">
-            Notice
-          </span>
-          <span className="font-semibold">
-            SIH Problem Statement 43: Public Challenge Open for University R&D & Industry CSR Bids
-          </span>
+    <div className="space-y-6">
+      {/* 1. Official CPGRAMS Email Warning Banner */}
+      <div className="bg-[#6e0747] text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl text-center shadow-md flex items-center justify-center gap-2">
+        <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-300" />
+        <span>
+          Any Grievance sent by email will not be attended to / entertained. Please lodge your grievance on this portal.
+        </span>
+      </div>
+
+      {/* 2. Official CPGRAMS Hero Banner Carousel */}
+      <CpgramsBannerCarousel />
+
+      {/* 3. Quick Grievance Tracking / Search Strip */}
+      <div className="gov-card p-4 sm:p-6 gov-border-t-navy bg-white">
+        <div className="max-w-3xl mx-auto space-y-3">
+          <div className="text-center space-y-1">
+            <h2 className="text-lg sm:text-xl font-extrabold text-gov-navy font-serif">
+              Track Grievance / Complaint Status
+            </h2>
+            <p className="text-xs text-slate-600">
+              Enter your unique Registration Number (e.g. <span className="font-mono font-bold text-gov-navy">DARPG/E/2026/00001</span>) to check live status.
+            </p>
+          </div>
+
+          <form action="/track" method="GET" className="flex flex-col sm:flex-row gap-2 pt-1">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+              <input
+                type="text"
+                name="id"
+                placeholder="Enter Registration ID / Grievance Number"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+              />
+            </div>
+            <button
+              type="submit"
+              className="px-6 py-2.5 rounded-lg bg-[#001c5a] hover:bg-[#00133d] text-white font-bold text-xs shadow-sm transition whitespace-nowrap flex items-center justify-center gap-1.5"
+            >
+              <span>View Status</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </form>
         </div>
+      </div>
+
+      {/* 4. Authentic CPGRAMS "ABOUT CPGRAMS" & "WHAT'S NEW" Two-Column Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        {/* Left Column (8 Cols): About CPGRAMS & Guidelines */}
+        <div className="lg:col-span-8 space-y-4">
+          <div className="border-b border-slate-200 pb-2">
+            <h2 className="text-xl font-extrabold text-gov-navy font-serif uppercase tracking-tight">
+              About CPGRAMS
+            </h2>
+          </div>
+
+          <div className="text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-3 text-justify">
+            <p>
+              <strong>Centralised Public Grievance Redress and Monitoring System (CPGRAMS)</strong> is an online platform available to the citizens 24x7 to lodge their grievances to the public authorities on any subject related to service delivery. It is a single portal connected to all the Ministries/Departments of Government of India and States. Every Ministry and State has role-based access to this system. CPGRAMS is also accessible to the citizens through standalone mobile application downloadable through Google Play store and mobile application integrated with UMANG.
+            </p>
+            <p>
+              The status of the grievance filed in CPGRAMS can be tracked with the unique registration ID provided at the time of registration of the complainant. CPGRAMS also provides appeal facility to the citizens if they are not satisfied with the resolution by the Grievance Officer. After closure of grievance if the complainant is not satisfied with the resolution, he/she can provide feedback. If the rating is &apos;Poor&apos; the option to file an appeal is enabled. The status of the Appeal can also be tracked by the petitioner with the grievance registration number.
+            </p>
+          </div>
+
+          {/* Issues not taken up for redress */}
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+            <div className="flex items-center space-x-2 text-gov-navy font-bold text-xs">
+              <Info className="w-4 h-4 text-gov-saffron flex-shrink-0" />
+              <span>Issues which are not taken up for redress :</span>
+            </div>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700 pt-1">
+              <li className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gov-saffron"></span>
+                <span>RTI Matters</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gov-saffron"></span>
+                <span>Court related / Subjudice matters</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gov-saffron"></span>
+                <span>Religious matters</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gov-saffron"></span>
+                <span>Grievances of Government employees regarding service matters</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Official Notes */}
+          <div className="text-[11px] text-slate-600 bg-amber-50/70 border border-amber-200/80 rounded-xl p-3 space-y-1.5">
+            <p className="font-bold text-amber-950">Note :</p>
+            <ol className="list-decimal pl-4 space-y-1">
+              <li>
+                If you have not got a satisfactory redress of your grievance within a reasonable period of time relating to Ministries/Departments and Organisations under the purview of Directorate of Public Grievances (DPG), Cabinet Secretariat, GOI, you may seek help of DPG in resolution.
+              </li>
+              <li>
+                <strong>Government is not charging fee from the public for filing grievances.</strong> All money being paid by the public for filing grievance is going only to M/s CSC only.
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        {/* Right Column (4 Cols): WHAT'S NEW Circulars & Guidelines */}
+        <div className="lg:col-span-4 space-y-4">
+          <div className="border-b border-slate-200 pb-2">
+            <h2 className="text-xl font-extrabold text-gov-navy font-serif uppercase tracking-tight">
+              What&apos;s New
+            </h2>
+          </div>
+
+          <div className="bg-slate-100 rounded-xl p-3 space-y-3">
+            {/* Circular 1 */}
+            <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex items-start gap-3 hover:border-gov-navy transition">
+              <div className="whatsNew-badge bg-slate-200 flex flex-col items-center justify-center p-2 rounded">
+                <span className="text-xl font-extrabold text-[#6f0047] leading-none">23</span>
+                <span className="text-[10px] text-slate-600 uppercase font-semibold">Aug 2024</span>
+              </div>
+              <div className="space-y-1 text-xs">
+                <Link
+                  href="/about"
+                  className="font-bold text-slate-800 hover:text-gov-navy hover:underline leading-snug block"
+                >
+                  Comprehensive Guidelines for Handling the Public Grievances
+                </Link>
+                <span className="text-[10px] text-slate-500 block">PDF - 0.25 MB</span>
+              </div>
+            </div>
+
+            {/* Circular 2 */}
+            <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex items-start gap-3 hover:border-gov-navy transition">
+              <div className="whatsNew-badge bg-slate-200 flex flex-col items-center justify-center p-2 rounded">
+                <span className="text-xl font-extrabold text-[#6f0047] leading-none">27</span>
+                <span className="text-[10px] text-slate-600 uppercase font-semibold">Jul 2022</span>
+              </div>
+              <div className="space-y-1 text-xs">
+                <Link
+                  href="/about"
+                  className="font-bold text-slate-800 hover:text-gov-navy hover:underline leading-snug block"
+                >
+                  Strengthening of Machinery for Redressal of Public Grievance (CPGRAMS)
+                </Link>
+                <span className="text-[10px] text-slate-500 block">PDF - 1.05 MB</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Helpline Box */}
+          <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-center space-y-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-800">
+              National Grievance Helpline
+            </span>
+            <div className="flex items-center justify-center gap-2 text-base font-extrabold text-gov-navy">
+              <PhoneCall className="w-4 h-4 text-gov-saffron" />
+              <span>1800-11-4000 (Toll Free)</span>
+            </div>
+            <p className="text-[10px] text-slate-600">
+              Operational 9:00 AM to 5:30 PM (Monday to Friday, Gazetted Holidays excluded)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. Official CPGRAMS 3 Core Scraped Action Boxes */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Box 1: Register / Login */}
         <Link
-          href="/challenges"
-          className="font-bold text-gov-navy hover:underline flex items-center space-x-1"
+          href="/citizen/report"
+          className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
+          style={{ background: "#80c8ea" }}
         >
-          <span>View Open Challenges</span>
-          <ArrowRight className="w-3 h-3" />
-        </Link>
-      </div>
-
-      {/* UMANG-Inspired Clean Citizen Hero */}
-      <div className="gov-card p-8 sm:p-12 text-center max-w-4xl mx-auto space-y-6 gov-border-t-navy">
-        <div className="space-y-3">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gov-navy tracking-tight font-serif">
-            Report. Participate. Solve.
-          </h1>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Help identify problems, participate in challenges, and track real-world solutions.
-          </p>
-        </div>
-
-        {/* Quick Complaint Tracking Search Bar */}
-        <form
-          action="/track"
-          method="GET"
-          className="max-w-xl mx-auto flex flex-col sm:flex-row gap-2 pt-2"
-        >
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
-            <input
-              type="text"
-              name="id"
-              placeholder="Enter Complaint / Problem ID (e.g. PS-2026-1042)"
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+          <div className="space-y-2 flex flex-col items-center">
+            <img
+              src="/Images/iconHome/register.png"
+              alt="Register / Login"
+              className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
             />
-          </div>
-          <button
-            type="submit"
-            className="px-5 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition whitespace-nowrap"
-          >
-            Track Status
-          </button>
-        </form>
-
-        {/* Core Primary Actions (The 3 Main User Choices) */}
-        <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-          {/* Action 1: Report a Problem */}
-          <Link
-            href="/citizen/report"
-            className="gov-card gov-card-hover p-6 rounded-xl border border-slate-200 flex flex-col justify-between group hover:border-gov-saffron"
-          >
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-lg bg-orange-100 text-gov-saffron flex items-center justify-center">
-                <PlusCircle className="w-6 h-6" />
-              </div>
-              <h2 className="text-base font-bold text-gov-navy group-hover:text-gov-saffron transition">
-                Report a Problem
-              </h2>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Submit local civic or infrastructure grievances via text, voice, photo, or GPS.
-              </p>
-            </div>
-            <div className="mt-4 flex items-center text-xs font-bold text-gov-saffron">
-              <span>Lodge Grievance</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </Link>
-
-          {/* Action 2: Track Complaint */}
-          <Link
-            href="/track"
-            className="gov-card gov-card-hover p-6 rounded-xl border border-slate-200 flex flex-col justify-between group hover:border-gov-navy"
-          >
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-lg bg-blue-100 text-gov-navy flex items-center justify-center">
-                <Search className="w-6 h-6" />
-              </div>
-              <h2 className="text-base font-bold text-gov-navy transition">
-                Track Complaint
-              </h2>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Follow the 8-stage CPGRAMS lifecycle, assigned officer updates, and progress evidence.
-              </p>
-            </div>
-            <div className="mt-4 flex items-center text-xs font-bold text-gov-navy">
-              <span>Check Lifecycle</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </Link>
-
-          {/* Action 3: Explore Challenges */}
-          <Link
-            href="/challenges"
-            className="gov-card gov-card-hover p-6 rounded-xl border border-slate-200 flex flex-col justify-between group hover:border-gov-emerald"
-          >
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-lg bg-emerald-100 text-gov-emerald flex items-center justify-center">
-                <FileText className="w-6 h-6" />
-              </div>
-              <h2 className="text-base font-bold text-gov-navy group-hover:text-gov-emerald transition">
-                Explore Challenges
-              </h2>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Discover government societal challenges inviting university research and industry solutions.
-              </p>
-            </div>
-            <div className="mt-4 flex items-center text-xs font-bold text-gov-emerald">
-              <span>View Challenges</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </Link>
-        </div>
-      </div>
-
-      {/* UMANG Pattern: Citizen "My Services" / Bookmarking Strip */}
-      <div className="gov-card p-5 bg-white border border-slate-200 max-w-4xl mx-auto space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 text-xs font-bold text-slate-800">
-            <Bookmark className="w-4 h-4 text-gov-navy" />
-            <span className="uppercase tracking-wider font-mono">My Services & Department Quick Links</span>
-          </div>
-          <span className="text-[11px] text-slate-500 font-medium">UMANG Personalization Pattern</span>
-        </div>
-
-        <div className="flex flex-wrap gap-2 text-xs">
-          <Link
-            href="/citizen/report"
-            className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold flex items-center space-x-1.5 transition"
-          >
-            <span>🚰 Water Supply & Quality</span>
-          </Link>
-          <Link
-            href="/citizen/report"
-            className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold flex items-center space-x-1.5 transition"
-          >
-            <span>🌉 Roads & Bridge Safety</span>
-          </Link>
-          <Link
-            href="/citizen/report"
-            className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold flex items-center space-x-1.5 transition"
-          >
-            <span>⚡ Electricity & Transformers</span>
-          </Link>
-          <Link
-            href="/citizen/report"
-            className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold flex items-center space-x-1.5 transition"
-          >
-            <span>🗑️ Solid Waste Management</span>
-          </Link>
-          <Link
-            href="/citizen/report"
-            className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold flex items-center space-x-1.5 transition"
-          >
-            <span>🏥 Primary Healthcare Centers</span>
-          </Link>
-          <Link
-            href="/citizen/report"
-            className="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-semibold flex items-center space-x-1.5 transition"
-          >
-            <span>🏫 School Infrastructure</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* SIH Judge Pitch Angle: Key Differentiator Summary Matrix */}
-      <div className="gov-card p-6 bg-gradient-to-r from-blue-50/70 via-white to-orange-50/70 border border-slate-300 max-w-5xl mx-auto space-y-4 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200">
-          <div className="flex items-center space-x-2 text-gov-navy">
-            <Award className="w-5 h-5 text-gov-saffron" />
-            <h3 className="text-sm font-bold uppercase tracking-wider font-mono">
-              SIH Evaluator Summary — Key Differentiators vs Existing Platforms
+            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
+              Register / Login
             </h3>
           </div>
-          <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-gov-navy text-white font-mono">
-            PS-43 Value Proposition
+          <span className="mt-3 px-4 py-1.5 rounded bg-[#001c5a] group-hover:bg-[#6f0047] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+            Register / Login
           </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-1.5">
-            <span className="font-bold text-gov-navy block text-[11px] uppercase tracking-wide">
-              1. Admin AI & Map Layer (vs CPGRAMS)
-            </span>
-            <p className="text-slate-600 leading-relaxed">
-              CPGRAMS only logs tickets. PS-43 adds <strong>geospatial hotspot detection, duplicate clustering, and multi-factor prioritization</strong> so officers solve root causes instead of individual tickets.
-            </p>
-          </div>
-
-          <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-1.5">
-            <span className="font-bold text-gov-emerald block text-[11px] uppercase tracking-wide">
-              2. Closed Feedback Loop (vs MyGov)
-            </span>
-            <p className="text-slate-600 leading-relaxed">
-              MyGov's #1 weakness is that proposals disappear after submission. PS-43 implements a <strong>closed feedback loop</strong>: Evaluation → Shortlist → Milestone Telemetry → Citizen Resolution Verification.
-            </p>
-          </div>
-
-          <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-1.5">
-            <span className="font-bold text-gov-saffron block text-[11px] uppercase tracking-wide">
-              3. Ultra-Lightweight (vs UMANG)
-            </span>
-            <p className="text-slate-600 leading-relaxed">
-              Solves UMANG's bloat and low retention with <strong>instant &lt;100ms response, multimodal voice recording, and rural 3-button physical Kiosk input</strong> for citizens without smartphones.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Secondary Quick Actions Row */}
-      <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-slate-700">
-        <Link
-          href="/map"
-          className="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 flex items-center space-x-2 shadow-sm transition"
-        >
-          <MapPin className="w-4 h-4 text-indigo-600" />
-          <span>View Interactive Problem Map</span>
         </Link>
-        <Link
-          href="/teams"
-          className="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 flex items-center space-x-2 shadow-sm transition"
-        >
-          <Users className="w-4 h-4 text-gov-emerald" />
-          <span>My Participation & Teams</span>
-        </Link>
-        <Link
-          href="/solutions"
-          className="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 flex items-center space-x-2 shadow-sm transition"
-        >
-          <ShieldCheck className="w-4 h-4 text-gov-navy" />
-          <span>Implemented Solutions & Impact</span>
-        </Link>
-      </div>
 
-      {/* National Portal Key Performance Indicators (Government Grade) */}
-      <div className="gov-card p-6 rounded-xl max-w-5xl mx-auto bg-white border border-slate-200 space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-          <p className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">
-            National Civic Ingestion & Resolution Metrics
-          </p>
-          <span className="text-[11px] text-slate-500 font-medium">Real-Time Data</span>
-        </div>
+        {/* Box 2: View Status */}
+        <Link
+          href="/track"
+          className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
+          style={{ background: "#e28faa" }}
+        >
+          <div className="space-y-2 flex flex-col items-center">
+            <img
+              src="/Images/iconHome/status.png"
+              alt="View Status"
+              className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
+            />
+            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
+              View Status
+            </h3>
+          </div>
+          <span className="mt-3 px-4 py-1.5 rounded bg-[#001c5a] group-hover:bg-[#6f0047] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+            View Status
+          </span>
+        </Link>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
-            <p className="text-2xl font-extrabold text-gov-navy font-mono">{problemCount}</p>
-            <p className="text-xs text-slate-600 font-medium mt-0.5">Complaints Ingested</p>
+        {/* Box 3: Contact Us */}
+        <Link
+          href="/contact"
+          className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
+          style={{ background: "#f3cf9b" }}
+        >
+          <div className="space-y-2 flex flex-col items-center">
+            <img
+              src="/Images/iconHome/contact.png"
+              alt="Contact Us"
+              className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
+            />
+            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
+              Contact Us
+            </h3>
           </div>
-          <div className="p-3 rounded-lg bg-orange-50 border border-orange-100">
-            <p className="text-2xl font-extrabold text-gov-saffron font-mono">{challengeCount}</p>
-            <p className="text-xs text-slate-600 font-medium mt-0.5">Active Challenges</p>
-          </div>
-          <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-100">
-            <p className="text-2xl font-extrabold text-gov-emerald font-mono">{teamCount}</p>
-            <p className="text-xs text-slate-600 font-medium mt-0.5">University R&D Teams</p>
-          </div>
-          <div className="p-3 rounded-lg bg-blue-50 border border-blue-100">
-            <p className="text-2xl font-extrabold text-blue-700 font-mono">18,500+</p>
-            <p className="text-xs text-slate-600 font-medium mt-0.5">Citizens Impacted</p>
-          </div>
-        </div>
+          <span className="mt-3 px-4 py-1.5 rounded bg-[#001c5a] group-hover:bg-[#6f0047] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+            Contact Us
+          </span>
+        </Link>
       </div>
     </div>
   );

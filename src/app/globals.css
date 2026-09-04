@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
+  --background: #f4f6f9;
   --foreground: #0f172a;
-  --gov-navy: #0b3b60;
-  --gov-navy-dark: #06243d;
-  --gov-blue: #1e3a8a;
+  --gov-navy: #001c5a;
+  --gov-navy-dark: #00133d;
+  --gov-blue: #123c69;
   --gov-saffron: #e65100;
   --gov-saffron-light: #fff7ed;
   --gov-emerald: #059669;
@@ -21,9 +21,13 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Hind', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', sans-serif;
 }
 
 code, pre {
@@ -44,20 +48,46 @@ code, pre {
 
 .gov-card-hover:hover {
   border-color: #cbd5e1;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 8px 16px -2px rgba(0, 28, 90, 0.08), 0 4px 6px -2px rgba(0, 28, 90, 0.04);
 }
 
 /* Government Accent Borders */
 .gov-border-t-navy {
-  border-top: 3px solid var(--gov-navy);
+  border-top: 4px solid var(--gov-navy);
 }
 
 .gov-border-t-saffron {
-  border-top: 3px solid var(--gov-saffron);
+  border-top: 4px solid var(--gov-saffron);
 }
 
 .gov-border-t-emerald {
-  border-top: 3px solid var(--gov-emerald);
+  border-top: 4px solid var(--gov-emerald);
+}
+
+/* CPGRAMS Scraped Action Box Theme Colors */
+.cpgrams-box-status {
+  background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.cpgrams-box-register {
+  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.cpgrams-box-contact {
+  background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+}
+
+/* CPGRAMS What's New Section styling */
+.whatsNew-badge {
+  background: #e2e8f0;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 75px;
+  text-align: center;
+  color: #1e293b;
+  text-transform: uppercase;
+  border-radius: 6px;
 }
 
 /* Accessible Status Badges */
@@ -102,4 +132,19 @@ code, pre {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
