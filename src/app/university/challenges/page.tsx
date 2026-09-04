@@ -262,9 +262,12 @@ export default function UniversityChallengesPage() {
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-gov-navy mt-2 leading-snug font-serif">
+                    <Link
+                      href={`/challenges/${challenge.id}`}
+                      className="text-lg font-bold text-gov-navy hover:text-gov-emerald mt-2 leading-snug font-serif transition block"
+                    >
                       {challenge.title}
-                    </h3>
+                    </Link>
                   </div>
 
                   <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-200">

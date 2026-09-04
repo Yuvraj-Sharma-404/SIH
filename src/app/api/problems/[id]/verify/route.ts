@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { canTransition } from "@/lib/statusMachine";
 
 export async function POST(
   req: NextRequest,
@@ -49,8 +50,8 @@ export async function POST(
       updateData.status = "REJECTED";
       updateData.rejectionReason = rejectionReason || "Does not meet civic jurisdiction criteria.";
     } else if (determinedAction === "REQUEST_INFORMATION") {
-      finalStatus = "PENDING_VERIFICATION";
-      updateData.status = "PENDING_VERIFICATION";
+      finalStatus = "MORE_INFO_NEEDED";
+      updateData.status = "MORE_INFO_NEEDED";
       updateData.requestNote = requestNote || "Please submit clearer photo evidence and street landmark.";
     } else if (determinedAction === "ASSIGN") {
       finalStatus = "ASSIGNED";
@@ -60,7 +61,6 @@ export async function POST(
     } else if (determinedAction === "OVERRIDE_PRIORITY") {
       if (typeof newPriorityScore === "number") {
         updateData.priorityScore = Math.min(100, Math.max(0, newPriorityScore));
-        // Create priority assessment record with human override
         await prisma.priorityAssessment.create({
           data: {
             problemId: id,
@@ -78,11 +78,25 @@ export async function POST(
       }
     }
 
-    // Optionally publish a Societal Challenge
-    let challenge = null;
     if (createChallenge || determinedAction === "CONVERT_CHALLENGE") {
       finalStatus = "SOLUTION_REQUIRED";
       updateData.status = "SOLUTION_REQUIRED";
+    }
+
+    // Validate status transition through state machine
+    if (updateData.status && !canTransition(problem.status, finalStatus)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Illegal status transition from '${problem.status}' to '${finalStatus}'`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Optionally publish a Societal Challenge
+    let challenge = null;
+    if (createChallenge || determinedAction === "CONVERT_CHALLENGE") {
       challenge = await prisma.challenge.create({
         data: {
           problemId: id,

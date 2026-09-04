@@ -211,6 +211,41 @@ export default function CitizenTrackDynamicPage() {
               {complaint.description}
             </p>
 
+            {/* Surface Duplicate-Match Context to Citizen (Item B.2) */}
+            {complaint.duplicateMatches && complaint.duplicateMatches.length > 0 && (
+              <div className="p-4 rounded-xl bg-orange-50/80 border border-orange-200 text-orange-950 space-y-2 text-xs">
+                <div className="flex items-center space-x-2">
+                  <TrendingUp className="w-4 h-4 text-gov-saffron flex-shrink-0" />
+                  <span className="font-bold text-sm">
+                    {complaint.duplicateMatches.length} Similar Community Report(s) Linked / Merged
+                  </span>
+                </div>
+                <p className="text-slate-700">
+                  Our spatial and semantic AI engine detected {complaint.duplicateMatches.length} other citizen grievance(s) covering this same location/issue. They have been merged into this unified priority dossier to accelerate government response:
+                </p>
+                <div className="space-y-1.5 pt-1">
+                  {complaint.duplicateMatches.map((dm: any) => (
+                    <div
+                      key={dm.id}
+                      className="p-2.5 rounded-lg bg-white border border-orange-200 flex items-center justify-between gap-2"
+                    >
+                      <div className="truncate">
+                        <span className="font-semibold text-slate-800">
+                          {dm.matchedProblem?.title || "Related Citizen Report"}
+                        </span>
+                        <span className="text-[10px] text-slate-500 block font-mono">
+                          Geo Distance: {dm.geoDistanceMeters}m • Semantic Match: {Math.round((dm.semanticScore || 0) * 100)}%
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-orange-100 text-orange-800 border border-orange-200 shrink-0">
+                        {Math.round((dm.totalDuplicateScore || 0) * 100)}% Similarity
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Department & Officer Details */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100 text-xs">
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">

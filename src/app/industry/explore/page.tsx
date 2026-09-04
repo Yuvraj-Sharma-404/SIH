@@ -14,6 +14,7 @@ import {
   PlusCircle,
   HelpCircle,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function IndustryPortal() {
   const [challenges, setChallenges] = useState<any[]>([]);
@@ -138,7 +139,12 @@ export default function IndustryPortal() {
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-gov-navy leading-snug font-serif">{c.title}</h3>
+                  <Link
+                    href={`/challenges/${c.id}`}
+                    className="text-base font-bold text-gov-navy hover:text-purple-700 leading-snug font-serif transition block"
+                  >
+                    {c.title}
+                  </Link>
                   <p className="text-xs text-slate-600 line-clamp-3">{c.description}</p>
 
                   <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-center justify-between">
@@ -161,9 +167,12 @@ export default function IndustryPortal() {
                 </div>
 
                 <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-                  <span className="text-[11px] text-slate-500 font-mono">
-                    Direct Impact Traceable
-                  </span>
+                  <Link
+                    href={`/challenges/${c.id}`}
+                    className="text-[11px] font-semibold text-gov-navy hover:underline"
+                  >
+                    View Canonical Dossier →
+                  </Link>
 
                   <button
                     type="button"

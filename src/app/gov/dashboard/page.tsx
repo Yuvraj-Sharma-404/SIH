@@ -504,45 +504,56 @@ export default function GovernmentDashboardPage() {
                       </span>
                     </div>
 
+                    {/* Direct Priority Score Explanation for Reviewers (Item B.3) */}
+                    {prob.priorityAssessments && prob.priorityAssessments.length > 0 && (
+                      <div className="p-2.5 rounded-lg bg-orange-50/70 border border-orange-200 text-xs text-orange-950 flex items-start space-x-2">
+                        <Info className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-bold text-slate-900">Priority Audit Explanation: </span>
+                          <span className="font-mono text-[11px]">{prob.priorityAssessments[prob.priorityAssessments.length - 1].explanation}</span>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Factor Breakdown Bars */}
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
                       <div>
                         <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
                           <span>Severity</span>
-                          <span>90%</span>
+                          <span>{Math.round((prob.severity || 0.5) * 100)}%</span>
                         </div>
                         <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                          <div className="h-full bg-red-600 rounded-full" style={{ width: "90%" }}></div>
+                          <div className="h-full bg-red-600 rounded-full" style={{ width: `${Math.round((prob.severity || 0.5) * 100)}%` }}></div>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
-                          <span>Affected Citizens</span>
-                          <span>80%</span>
+                          <span>Urgency</span>
+                          <span>{Math.round((prob.urgency || 0.5) * 100)}%</span>
                         </div>
                         <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                          <div className="h-full bg-orange-500 rounded-full" style={{ width: "80%" }}></div>
+                          <div className="h-full bg-orange-500 rounded-full" style={{ width: `${Math.round((prob.urgency || 0.5) * 100)}%` }}></div>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
-                          <span>Frequency</span>
-                          <span>88%</span>
+                          <span>Recurrence</span>
+                          <span>{duplicates.length > 0 ? "85%" : "30%"}</span>
                         </div>
                         <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                          <div className="h-full bg-blue-600 rounded-full" style={{ width: "88%" }}></div>
+                          <div className="h-full bg-blue-600 rounded-full" style={{ width: duplicates.length > 0 ? "85%" : "30%" }}></div>
                         </div>
                       </div>
 
                       <div>
                         <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
-                          <span>Age / Unresolved</span>
-                          <span>72%</span>
+                          <span>Confidence</span>
+                          <span>92%</span>
                         </div>
                         <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                          <div className="h-full bg-purple-600 rounded-full" style={{ width: "72%" }}></div>
+                          <div className="h-full bg-purple-600 rounded-full" style={{ width: "92%" }}></div>
                         </div>
                       </div>
                     </div>
@@ -588,7 +599,7 @@ export default function GovernmentDashboardPage() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-1.5">
-                      {prob.status === "PENDING_VERIFICATION" && (
+                      {(prob.status === "SUBMITTED" || prob.status === "PENDING_VERIFICATION" || prob.status === "MORE_INFO_NEEDED") && (
                         <>
                           <button
                             type="button"
@@ -596,7 +607,7 @@ export default function GovernmentDashboardPage() {
                             className="px-3 py-1.5 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 text-xs font-bold transition flex items-center space-x-1 shadow-xs"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" />
-                            <span>Verify</span>
+                            <span>Verify Report</span>
                           </button>
                           <button
                             type="button"
@@ -606,7 +617,7 @@ export default function GovernmentDashboardPage() {
                             }}
                             className="px-2.5 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 text-xs font-semibold transition"
                           >
-                            Request Info
+                            Request More Info
                           </button>
                           <button
                             type="button"

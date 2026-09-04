@@ -25,12 +25,13 @@ export default function CitizenReportPage() {
   const router = useRouter();
 
   // Form State
+  const [submissionMode, setSubmissionMode] = useState<"QUICK" | "DETAILED">("QUICK");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [reporterName, setReporterName] = useState("");
   const [reporterPhone, setReporterPhone] = useState("");
-  const [department, setDepartment] = useState("Public Works Department (PWD)");
-  const [category, setCategory] = useState("Infrastructure");
+  const [department, setDepartment] = useState("");
+  const [category, setCategory] = useState("");
   const [latitude, setLatitude] = useState<number | null>(20.7453);
   const [longitude, setLongitude] = useState<number | null>(78.6022);
   const [address, setAddress] = useState("Wardha, Maharashtra");
@@ -119,18 +120,22 @@ export default function CitizenReportPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    const finalTitle = title.trim() || (audioTranscript ? `Voice Grievance (${voiceLang.toUpperCase()})` : "Civic Grievance Report");
+    const finalDescription = description.trim() || audioTranscript || "Reported via citizen portal with attached media evidence and location pin.";
+
     try {
       const res = await fetch("/api/problems", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title,
-          description,
-          reporterName: reporterName || "Citizen (Self)",
-          reporterPhone: reporterPhone || "9823012345",
+          title: finalTitle,
+          description: finalDescription,
+          reporterName: reporterName.trim() || undefined,
+          reporterPhone: reporterPhone.trim() || undefined,
           latitude,
           longitude,
-          address,
+          address: address.trim() || undefined,
           evidenceType,
           evidenceUrl,
         }),
@@ -165,30 +170,33 @@ export default function CitizenReportPage() {
         </p>
       </div>
 
-      {/* Preset Scenarios for Hackathon Evaluation */}
-      <div className="p-3.5 rounded-xl bg-slate-100 border border-slate-200 space-y-1.5 text-xs">
-        <span className="font-bold text-slate-700 block">
-          Demo Quick-Fill Scenarios (For SIH Presentation):
-        </span>
+      {/* Visually Separated Hackathon / Testing Demo Panel */}
+      <div className="p-4 rounded-xl bg-amber-50/80 border border-amber-300 text-amber-950 space-y-2 text-xs">
+        <div className="flex items-center space-x-2">
+          <span className="px-2 py-0.5 rounded bg-amber-200 text-amber-900 font-bold uppercase text-[10px]">
+            Demo & Testing Controls
+          </span>
+          <span className="text-slate-600 font-medium">Quickly load realistic test cases for evaluation:</span>
+        </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => loadScenario("bridge")}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-300 text-gov-navy font-medium shadow-sm transition"
+            className="px-3 py-1.5 rounded-lg bg-white hover:bg-amber-100 border border-amber-300 text-gov-navy font-semibold shadow-sm transition"
           >
             🌉 Dham River Bridge Cracks
           </button>
           <button
             type="button"
             onClick={() => loadScenario("water")}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-300 text-gov-navy font-medium shadow-sm transition"
+            className="px-3 py-1.5 rounded-lg bg-white hover:bg-amber-100 border border-amber-300 text-gov-navy font-semibold shadow-sm transition"
           >
             🚰 Turbid Water in Ward 4
           </button>
           <button
             type="button"
             onClick={() => loadScenario("electric")}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-300 text-gov-navy font-medium shadow-sm transition"
+            className="px-3 py-1.5 rounded-lg bg-white hover:bg-amber-100 border border-amber-300 text-gov-navy font-semibold shadow-sm transition"
           >
             ⚡ Open 11kV Transformer
           </button>
@@ -197,6 +205,35 @@ export default function CitizenReportPage() {
 
       {!submittedResult ? (
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Submission Mode Selector (Accessible / Low Digital Literacy Mode) */}
+          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs">
+            <span className="font-bold text-slate-800">Submission Method:</span>
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => setSubmissionMode("QUICK")}
+                className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                  submissionMode === "QUICK"
+                    ? "bg-gov-navy text-white shadow-sm"
+                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300"
+                }`}
+              >
+                📸 1-Tap Quick Report (Photo/Voice + Pin)
+              </button>
+              <button
+                type="button"
+                onClick={() => setSubmissionMode("DETAILED")}
+                className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                  submissionMode === "DETAILED"
+                    ? "bg-gov-navy text-white shadow-sm"
+                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300"
+                }`}
+              >
+                📝 Full Detailed Form
+              </button>
+            </div>
+          </div>
+
           {/* Multimodal Voice Input Assistant */}
           <div className="gov-card p-5 bg-white border border-slate-200 space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -280,63 +317,67 @@ export default function CitizenReportPage() {
           <div className="gov-card p-6 bg-white border border-slate-200 space-y-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
-                Grievance Title / Subject *
+                Grievance Title / Subject {submissionMode === "DETAILED" && "*"}
               </label>
               <input
                 type="text"
-                required
+                required={submissionMode === "DETAILED"}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Critical Pier Crack on Dham River Bridge"
+                placeholder="e.g. Critical Pier Crack on Dham River Bridge (Optional in Quick mode)"
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy font-medium"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Category *
-                </label>
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
-                >
-                  <option value="Infrastructure">Infrastructure (Roads & Bridges)</option>
-                  <option value="Water & Sanitation">Water Supply & Sanitation</option>
-                  <option value="Energy">Electricity & Energy</option>
-                  <option value="Public Health">Public Health & Sanitation</option>
-                  <option value="Agriculture">Agriculture & Irrigation</option>
-                </select>
-              </div>
+            {submissionMode === "DETAILED" && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Category (Optional - Auto-structured by AI)
+                  </label>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
+                  >
+                    <option value="">✨ AI Auto-Detect Category</option>
+                    <option value="Infrastructure">Infrastructure (Roads & Bridges)</option>
+                    <option value="Water & Sanitation">Water Supply & Sanitation</option>
+                    <option value="Energy">Electricity & Energy</option>
+                    <option value="Public Health">Public Health & Sanitation</option>
+                    <option value="Agriculture">Agriculture & Irrigation</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Responsible Department *
-                </label>
-                <select
-                  value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
-                >
-                  <option value="Public Works Department (PWD)">Public Works Department (PWD)</option>
-                  <option value="Jal Jeevan Mission / Water Supply Board">Jal Jeevan Mission / Water Board</option>
-                  <option value="State Power Distribution Corporation (DISCOM)">State Power DISCOM</option>
-                  <option value="Municipal Corporation">Municipal Corporation</option>
-                </select>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Responsible Department (Optional - Auto-assigned by AI)
+                  </label>
+                  <select
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                    className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
+                  >
+                    <option value="">✨ AI Auto-Recommend Department</option>
+                    <option value="Public Works Department (PWD)">Public Works Department (PWD)</option>
+                    <option value="Jal Jeevan Mission / Water Supply Board">Jal Jeevan Mission / Water Board</option>
+                    <option value="State Power Distribution Corporation (DISCOM)">State Power DISCOM</option>
+                    <option value="Municipal Corporation">Municipal Corporation</option>
+                  </select>
+                </div>
               </div>
-            </div>
+            )}
 
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
-                Description of the Societal Issue & Community Impact *
+                Description of the Issue & Impact {submissionMode === "DETAILED" && "*"}
               </label>
               <textarea
-                required
-                rows={4}
+                required={submissionMode === "DETAILED"}
+                rows={submissionMode === "QUICK" ? 2 : 4}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe the issue, exact landmark, and number of citizens or vehicles affected daily..."
+                placeholder="Describe the issue or record a voice note above..."
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
               />
             </div>

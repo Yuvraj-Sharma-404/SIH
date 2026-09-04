@@ -1,4 +1,4 @@
-import { StructuredProblemResult } from "./provider";
+import { StructuredProblemResult, generateStructuredAnalysisWithLLM } from "./provider";
 
 interface DepartmentRule {
   keywords: string[];
@@ -63,68 +63,18 @@ const KNOWLEDGE_BASE: Record<string, DepartmentRule> = {
 export async function structureProblemWithAI(
   title: string,
   description: string
-): Promise<StructuredProblemResult> {
-  const combined = `${title} ${description}`.toLowerCase();
-
-  // Try calling Gemini if API key is provided
-  const geminiKey = process.env.GEMINI_API_KEY;
-  if (geminiKey) {
-    try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: `You are an AI civic governance assistant for India. Analyze this societal issue and return valid JSON only (no markdown):
-Title: "${title}"
-Description: "${description}"
-
-Schema:
-{
-  "summary": "1-2 sentence executive summary",
-  "category": "Infrastructure | Water & Sanitation | Public Health | Education | Environment | Energy | Agriculture",
-  "problemType": "short classification",
-  "severity": number between 0.1 and 1.0,
-  "urgency": number between 0.1 and 1.0,
-  "recommendedDepartment": "Name of relevant Indian government department",
-  "requiredExpertise": ["Skill 1", "Skill 2", "Skill 3"],
-  "confidence": 0.95
-}`,
-                  },
-                ],
-              },
-            ],
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (rawText) {
-          const cleaned = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
-          const parsed = JSON.parse(cleaned);
-          return {
-            summary: parsed.summary || title,
-            category: parsed.category || "Infrastructure",
-            problemType: parsed.problemType || "Civic Grievance",
-            severity: parsed.severity ?? 0.7,
-            urgency: parsed.urgency ?? 0.7,
-            recommendedDepartment: parsed.recommendedDepartment || "Public Works Department",
-            requiredExpertise: parsed.requiredExpertise || ["Civil Engineering"],
-            confidence: parsed.confidence ?? 0.9,
-          };
-        }
-      }
-    } catch (e) {
-      console.warn("Gemini API call failed, falling back to deterministic NLP engine:", e);
-    }
+): Promise<StructuredProblemResult & { providerUsed?: string }> {
+  // 1. Call real LLM provider (Gemini or OpenAI) if configured
+  const llmResult = await generateStructuredAnalysisWithLLM(title, description);
+  if (llmResult) {
+    return {
+      ...llmResult.result,
+      providerUsed: llmResult.provider,
+    };
   }
+
+  // 2. Offline fallback engine (Keyword-based expert rules)
+  const combined = `${title} ${description}`.toLowerCase();
 
   // Deterministic Expert System Fallback (resilient for offline/hackathon demo)
   let matchedRule: DepartmentRule = KNOWLEDGE_BASE.road;
