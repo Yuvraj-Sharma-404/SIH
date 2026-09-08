@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Building2, Clock, Mail, MapPin, Phone, PhoneCall } from "lucide-react";
 
 export const metadata = {
-  title: "Contact Us | DARPG & CPGRAMS Helpdesk",
+  title: "Contact Us | DARPG & SmadhanX Helpdesk",
   description: "Official Contact and Helpdesk details for Department of Administrative Reforms & Public Grievances (DARPG).",
 };
 
@@ -17,7 +17,7 @@ export default function ContactPage() {
             Support & Helpdesk
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
-            Contact DARPG & CPGRAMS Helpdesk
+            Contact DARPG & SmadhanX Helpdesk
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
             Get in touch with the grievance redressing authorities, technical support, and ministry administrators.

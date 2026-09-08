@@ -130,7 +130,7 @@ export default function CpgramsFooter() {
           {/* Policy Links */}
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link href="/about" className="hover:text-amber-300 transition hover:underline">
-              About CPGRAMS
+              About SmadhanX
             </Link>
             <span>•</span>
             <Link href="/faq" className="hover:text-amber-300 transition hover:underline">

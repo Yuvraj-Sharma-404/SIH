@@ -36,7 +36,7 @@ export default function CpgramsQrModal({ isOpen, onClose }: CpgramsQrModalProps)
             Official Mobile Application
           </span>
           <h2 className="text-xl font-extrabold text-gov-navy mt-2 tracking-tight">
-            EXPERIENCE CPGRAMS ON MOBILE
+            EXPERIENCE SMADHANX ON MOBILE
           </h2>
           <p className="text-xs text-slate-500 mt-1">
             Scan the QR code or click the download button below to install on your smartphone.

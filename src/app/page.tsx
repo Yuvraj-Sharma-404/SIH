@@ -5,9 +5,6 @@ import {
   AlertCircle,
   Info,
   PhoneCall,
-  UserPlus,
-  ClipboardList,
-  Headphones,
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -15,13 +12,16 @@ export const dynamic = "force-dynamic";
 export default function HomePage() {
   return (
     <div className="space-y-6">
-      {/* 1. Official CPGRAMS Email Warning Banner */}
+      {/* 1. Official SmadhanX Email Warning Banner */}
       <div className="bg-[#6e0747] text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl text-center shadow-md flex items-center justify-center gap-2">
         <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-300" />
         <span>
           Any Grievance sent by email will not be attended to / entertained. Please lodge your grievance on this portal.
         </span>
       </div>
+
+      {/* 2. Official CPGRAMS Hero Banner Carousel */}
+      <CpgramsBannerCarousel />
 
       {/* 3. Quick Grievance Tracking / Search Strip */}
       <div className="gov-card p-4 sm:p-6 gov-border-t-navy bg-white">
@@ -56,22 +56,22 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 4. Authentic CPGRAMS "ABOUT CPGRAMS" & "WHAT'S NEW" Two-Column Section */}
+      {/* 4. Authentic "ABOUT SMADHANX" & "WHAT'S NEW" Two-Column Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        {/* Left Column (8 Cols): About CPGRAMS & Guidelines */}
+        {/* Left Column (8 Cols): About SmadhanX & Guidelines */}
         <div className="lg:col-span-8 space-y-4">
           <div className="border-b border-slate-200 pb-2">
             <h2 className="text-xl font-extrabold text-gov-navy font-serif uppercase tracking-tight">
-              About CPGRAMS
+              About SmadhanX
             </h2>
           </div>
 
           <div className="text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-3 text-justify">
             <p>
-              <strong>Centralised Public Grievance Redress and Monitoring System (CPGRAMS)</strong> is an online platform available to the citizens 24x7 to lodge their grievances to the public authorities on any subject related to service delivery. It is a single portal connected to all the Ministries/Departments of Government of India and States. Every Ministry and State has role-based access to this system. CPGRAMS is also accessible to the citizens through standalone mobile application downloadable through Google Play store and mobile application integrated with UMANG.
+              <strong>SmadhanX</strong> is an online platform available to the citizens 24x7 to lodge their grievances to the public authorities on any subject related to service delivery. It is a single portal connected to all the Ministries/Departments of Government of India and States. Every Ministry and State has role-based access to this system. SmadhanX is also accessible to the citizens through standalone mobile application downloadable through Google Play store and mobile application integrated with UMANG.
             </p>
             <p>
-              The status of the grievance filed in CPGRAMS can be tracked with the unique registration ID provided at the time of registration of the complainant. CPGRAMS also provides appeal facility to the citizens if they are not satisfied with the resolution by the Grievance Officer. After closure of grievance if the complainant is not satisfied with the resolution, he/she can provide feedback. If the rating is &apos;Poor&apos; the option to file an appeal is enabled. The status of the Appeal can also be tracked by the petitioner with the grievance registration number.
+              The status of the grievance filed in SmadhanX can be tracked with the unique registration ID provided at the time of registration of the complainant. SmadhanX also provides appeal facility to the citizens if they are not satisfied with the resolution by the Grievance Officer. After closure of grievance if the complainant is not satisfied with the resolution, he/she can provide feedback. If the rating is &apos;Poor&apos; the option to file an appeal is enabled. The status of the Appeal can also be tracked by the petitioner with the grievance registration number.
             </p>
           </div>
 
@@ -115,61 +115,23 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right Column (4 Cols): WHAT'S NEW Circulars & Guidelines */}
+        {/* Right Column (4 Cols): WHAT'S NEW */}
         <div className="lg:col-span-4 space-y-4">
           <div className="border-b border-slate-200 pb-2">
-            <h2 className="text-xl font-extrabold text-gov-navy font-serif uppercase tracking-tight">
+            <h2 className="text-xl font-extrabold text-gov-navy uppercase tracking-tight">
               What&apos;s New
             </h2>
           </div>
 
-          <div className="bg-slate-100 rounded-xl p-3 space-y-3">
-            {/* Circular 1 */}
-            <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex items-start gap-3 hover:border-gov-navy transition">
-              <div className="whatsNew-badge bg-slate-200 flex flex-col items-center justify-center p-2 rounded">
-                <span className="text-xl font-extrabold text-[#6f0047] leading-none">23</span>
-                <span className="text-[10px] text-slate-600 uppercase font-semibold">Aug 2024</span>
-              </div>
-              <div className="space-y-1 text-xs">
-                <Link
-                  href="/about"
-                  className="font-bold text-slate-800 hover:text-gov-navy hover:underline leading-snug block"
-                >
-                  Comprehensive Guidelines for Handling the Public Grievances
-                </Link>
-                <span className="text-[10px] text-slate-500 block">PDF - 0.25 MB</span>
-              </div>
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center space-y-2.5 flex flex-col items-center justify-center min-h-[220px]">
+            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+              <BellOff className="w-6 h-6" />
             </div>
-
-            {/* Circular 2 */}
-            <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex items-start gap-3 hover:border-gov-navy transition">
-              <div className="whatsNew-badge bg-slate-200 flex flex-col items-center justify-center p-2 rounded">
-                <span className="text-xl font-extrabold text-[#6f0047] leading-none">27</span>
-                <span className="text-[10px] text-slate-600 uppercase font-semibold">Jul 2022</span>
-              </div>
-              <div className="space-y-1 text-xs">
-                <Link
-                  href="/about"
-                  className="font-bold text-slate-800 hover:text-gov-navy hover:underline leading-snug block"
-                >
-                  Strengthening of Machinery for Redressal of Public Grievance (CPGRAMS)
-                </Link>
-                <span className="text-[10px] text-slate-500 block">PDF - 1.05 MB</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Helpline Box */}
-          <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-center space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-800">
-              National Grievance Helpline
-            </span>
-            <div className="flex items-center justify-center gap-2 text-base font-extrabold text-gov-navy">
-              <PhoneCall className="w-4 h-4 text-gov-saffron" />
-              <span>1800-11-4000 (Toll Free)</span>
-            </div>
-            <p className="text-[10px] text-slate-600">
-              Operational 9:00 AM to 5:30 PM (Monday to Friday, Gazetted Holidays excluded)
+            <p className="text-sm font-semibold text-slate-700">
+              Nothing new for now
+            </p>
+            <p className="text-xs text-slate-400 max-w-[220px]">
+              Latest updates, notices, and official circulars will be published here.
             </p>
           </div>
         </div>

@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, FileText, Globe, Shield, Sparkles } from "lucide-react";
 
 export const metadata = {
-  title: "About CPGRAMS | DARPG - Government of India",
-  description: "About Centralized Public Grievance Redress And Monitoring System (CPGRAMS).",
+  title: "About SmadhanX | DARPG - Government of India",
+  description: "About SmadhanX - Smart Centralized Public Grievance Redress And Monitoring System.",
 };
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
             About the Platform
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
-            Centralized Public Grievance Redress And Monitoring System (CPGRAMS)
+            Centralized Public Grievance Redress And Monitoring System (SmadhanX)
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
             Department of Administrative Reforms & Public Grievances (DARPG), Ministry of Personnel, Public Grievances & Pensions, Government of India.
@@ -29,13 +29,13 @@ export default function AboutPage() {
       <div className="gov-card p-6 sm:p-8 bg-white space-y-6">
         <div className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed text-slate-700 space-y-4 text-justify">
           <p>
-            <strong>Centralised Public Grievance Redress and Monitoring System (CPGRAMS)</strong> is an online web-enabled system developed by National Informatics Centre (NIC) in association with DARPG with the objective of speedy redress and effective monitoring of grievances by Ministries/Departments/Organizations of Government of India and State Governments.
+            <strong>SmadhanX</strong> is an online web-enabled system developed in association with DARPG with the objective of speedy redress, intelligent deduplication, and effective monitoring of grievances by Ministries/Departments/Organizations of Government of India and State Governments.
           </p>
           <p>
-            The system enables a citizen to lodge his grievance from anywhere, anytime 24x7 to the concerned Ministry/Department/Organization, which assigns it to the designated field officer. Each grievance is provided with a unique registration number which can be used to track the status of the grievance online.
+            The system enables a citizen to lodge their grievance from anywhere, anytime 24x7 to the concerned Ministry/Department/Organization, which assigns it to the designated field officer. Each grievance is provided with a unique registration number which can be used to track the status of the grievance online.
           </p>
           <p>
-            The system also facilitates the Grievance Officer in tracking and processing the grievance received by his organization. The system is customized to meet the functional requirements of different Ministries/Departments/State Governments.
+            The system also facilitates the Grievance Officer in tracking and processing the grievance received by their organization. The system is customized to meet the functional requirements of different Ministries/Departments/State Governments.
           </p>
         </div>
 

@@ -136,7 +136,7 @@ export default function CitizenTrackDynamicPage() {
           <span>Back to Complaint Search</span>
         </Link>
         <span className="text-xs font-mono text-slate-500">
-          CPGRAMS Lifecycle Engine • PRD FR-17 Aligned
+          SmadhanX Lifecycle Engine • PRD FR-17 Aligned
         </span>
       </div>
 
@@ -375,7 +375,7 @@ export default function CitizenTrackDynamicPage() {
                       <div>
                         <strong>Dissatisfied with Department Action?</strong>
                         <p className="mt-0.5">
-                          Under statutory CPGRAMS rules, you have the right to file an Appeal with the Joint Secretary level Appellate Authority.{" "}
+                          Under statutory SmadhanX rules, you have the right to file an Appeal with the Joint Secretary level Appellate Authority.{" "}
                           <Link href="/appeals" className="text-gov-navy underline font-bold">
                             File an Appeal to Nodal Appellate Authority →
                           </Link>
@@ -401,7 +401,7 @@ export default function CitizenTrackDynamicPage() {
           <div className="gov-card p-6 bg-white border border-slate-200 space-y-6">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <h2 className="text-xs font-bold text-gov-navy uppercase tracking-wider font-mono">
-                CPGRAMS Resolution Lifecycle Tracking
+                SmadhanX Resolution Lifecycle Tracking
               </h2>
               <span className="text-[11px] text-slate-500 font-mono">
                 Real-Time Public Ledger

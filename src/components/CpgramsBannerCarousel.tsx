@@ -16,14 +16,14 @@ const banners: BannerSlide[] = [
   {
     id: 0,
     src: "/Images/bannerHome/baner-cpgrams_9.png",
-    alt: "AI Powered CPGRAMS - Instant Grievance Redressal Assistant",
+    alt: "AI Powered SmadhanX - Instant Grievance Redressal Assistant",
     href: "/citizen/report",
     badge: "AI Powered Assistant",
   },
   {
     id: 1,
     src: "/Images/bannerHome/baner-cpgrams_1.jpg",
-    alt: "CPGRAMS National Public Grievance Redressal Portal",
+    alt: "SmadhanX National Public Grievance Redressal Portal",
     href: "/citizen/report",
   },
   {
@@ -53,7 +53,7 @@ const banners: BannerSlide[] = [
   {
     id: 6,
     src: "/Images/bannerHome/baner-cpgrams_6.jpg",
-    alt: "CPGRAMS Mobile App Experience",
+    alt: "SmadhanX Mobile App Experience",
     href: "#",
   },
   {
