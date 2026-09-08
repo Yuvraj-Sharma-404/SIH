@@ -134,7 +134,7 @@ export default function TrackComplaintPage() {
       <div className="gov-card p-6 rounded-xl border border-slate-200 bg-white gov-border-t-navy space-y-4">
         <div>
           <span className="text-xs uppercase font-mono font-bold text-gov-saffron">
-            CPGRAMS Standard Workflow
+            SmadhanX Standard Workflow
           </span>
           <h1 className="text-2xl font-bold text-gov-navy font-serif mt-0.5">
             Track Citizen Grievance / Problem Status
@@ -196,7 +196,7 @@ export default function TrackComplaintPage() {
       {loading ? (
         <div className="py-20 text-center space-y-3">
           <Loader2 className="w-8 h-8 text-gov-navy animate-spin mx-auto" />
-          <p className="text-xs text-slate-500 font-mono">Retrieving CPGRAMS record...</p>
+          <p className="text-xs text-slate-500 font-mono">Retrieving SmadhanX record...</p>
         </div>
       ) : !complaint ? (
         <div className="gov-card p-12 text-center space-y-3 bg-white border border-slate-200">
@@ -297,7 +297,7 @@ export default function TrackComplaintPage() {
           {/* Visual 8-Stage CPGRAMS Lifecycle Tracker */}
           <div className="gov-card p-6 bg-white border border-slate-200 space-y-6">
             <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">
-              CPGRAMS 8-Stage Resolution Workflow
+              SmadhanX 8-Stage Resolution Workflow
             </h3>
 
             <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">

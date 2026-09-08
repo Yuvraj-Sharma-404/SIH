@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, FileText, HelpCircle, Shield, Users } from "lucide-react";
 
 export const metadata = {
-  title: "Redress Process Flow | CPGRAMS",
-  description: "Official Public Grievance Redress Process Flow and 8-Stage Lifecycle Architecture under CPGRAMS.",
+  title: "Redress Process Flow | SmadhanX",
+  description: "Official Public Grievance Redress Process Flow and 8-Stage Lifecycle Architecture under SmadhanX.",
 };
 
 export default function ProcessFlowPage() {
@@ -12,7 +12,7 @@ export default function ProcessFlowPage() {
     {
       step: "01",
       title: "Grievance Lodging",
-      desc: "Citizen submits grievance via CPGRAMS web portal, mobile application, UMANG, or CSCs with automatic Registration ID generation.",
+      desc: "Citizen submits grievance via SmadhanX web portal, mobile application, UMANG, or CSCs with automatic Registration ID generation.",
     },
     {
       step: "02",
@@ -57,7 +57,7 @@ export default function ProcessFlowPage() {
       <div className="gov-card p-6 gov-border-t-navy bg-white">
         <div className="max-w-4xl mx-auto text-center space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
-            CPGRAMS Standard Operating Procedure
+            SmadhanX Standard Operating Procedure
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
             Redress Process Flow & Lifecycle
@@ -76,7 +76,7 @@ export default function ProcessFlowPage() {
         <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 inline-block max-w-full">
           <img
             src="/Images/flowChart.jpg"
-            alt="Official CPGRAMS Redress Process Flow Chart"
+            alt="Official SmadhanX Redress Process Flow Chart"
             className="max-h-[600px] w-auto mx-auto object-contain rounded-lg shadow-sm"
           />
         </div>

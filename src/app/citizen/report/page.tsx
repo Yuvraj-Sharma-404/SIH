@@ -166,7 +166,7 @@ export default function CitizenReportPage() {
           Lodge a Societal Problem or Complaint
         </h1>
         <p className="text-xs text-slate-600">
-          Submissions are acknowledged under CPGRAMS standards, auto-prioritized by our AI engine, and published as collaborative challenges if departmental R&D is required.
+          Submissions are acknowledged under SmadhanX standards, auto-prioritized by our AI engine, and published as collaborative challenges if departmental R&D is required.
         </p>
       </div>
 
@@ -595,7 +595,7 @@ export default function CitizenReportPage() {
               href={`/track?id=${submittedResult.data.publicProblemId}`}
               className="px-5 py-2 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm"
             >
-              <span>View Full CPGRAMS Dossier</span>
+              <span>View Full SmadhanX Dossier</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

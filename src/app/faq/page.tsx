@@ -3,30 +3,30 @@ import Link from "next/link";
 import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
 
 export const metadata = {
-  title: "FAQs & Help | CPGRAMS",
-  description: "Frequently Asked Questions regarding CPGRAMS public grievance redressal, tracking, appeals, and guidelines.",
+  title: "FAQs & Help | SmadhanX",
+  description: "Frequently Asked Questions regarding SmadhanX public grievance redressal, tracking, appeals, and guidelines.",
 };
 
 const faqs = [
   {
-    q: "What is CPGRAMS?",
-    a: "CPGRAMS (Centralised Public Grievance Redress and Monitoring System) is an online 24x7 web portal of Government of India facilitating citizens to lodge their grievances against Central Ministries, Departments, and State Governments.",
+    q: "What is SmadhanX?",
+    a: "SmadhanX is an online AI-powered 24x7 web portal of Government of India facilitating citizens to lodge their grievances against Central Ministries, Departments, and State Governments with automated deduplication and real-time SLA tracking.",
   },
   {
     q: "How can I track the status of my grievance?",
     a: "After lodging a grievance, you receive a unique Registration Number via SMS and Email. You can enter this Registration ID on the 'View Status' page at any time to monitor the real-time 8-stage progress.",
   },
   {
-    q: "What are the issues that cannot be redressed through CPGRAMS?",
-    a: "Issues related to RTI applications, court subjudice matters, religious disputes, and internal service matters of government employees (unless proper hierarchical channels are exhausted) cannot be entertained on CPGRAMS.",
+    q: "What are the issues that cannot be redressed through SmadhanX?",
+    a: "Issues related to RTI applications, court subjudice matters, religious disputes, and internal service matters of government employees (unless proper hierarchical channels are exhausted) cannot be entertained on SmadhanX.",
   },
   {
     q: "What if I am not satisfied with the grievance resolution?",
     a: "When a grievance is closed, the citizen is requested to provide feedback. If the rating provided is 'Poor', the option to file an Appeal is enabled on the portal, routing the case to the designated Appellate Authority.",
   },
   {
-    q: "Is there any fee charged for filing a grievance on CPGRAMS?",
-    a: "No. The Government of India does NOT charge any fee from citizens for lodging grievances on CPGRAMS or through the official mobile application.",
+    q: "Is there any fee charged for filing a grievance on SmadhanX?",
+    a: "No. The Government of India does NOT charge any fee from citizens for lodging grievances on SmadhanX or through the official mobile application.",
   },
   {
     q: "How long does it take for a grievance to be redressed?",

@@ -226,7 +226,7 @@ export default function NodalOfficersPage() {
       <div className="gov-card p-6 gov-border-t-navy bg-white">
         <div className="max-w-4xl mx-auto text-center space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
-            CPGRAMS Directory
+            SmadhanX Directory
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
             List Of Nodal Public Grievance Officers
