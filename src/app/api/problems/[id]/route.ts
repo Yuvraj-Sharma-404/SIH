@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { canTransition } from "@/lib/statusMachine";
 
 export async function GET(
   req: NextRequest,
@@ -61,6 +62,22 @@ export async function PATCH(
   try {
     const { id } = params;
     const body = await req.json();
+
+    if (body.status) {
+      const current = await prisma.problem.findUnique({
+        where: { id },
+        select: { status: true },
+      });
+      if (current && !canTransition(current.status, body.status)) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Illegal status transition from '${current.status}' to '${body.status}'`,
+          },
+          { status: 400 }
+        );
+      }
+    }
 
     const updated = await prisma.problem.update({
       where: { id },

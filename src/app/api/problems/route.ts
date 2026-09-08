@@ -49,8 +49,11 @@ export async function POST(req: NextRequest) {
       latitude,
       longitude,
       address,
+      district,
+      state,
       evidenceType,
       evidenceUrl,
+      idempotencyKey,
     } = body;
 
     if (!title || !description) {
@@ -68,8 +71,11 @@ export async function POST(req: NextRequest) {
       latitude: latitude ? parseFloat(latitude) : undefined,
       longitude: longitude ? parseFloat(longitude) : undefined,
       address,
+      district,
+      state,
       evidenceType,
       evidenceUrl,
+      idempotencyKey,
     });
 
     return NextResponse.json({

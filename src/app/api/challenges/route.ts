@@ -20,11 +20,13 @@ export async function GET(req: NextRequest) {
         proposals: {
           include: {
             team: true,
+            evaluations: true,
             implementation: {
               include: { milestones: true },
             },
           },
         },
+        sponsorships: true,
       },
       orderBy: { createdAt: "desc" },
     });

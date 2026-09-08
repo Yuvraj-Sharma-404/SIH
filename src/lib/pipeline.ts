@@ -11,28 +11,99 @@ export interface PipelineInput {
   latitude?: number | null;
   longitude?: number | null;
   address?: string | null;
+  district?: string | null;
+  state?: string | null;
   evidenceType?: string; // IMAGE, AUDIO, VIDEO, DOCUMENT
   evidenceUrl?: string;
+  idempotencyKey?: string | null;
 }
 
 export async function processIngestionPipeline(input: PipelineInput) {
-  // 1. Generate unique public ID e.g. "PS-2026-8492"
-  const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-  const publicProblemId = `PS-2026-${randomSuffix}`;
+  // 0. Submission Idempotency & Rapid Double-Submit Guard
+  if (input.idempotencyKey) {
+    const existingByIdempotency = await prisma.problem.findFirst({
+      where: { publicProblemId: input.idempotencyKey },
+      include: {
+        evidence: true,
+        aiAnalyses: true,
+        priorityAssessments: true,
+        duplicateMatches: { include: { matchedProblem: true } },
+      },
+    });
 
-  // 2. Create initial problem record
+    if (existingByIdempotency) {
+      return {
+        problem: existingByIdempotency,
+        duplicateResult: { isDuplicateFound: false, matches: [] },
+        priorityResult: {
+          totalScore: existingByIdempotency.priorityScore,
+          populationImpact: 0.5,
+          severityFactor: existingByIdempotency.severity,
+          urgencyFactor: existingByIdempotency.urgency,
+          recurrenceFactor: 0.3,
+          safetyFactor: 0.4,
+          explanation: "Idempotent duplicate submit prevented.",
+        },
+        isIdempotentResponse: true,
+      };
+    }
+  }
+
+  // Double-submit debounce guard: check for identical submission within last 15 seconds
+  const recentDuplicateSubmission = await prisma.problem.findFirst({
+    where: {
+      title: input.title,
+      description: input.description,
+      createdAt: {
+        gte: new Date(Date.now() - 15000),
+      },
+    },
+    include: {
+      evidence: true,
+      aiAnalyses: true,
+      priorityAssessments: true,
+      duplicateMatches: { include: { matchedProblem: true } },
+    },
+  });
+
+  if (recentDuplicateSubmission) {
+    return {
+      problem: recentDuplicateSubmission,
+      duplicateResult: { isDuplicateFound: false, matches: [] },
+      priorityResult: {
+        totalScore: recentDuplicateSubmission.priorityScore,
+        populationImpact: 0.5,
+        severityFactor: recentDuplicateSubmission.severity,
+        urgencyFactor: recentDuplicateSubmission.urgency,
+        recurrenceFactor: 0.3,
+        safetyFactor: 0.4,
+        explanation: "Rapid double-submit prevented.",
+      },
+      isIdempotentResponse: true,
+    };
+  }
+
+  // 1. Generate unique public ID e.g. "PS-2026-8492" (or use idempotencyKey if provided)
+  const publicProblemId =
+    input.idempotencyKey || `PS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+  // 2. Create initial problem record with validated/explicit values (no fake demo defaults)
   const problem = await prisma.problem.create({
     data: {
       publicProblemId,
       title: input.title,
       description: input.description,
-      reporterName: input.reporterName || "Anonymous Citizen",
-      reporterPhone: input.reporterPhone || "9876543210",
+      reporterName: input.reporterName?.trim() || "Anonymous Citizen",
+      reporterPhone: input.reporterPhone?.trim() || "Unverified / Not Provided",
       latitude: input.latitude,
       longitude: input.longitude,
-      address: input.address || "Wardha District, Maharashtra",
-      district: "Wardha",
-      state: "Maharashtra",
+      address:
+        input.address?.trim() ||
+        (input.latitude != null && input.longitude != null
+          ? `Lat: ${input.latitude.toFixed(4)}, Lng: ${input.longitude.toFixed(4)}`
+          : "Location Unspecified"),
+      district: input.district?.trim() || "Unspecified District",
+      state: input.state?.trim() || "Unspecified State",
       status: "SUBMITTED",
     },
   });
