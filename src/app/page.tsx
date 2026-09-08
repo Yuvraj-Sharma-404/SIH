@@ -4,7 +4,7 @@ import {
   ArrowRight,
   AlertCircle,
   Info,
-  PhoneCall,
+  BellOff,
 } from "lucide-react";
 import CpgramsBannerCarousel from "@/components/CpgramsBannerCarousel";
 
@@ -116,61 +116,23 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right Column (4 Cols): WHAT'S NEW Circulars & Guidelines */}
+        {/* Right Column (4 Cols): WHAT'S NEW */}
         <div className="lg:col-span-4 space-y-4">
           <div className="border-b border-slate-200 pb-2">
-            <h2 className="text-xl font-extrabold text-gov-navy font-serif uppercase tracking-tight">
+            <h2 className="text-xl font-extrabold text-gov-navy uppercase tracking-tight">
               What&apos;s New
             </h2>
           </div>
 
-          <div className="bg-slate-100 rounded-xl p-3 space-y-3">
-            {/* Circular 1 */}
-            <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex items-start gap-3 hover:border-gov-navy transition">
-              <div className="whatsNew-badge bg-slate-200 flex flex-col items-center justify-center p-2 rounded">
-                <span className="text-xl font-extrabold text-[#6f0047] leading-none">23</span>
-                <span className="text-[10px] text-slate-600 uppercase font-semibold">Aug 2024</span>
-              </div>
-              <div className="space-y-1 text-xs">
-                <Link
-                  href="/about"
-                  className="font-bold text-slate-800 hover:text-gov-navy hover:underline leading-snug block"
-                >
-                  Comprehensive Guidelines for Handling the Public Grievances
-                </Link>
-                <span className="text-[10px] text-slate-500 block">PDF - 0.25 MB</span>
-              </div>
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center space-y-2.5 flex flex-col items-center justify-center min-h-[220px]">
+            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+              <BellOff className="w-6 h-6" />
             </div>
-
-            {/* Circular 2 */}
-            <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex items-start gap-3 hover:border-gov-navy transition">
-              <div className="whatsNew-badge bg-slate-200 flex flex-col items-center justify-center p-2 rounded">
-                <span className="text-xl font-extrabold text-[#6f0047] leading-none">27</span>
-                <span className="text-[10px] text-slate-600 uppercase font-semibold">Jul 2022</span>
-              </div>
-              <div className="space-y-1 text-xs">
-                <Link
-                  href="/about"
-                  className="font-bold text-slate-800 hover:text-gov-navy hover:underline leading-snug block"
-                >
-                  Strengthening of Machinery for Redressal of Public Grievance (CPGRAMS)
-                </Link>
-                <span className="text-[10px] text-slate-500 block">PDF - 1.05 MB</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Helpline Box */}
-          <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-center space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-800">
-              National Grievance Helpline
-            </span>
-            <div className="flex items-center justify-center gap-2 text-base font-extrabold text-gov-navy">
-              <PhoneCall className="w-4 h-4 text-gov-saffron" />
-              <span>1800-11-4000 (Toll Free)</span>
-            </div>
-            <p className="text-[10px] text-slate-600">
-              Operational 9:00 AM to 5:30 PM (Monday to Friday, Gazetted Holidays excluded)
+            <p className="text-sm font-semibold text-slate-700">
+              Nothing new for now
+            </p>
+            <p className="text-xs text-slate-400 max-w-[220px]">
+              Latest updates, notices, and official circulars will be published here.
             </p>
           </div>
         </div>

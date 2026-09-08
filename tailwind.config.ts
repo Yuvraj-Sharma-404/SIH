@@ -21,6 +21,9 @@ const config: Config = {
           "emerald-light": "#F0FDF4",
         },
       },
+      fontFamily: {
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+      },
     },
   },
   plugins: [],

@@ -87,7 +87,7 @@ export default function SmadhanXLogo({
               </span>
             </h1>
           </div>
-          <p className="text-xs sm:text-[12px] font-semibold text-slate-500 tracking-wider uppercase font-sans">
+          <p className="text-xs sm:text-[13px] font-medium italic text-slate-600 tracking-normal font-sans">
             Grievance Portal
           </p>
         </div>
