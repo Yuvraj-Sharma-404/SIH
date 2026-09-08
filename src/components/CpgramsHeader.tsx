@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import CpgramsQrModal from "./CpgramsQrModal";
 import PensionRedirectModal from "./PensionRedirectModal";
+import SmadhanXLogo from "./SmadhanXLogo";
 
 export default function CpgramsHeader() {
   const [isQrOpen, setIsQrOpen] = useState(false);
@@ -20,18 +21,53 @@ export default function CpgramsHeader() {
   const languages = [
     { code: "en", label: "English" },
     { code: "hi", label: "हिंदी (Hindi)" },
-    { code: "gu", label: "ગુજરાતી (Gujarati)" },
-    { code: "mr", label: "मराठी (Marathi)" },
-    { code: "bn", label: "বাংলা (Bangala)" },
-    { code: "te", label: "తెలుగు (Telugu)" },
-    { code: "ta", label: "தமிழ் (Tamil)" },
-    { code: "kn", label: "ಕನ್ನಡ (Kannada)" },
-    { code: "ml", label: "മലയാളം (Malayalam)" },
-    { code: "pa", label: "ਪੰਜਾਬੀ (Punjabi)" },
-    { code: "ur", label: "اردو (Urdu)" },
-    { code: "as", label: "অসমীয়া (Assamese)" },
-    { code: "or", label: "ଓଡ଼ିଆ (Odia)" },
   ];
+
+  React.useEffect(() => {
+    // Check cookie or localStorage on initial load
+    const match = document.cookie.match(/(?:^|;\s*)googtrans=([^;]+)/);
+    const cookieLang = match ? decodeURIComponent(match[1]) : "";
+    const saved = typeof window !== "undefined" ? localStorage.getItem("cpgrams_lang") : null;
+    if (cookieLang.includes("/hi") || saved === "hi") {
+      setCurrentLang("हिंदी (Hindi)");
+    } else {
+      setCurrentLang("English");
+    }
+  }, []);
+
+  const handleLanguageChange = (code: string, label: string) => {
+    setCurrentLang(label);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cpgrams_lang", code);
+
+      const hostname = window.location.hostname;
+      const cookieVal = `/en/${code}`;
+
+      // Set cookies
+      document.cookie = `googtrans=${cookieVal}; path=/`;
+      document.cookie = `googtrans=${cookieVal}; path=/; domain=${hostname}`;
+      if (hostname !== "localhost" && !hostname.includes("127.0.0.1")) {
+        document.cookie = `googtrans=${cookieVal}; path=/; domain=.${hostname}`;
+      }
+
+      if (code === "en") {
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${hostname}`;
+        if (hostname !== "localhost" && !hostname.includes("127.0.0.1")) {
+          document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${hostname}`;
+        }
+      }
+
+      // Trigger Google Translate combo if present
+      const select = document.querySelector(".goog-te-combo") as HTMLSelectElement | null;
+      if (select) {
+        select.value = code;
+        select.dispatchEvent(new Event("change"));
+      } else {
+        window.location.reload();
+      }
+    }
+  };
 
   return (
     <>
@@ -120,46 +156,14 @@ export default function CpgramsHeader() {
         </div>
       </div>
 
-      {/* 3. Main Government Header with Official Logo, Emblem & Swachh Bharat */}
+      {/* 3. Main Header with SmadhanX Unique Symbol and Branding */}
       <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          {/* CPGRAMS Official Logo */}
-          <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
-            <img
-              src="/Images/iconHome/logo.png"
-              alt="CPGRAMS Official Logo"
-              className="h-14 sm:h-16 w-auto object-contain transition-transform group-hover:scale-105"
-            />
-            <div className="space-y-0.5">
-              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-gov-navy font-serif">
-                CPGRAMS
-              </h1>
-              <p className="text-xs sm:text-sm font-semibold text-slate-700 tracking-tight leading-tight font-serif">
-                Centralized Public Grievance Redress And Monitoring System
-              </p>
-              <p className="text-[10px] text-slate-500 font-devanagari hidden sm:block">
-                केंद्रीकृत लोक शिकायत निवारण और निगरानी प्रणाली
-              </p>
-            </div>
-          </Link>
+          {/* SmadhanX Unique Logo and Name at left-most corner */}
+          <SmadhanXLogo size="md" href="/" />
 
-          {/* Right Header Badges: Swachh Bharat & Official Ashoka Stambh */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            <img
-              src="/Images/swachha.png"
-              alt="Swachh Bharat Logo"
-              className="h-10 sm:h-12 w-auto object-contain hidden md:block"
-            />
-            <div className="hidden sm:flex flex-col items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-200 text-center">
-              <div className="w-8 h-8 rounded-full bg-gov-navy text-white flex flex-col items-center justify-center text-[8px] font-bold font-serif leading-none shadow-sm">
-                <span>सत्यमेव</span>
-                <span>जयते</span>
-              </div>
-              <span className="text-[9px] font-bold text-slate-600 mt-1 uppercase tracking-tighter">
-                DARPG • GOI
-              </span>
-            </div>
-
+          {/* Right Header: Mobile Menu Toggle Button */}
+          <div className="flex items-center">
             {/* Mobile Menu Button */}
             <button
               type="button"
@@ -327,17 +331,20 @@ export default function CpgramsHeader() {
                   <span className="font-bold">{currentLang}</span>
                   <ChevronDown className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute right-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 w-48 max-h-64 overflow-y-auto py-1 animate-fadeIn z-50">
+                <div className="absolute right-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 w-44 py-1.5 animate-fadeIn z-50">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
                       type="button"
-                      onClick={() => setCurrentLang(lang.label)}
-                      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-slate-100 transition ${
+                      onClick={() => handleLanguageChange(lang.code, lang.label)}
+                      className={`w-full text-left px-3.5 py-2 text-xs hover:bg-slate-100 transition flex items-center justify-between ${
                         currentLang === lang.label ? "font-bold text-gov-navy bg-slate-50" : "text-slate-700"
                       }`}
                     >
-                      {lang.label}
+                      <span>{lang.label}</span>
+                      {currentLang === lang.label && (
+                        <span className="w-2 h-2 rounded-full bg-gov-saffron"></span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -357,6 +364,27 @@ export default function CpgramsHeader() {
           {/* Mobile Collapsible Navigation Drawer */}
           {isMobileMenuOpen && (
             <div className="lg:hidden py-4 border-t border-white/10 space-y-2 animate-fadeIn">
+              {/* Mobile Language Selector */}
+              <div className="flex items-center justify-between px-3 py-2 bg-white/10 rounded-lg mb-2">
+                <span className="text-xs text-slate-300">Language / भाषा:</span>
+                <div className="flex gap-1.5">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      type="button"
+                      onClick={() => handleLanguageChange(lang.code, lang.label)}
+                      className={`px-2.5 py-1 rounded text-xs transition ${
+                        currentLang === lang.label
+                          ? "bg-gov-saffron text-white font-bold shadow-sm"
+                          : "bg-white/10 text-slate-200 hover:bg-white/20"
+                      }`}
+                    >
+                      {lang.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
