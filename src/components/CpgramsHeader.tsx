@@ -42,14 +42,7 @@ export default function CpgramsHeader() {
 
   return (
     <>
-      {/* 1. Indian National Tricolor Ribbon */}
-      <div className="h-1.5 w-full flex">
-        <div className="flex-1 bg-[#FF9933]"></div>
-        <div className="flex-1 bg-white"></div>
-        <div className="flex-1 bg-[#138808]"></div>
-      </div>
-
-      {/* 2. Topbar - Government of India & Ministries with Quick Links */}
+      {/* 1. Topbar - Government of India & Ministries with Quick Links */}
       <div className="bg-[#f0f4f8] border-b border-slate-300 text-[11px] text-slate-700 py-1 px-3 sm:px-6">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           {/* Left: Ministry Details */}
@@ -82,52 +75,45 @@ export default function CpgramsHeader() {
                 </div>
                 <Link
                   href="/citizen/report"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>👤</span>
-                  <span>Citizen (Lodge Grievance)</span>
+                  Citizen (Lodge Grievance)
                 </Link>
                 <Link
                   href="/gov/dashboard"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>🏛️</span>
-                  <span>Gov Officer Dashboard</span>
+                  Gov Officer Dashboard
                 </Link>
                 <Link
                   href="/university/challenges"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>🎓</span>
-                  <span>University R&D & Proposals</span>
+                  University R&D & Proposals
                 </Link>
                 <Link
                   href="/industry/explore"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>💼</span>
-                  <span>Corporate CSR Pledges</span>
+                  Corporate CSR Pledges
                 </Link>
                 <Link
                   href="/kiosk"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>📟</span>
-                  <span>Gram Panchayat Kiosk</span>
+                  Gram Panchayat Kiosk
                 </Link>
                 <Link
                   href="/map"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>🗺️</span>
-                  <span>National GIS Spatial Map</span>
+                  National GIS Spatial Map
                 </Link>
                 <Link
                   href="/impact"
-                  className="flex items-center space-x-2 px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  <span>📈</span>
-                  <span>Impact & SLA Metrics</span>
+                  Impact & SLA Metrics
                 </Link>
               </div>
             </div>
@@ -194,62 +180,31 @@ export default function CpgramsHeader() {
         </div>
       </div>
 
-      {/* 3. Main Government Header with Official Logo, Emblem & Swachh Bharat */}
-      <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          {/* CPGRAMS Official Logo */}
-          <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
-            <img
-              src="/Images/iconHome/logo.png"
-              alt="CPGRAMS Official Logo"
-              className="h-14 sm:h-16 w-auto object-contain transition-transform group-hover:scale-105"
-            />
-            <div className="space-y-0.5">
-              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-gov-navy font-serif">
-                CPGRAMS
-              </h1>
-              <p className="text-xs sm:text-sm font-semibold text-slate-700 tracking-tight leading-tight font-serif">
-                Centralized Public Grievance Redress And Monitoring System
-              </p>
-              <p className="text-[10px] text-slate-500 font-devanagari hidden sm:block">
-                केंद्रीकृत लोक शिकायत निवारण और निगरानी प्रणाली
-              </p>
-            </div>
-          </Link>
+      {/* 2. Main CPGRAMS Dark Navbar with Sticky Top & Tricolor Ribbon */}
+      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-0 z-40">
+        {/* Indian National Tricolor Ribbon */}
+        <div className="h-1.5 w-full flex">
+          <div className="flex-1 bg-[#FF9933]"></div>
+          <div className="flex-1 bg-white"></div>
+          <div className="flex-1 bg-[#138808]"></div>
+        </div>
 
-          {/* Right Header Badges: Swachh Bharat & Official Ashoka Stambh */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            <img
-              src="/Images/swachha.png"
-              alt="Swachh Bharat Logo"
-              className="h-10 sm:h-12 w-auto object-contain hidden md:block"
-            />
-            <div className="hidden sm:flex flex-col items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-200 text-center">
-              <div className="w-8 h-8 rounded-full bg-gov-navy text-white flex flex-col items-center justify-center text-[8px] font-bold font-serif leading-none shadow-sm">
-                <span>सत्यमेव</span>
-                <span>जयते</span>
-              </div>
-              <span className="text-[9px] font-bold text-slate-600 mt-1 uppercase tracking-tighter">
-                DARPG • GOI
-              </span>
-            </div>
-
-            {/* Mobile Menu Button */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Mobile Header Bar */}
+          <div className="lg:hidden flex items-center justify-between h-12">
+            <Link href="/" className="font-extrabold text-sm tracking-wide text-white">
+              CPGRAMS
+            </Link>
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-gov-navy text-white hover:bg-gov-navy-dark transition"
+              className="p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20 transition"
               aria-label="Toggle navigation menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
-        </div>
-      </div>
 
-      {/* 4. Main CPGRAMS Dark Navbar with Official Dropdowns & Icons */}
-      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="hidden lg:flex items-center justify-between h-12">
             {/* Left Nav Menu Items */}
             <div className="flex items-center space-x-1">
@@ -384,37 +339,37 @@ export default function CpgramsHeader() {
                     href="/university/challenges"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
-                    🎓 University R&D & Proposals
+                    University R&D & Proposals
                   </Link>
                   <Link
                     href="/industry/explore"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
-                    💼 Corporate CSR Co-Funding
+                    Corporate CSR Co-Funding
                   </Link>
                   <Link
                     href="/gov/dashboard"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
-                    🏛️ Nodal Officer Verification
+                    Nodal Officer Verification
                   </Link>
                   <Link
                     href="/map"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
-                    🗺️ GIS Spatial Cluster Map
+                    GIS Spatial Cluster Map
                   </Link>
                   <Link
                     href="/impact"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
-                    📈 Resolution & SLA Metrics
+                    Resolution & SLA Metrics
                   </Link>
                   <Link
                     href="/kiosk"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
-                    📟 Offline Kiosk Hardware Mode
+                    Offline Kiosk Hardware Mode
                   </Link>
                 </div>
               </div>
@@ -538,42 +493,42 @@ export default function CpgramsHeader() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs"
                 >
-                  🎓 University R&D & Proposals
+                  University R&D & Proposals
                 </Link>
                 <Link
                   href="/industry/explore"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs"
                 >
-                  💼 Corporate CSR Co-Funding
+                  Corporate CSR Co-Funding
                 </Link>
                 <Link
                   href="/gov/dashboard"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs"
                 >
-                  🏛️ Gov Nodal Verification
+                  Gov Nodal Verification
                 </Link>
                 <Link
                   href="/map"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs"
                 >
-                  🗺️ National GIS Spatial Map
+                  National GIS Spatial Map
                 </Link>
                 <Link
                   href="/impact"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs"
                 >
-                  📈 Impact & SLA Metrics
+                  Impact & SLA Metrics
                 </Link>
                 <Link
                   href="/kiosk"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs"
                 >
-                  📟 Offline Kiosk Hardware Mode
+                  Offline Kiosk Hardware Mode
                 </Link>
               </div>
               <div className="pt-2 border-t border-white/10 flex gap-2">

@@ -5,8 +5,10 @@ import {
   AlertCircle,
   Info,
   PhoneCall,
+  UserPlus,
+  ClipboardList,
+  Headphones,
 } from "lucide-react";
-import CpgramsBannerCarousel from "@/components/CpgramsBannerCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -20,9 +22,6 @@ export default function HomePage() {
           Any Grievance sent by email will not be attended to / entertained. Please lodge your grievance on this portal.
         </span>
       </div>
-
-      {/* 2. Official CPGRAMS Hero Banner Carousel */}
-      <CpgramsBannerCarousel />
 
       {/* 3. Quick Grievance Tracking / Search Strip */}
       <div className="gov-card p-4 sm:p-6 gov-border-t-navy bg-white">
@@ -176,7 +175,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 5. Official CPGRAMS 3 Core Scraped Action Boxes */}
+      {/* 4. Action Quick Access Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Box 1: Register / Login */}
         <Link
@@ -184,12 +183,10 @@ export default function HomePage() {
           className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
           style={{ background: "#80c8ea" }}
         >
-          <div className="space-y-2 flex flex-col items-center">
-            <img
-              src="/Images/iconHome/register.png"
-              alt="Register / Login"
-              className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
-            />
+          <div className="space-y-3 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
+              <UserPlus className="w-8 h-8 text-gov-navy" />
+            </div>
             <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
               Register / Login
             </h3>
@@ -205,12 +202,10 @@ export default function HomePage() {
           className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
           style={{ background: "#e28faa" }}
         >
-          <div className="space-y-2 flex flex-col items-center">
-            <img
-              src="/Images/iconHome/status.png"
-              alt="View Status"
-              className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
-            />
+          <div className="space-y-3 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
+              <ClipboardList className="w-8 h-8 text-gov-navy" />
+            </div>
             <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
               View Status
             </h3>
@@ -226,12 +221,10 @@ export default function HomePage() {
           className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
           style={{ background: "#f3cf9b" }}
         >
-          <div className="space-y-2 flex flex-col items-center">
-            <img
-              src="/Images/iconHome/contact.png"
-              alt="Contact Us"
-              className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
-            />
+          <div className="space-y-3 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
+              <Headphones className="w-8 h-8 text-gov-navy" />
+            </div>
             <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
               Contact Us
             </h3>
