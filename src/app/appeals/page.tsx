@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ArrowRight, FileCheck, HelpCircle, Scale, Shield, UserCheck } from "lucide-react";
 
 export const metadata = {
-  title: "Nodal Authority for Appeal | CPGRAMS",
-  description: "Guidelines and appellate mechanism under CPGRAMS for unsatisfied grievance redressals.",
+  title: "Nodal Authority for Appeal | SmadhanX",
+  description: "Guidelines and appellate mechanism under SmadhanX for unsatisfied grievance redressals.",
 };
 
 export default function AppealsPage() {
