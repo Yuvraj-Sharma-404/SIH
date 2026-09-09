@@ -105,7 +105,7 @@ export default function SmadhanXQrModal({ isOpen, onClose }: SmadhanXQrModalProp
 
         {/* Modal Footer */}
         <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
-          <span>Official App by NIC & DARPG</span>
+          <span>Mobile Companion App • SmadhanX</span>
           <button
             type="button"
             onClick={onClose}

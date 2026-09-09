@@ -18,6 +18,12 @@ import {
   Video,
   Music,
   Globe,
+  X,
+  Phone,
+  User,
+  Building,
+  Tag,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -34,22 +40,29 @@ export default function CitizenReportPage() {
   const [category, setCategory] = useState("");
   const [latitude, setLatitude] = useState<number | null>(20.7453);
   const [longitude, setLongitude] = useState<number | null>(78.6022);
-  const [address, setAddress] = useState("Wardha, Maharashtra");
+  const [address, setAddress] = useState("");
   const [evidenceType, setEvidenceType] = useState<"IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO">("IMAGE");
   const [evidenceUrl, setEvidenceUrl] = useState(
     "https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80"
   );
 
-  // Audio Recording State with Multilingual Simulation (PRD FR-06)
-  const [voiceLang, setVoiceLang] = useState<"en" | "hi" | "mr">("en");
+  // Audio Recording State with Multilingual Simulation (PRD FR-06: English & Hindi)
+  const [voiceLang, setVoiceLang] = useState<"en" | "hi">("en");
   const [isRecording, setIsRecording] = useState(false);
   const [audioTranscript, setAudioTranscript] = useState("");
+
+  // Validation State
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [validationErrorBanner, setValidationErrorBanner] = useState<string | null>(null);
+
+  // Confirmation Modal State
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   // Loading & Submission State
   const [loading, setLoading] = useState(false);
   const [submittedResult, setSubmittedResult] = useState<any | null>(null);
 
-  // Voice recording simulation (Supports English, Hindi, and Marathi)
+  // Voice recording simulation (Supports English & Hindi)
   const toggleRecording = () => {
     if (!isRecording) {
       setIsRecording(true);
@@ -62,10 +75,6 @@ export default function CitizenReportPage() {
           sampleAudio =
             "वर्धा और सेवाग्राम को जोड़ने वाले मुख्य पुल के पिलर नंबर 3 में गहरी दरारें आ गई हैं। नदी के पानी से नीचे की नींव कट रही है और स्कूल बसें निकलते समय पुल कांपता है।";
           sampleTitle = "धाम नदी पुल के पिलर में गंभीर दरारें और कंपन";
-        } else if (voiceLang === "mr") {
-          sampleAudio =
-            "वर्धा आणि सेवाग्रामला जोडणाऱ्या मुख्य पुलाच्या खांब क्रमांक ३ ला मोठी उभी भेग पडली आहे. पायाची तीव्र झीज झाली असून बसेस जाताना पूल प्रचंड थरथर कापतो.";
-          sampleTitle = "धाम नदी पुलाच्या खांबाला गंभीर तडे व कंपन";
         } else {
           sampleAudio =
             "The main bridge connecting Wardha and Sevagram has severe vertical cracks on pier number 3. Water scour has eroded the foundation. School buses shake heavily during crossing.";
@@ -73,14 +82,29 @@ export default function CitizenReportPage() {
         }
 
         setAudioTranscript(sampleAudio);
-        if (!title) setTitle(sampleTitle);
-        if (!description) setDescription(sampleAudio);
+        if (!title.trim()) {
+          setTitle(sampleTitle);
+          setErrors((prev) => {
+            const next = { ...prev };
+            delete next.title;
+            return next;
+          });
+        }
+        if (!description.trim()) {
+          setDescription(sampleAudio);
+          setErrors((prev) => {
+            const next = { ...prev };
+            delete next.description;
+            return next;
+          });
+        }
       }, 3000);
     } else {
       setIsRecording(false);
     }
   };
 
+<<<<<<< Updated upstream
   // Quick Demo Presets
   const loadScenario = (type: string) => {
     if (type === "bridge") {
@@ -113,12 +137,56 @@ export default function CitizenReportPage() {
       setAddress("Central Bus Station, Wardha");
       setEvidenceType("IMAGE");
       setEvidenceUrl("https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80");
+=======
+  // Helper to validate all required fields
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!title.trim()) {
+      newErrors.title = "Grievance Title / Subject is required.";
+>>>>>>> Stashed changes
     }
+
+    const effectiveDesc = description.trim() || audioTranscript.trim();
+    if (!effectiveDesc) {
+      newErrors.description = "Description of the issue is required (or record a voice note).";
+    }
+
+    if (!address.trim()) {
+      newErrors.address = "Location / Village / District Landmark is required (or click GPS).";
+    }
+
+    const cleanPhone = reporterPhone.trim().replace(/[\s-]/g, "");
+    if (!cleanPhone) {
+      newErrors.reporterPhone = "Mobile number is required for SMS tracking updates.";
+    } else if (!/^[6-9]\d{9}$/.test(cleanPhone) && !/^\d{10}$/.test(cleanPhone)) {
+      newErrors.reporterPhone = "Please enter a valid 10-digit mobile number (e.g., 9823012345).";
+    }
+
+    return newErrors;
   };
 
-  // Submit to Pipeline
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Step 1: Citizen initiates form submission -> run validation & trigger confirmation modal
+  const handleInitiateSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      setValidationErrorBanner("Please complete all required fields before submitting your grievance.");
+      // Scroll to first error smoothly
+      window.scrollTo({ top: 180, behavior: "smooth" });
+      return;
+    }
+
+    // Clear any previous error states and open confirmation popup
+    setErrors({});
+    setValidationErrorBanner(null);
+    setShowConfirmModal(true);
+  };
+
+  // Step 2: Citizen confirms in modal -> execute final submission
+  const handleFinalSubmit = async () => {
     setLoading(true);
 
     const finalTitle = title.trim() || (audioTranscript ? `Voice Grievance (${voiceLang.toUpperCase()})` : "Civic Grievance Report");
@@ -137,19 +205,20 @@ export default function CitizenReportPage() {
           longitude,
           address: address.trim() || undefined,
           evidenceType,
-          evidenceUrl,
+          evidenceUrl: evidenceUrl.trim() || undefined,
         }),
       });
 
       const data = await res.json();
       if (data.success) {
+        setShowConfirmModal(false);
         setSubmittedResult(data);
       } else {
-        alert(data.error || "Submission failed");
+        alert(data.error || "Submission failed. Please try again.");
       }
     } catch (err) {
       console.error(err);
-      alert("Error submitting complaint");
+      alert("Error submitting complaint. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -170,41 +239,23 @@ export default function CitizenReportPage() {
         </p>
       </div>
 
-      {/* Visually Separated Hackathon / Testing Demo Panel */}
-      <div className="p-4 rounded-xl bg-amber-50/80 border border-amber-300 text-amber-950 space-y-2 text-xs">
-        <div className="flex items-center space-x-2">
-          <span className="px-2 py-0.5 rounded bg-amber-200 text-amber-900 font-bold uppercase text-[10px]">
-            Demo & Testing Controls
-          </span>
-          <span className="text-slate-600 font-medium">Quickly load realistic test cases for evaluation:</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => loadScenario("bridge")}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-amber-100 border border-amber-300 text-gov-navy font-semibold shadow-sm transition"
-          >
-            🌉 Dham River Bridge Cracks
-          </button>
-          <button
-            type="button"
-            onClick={() => loadScenario("water")}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-amber-100 border border-amber-300 text-gov-navy font-semibold shadow-sm transition"
-          >
-            🚰 Turbid Water in Ward 4
-          </button>
-          <button
-            type="button"
-            onClick={() => loadScenario("electric")}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-amber-100 border border-amber-300 text-gov-navy font-semibold shadow-sm transition"
-          >
-            ⚡ Open 11kV Transformer
-          </button>
-        </div>
-      </div>
-
       {!submittedResult ? (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleInitiateSubmit} noValidate className="space-y-6">
+          {/* Validation Error Banner */}
+          {validationErrorBanner && (
+            <div className="p-4 rounded-xl bg-red-50 border border-red-300 text-red-900 space-y-1.5 text-xs animate-in fade-in duration-200">
+              <div className="flex items-center space-x-2 font-bold text-red-800">
+                <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0" />
+                <span>{validationErrorBanner}</span>
+              </div>
+              <ul className="list-disc list-inside text-[11px] text-red-700 pl-6 space-y-0.5">
+                {Object.values(errors).map((err, idx) => (
+                  <li key={idx}>{err}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Submission Mode Selector (Accessible / Low Digital Literacy Mode) */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs gap-2 sm:gap-3">
             <span className="font-bold text-slate-800">Submission Method:</span>
@@ -252,8 +303,8 @@ export default function CitizenReportPage() {
                   <button
                     type="button"
                     onClick={() => setVoiceLang("en")}
-                    className={`px-2 py-1 rounded font-medium transition ${
-                      voiceLang === "en" ? "bg-gov-navy text-white" : "text-slate-600 hover:text-slate-900"
+                    className={`px-3 py-1 rounded font-medium transition ${
+                      voiceLang === "en" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     English
@@ -261,20 +312,11 @@ export default function CitizenReportPage() {
                   <button
                     type="button"
                     onClick={() => setVoiceLang("hi")}
-                    className={`px-2 py-1 rounded font-medium transition font-devanagari ${
-                      voiceLang === "hi" ? "bg-gov-navy text-white" : "text-slate-600 hover:text-slate-900"
+                    className={`px-3 py-1 rounded font-medium transition font-devanagari ${
+                      voiceLang === "hi" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     हिंदी
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setVoiceLang("mr")}
-                    className={`px-2 py-1 rounded font-medium transition font-devanagari ${
-                      voiceLang === "mr" ? "bg-gov-navy text-white" : "text-slate-600 hover:text-slate-900"
-                    }`}
-                  >
-                    मराठी
                   </button>
                 </div>
 
@@ -315,18 +357,37 @@ export default function CitizenReportPage() {
 
           {/* Core Grievance Fields */}
           <div className="gov-card p-6 bg-white border border-slate-200 space-y-4">
+            {/* Title / Subject (Mandatory) */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
-                Grievance Title / Subject {submissionMode === "DETAILED" && "*"}
+                Grievance Title / Subject <span className="text-red-500 font-bold">*</span>
               </label>
               <input
                 type="text"
-                required={submissionMode === "DETAILED"}
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Critical Pier Crack on Dham River Bridge (Optional in Quick mode)"
-                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy font-medium"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  if (errors.title) {
+                    setErrors((prev) => {
+                      const next = { ...prev };
+                      delete next.title;
+                      return next;
+                    });
+                  }
+                }}
+                placeholder="e.g. Critical Pier Crack on Dham River Bridge"
+                className={`w-full px-3.5 py-2.5 rounded-lg border text-xs font-medium focus:outline-none transition ${
+                  errors.title
+                    ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
+                    : "border-slate-300 focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+                }`}
               />
+              {errors.title && (
+                <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                  <span>{errors.title}</span>
+                </p>
+              )}
             </div>
 
             {submissionMode === "DETAILED" && (
@@ -368,47 +429,103 @@ export default function CitizenReportPage() {
               </div>
             )}
 
+            {/* Description (Mandatory) */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
-                Description of the Issue & Impact {submissionMode === "DETAILED" && "*"}
+                Description of the Issue & Impact <span className="text-red-500 font-bold">*</span>
               </label>
               <textarea
-                required={submissionMode === "DETAILED"}
-                rows={submissionMode === "QUICK" ? 2 : 4}
+                rows={submissionMode === "QUICK" ? 3 : 4}
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe the issue or record a voice note above..."
-                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  if (errors.description) {
+                    setErrors((prev) => {
+                      const next = { ...prev };
+                      delete next.description;
+                      return next;
+                    });
+                  }
+                }}
+                placeholder="Describe the issue in detail or record a voice note above..."
+                className={`w-full px-3.5 py-2.5 rounded-lg border text-xs focus:outline-none transition ${
+                  errors.description
+                    ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
+                    : "border-slate-300 focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+                }`}
               />
+              {errors.description && (
+                <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                  <span>{errors.description}</span>
+                </p>
+              )}
             </div>
 
             {/* Location & Evidence Photo */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+              {/* Location (Mandatory) */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Location / Village / District Landmark
+                  Location / Village / District Landmark <span className="text-red-500 font-bold">*</span>
                 </label>
                 <div className="flex space-x-1.5">
                   <input
                     type="text"
                     value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                      if (errors.address) {
+                        setErrors((prev) => {
+                          const next = { ...prev };
+                          delete next.address;
+                          return next;
+                        });
+                      }
+                    }}
+                    placeholder="e.g. Wardha, Maharashtra or use GPS"
+                    className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition ${
+                      errors.address
+                        ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
+                        : "border-slate-300 focus:border-gov-navy"
+                    }`}
                   />
                   <button
                     type="button"
-                    onClick={() => setAddress("Wardha, Maharashtra (GPS Detected)")}
-                    className="px-2.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-[11px] font-semibold text-slate-700 flex items-center space-x-1 whitespace-nowrap"
+                    onClick={() => {
+                      setAddress("Wardha, Maharashtra (GPS Detected)");
+                      setLatitude(20.7453);
+                      setLongitude(78.6022);
+                      if (errors.address) {
+                        setErrors((prev) => {
+                          const next = { ...prev };
+                          delete next.address;
+                          return next;
+                        });
+                      }
+                    }}
+                    className="px-2.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-[11px] font-semibold text-slate-700 flex items-center space-x-1 whitespace-nowrap transition"
                   >
                     <MapPin className="w-3.5 h-3.5 text-gov-navy" />
                     <span>GPS</span>
                   </button>
                 </div>
+                {errors.address && (
+                  <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                    <span>{errors.address}</span>
+                  </p>
+                )}
               </div>
 
+              {/* Evidence Media Attachment (Optional) */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
+<<<<<<< Updated upstream
                   Evidence Media Attachment (Photos, Videos, Documents)
+=======
+                  Evidence Media Attachment (Optional)
+>>>>>>> Stashed changes
                 </label>
                 <div className="flex items-center space-x-1 mb-2">
                   <button
@@ -468,7 +585,7 @@ export default function CitizenReportPage() {
                   type="text"
                   value={evidenceUrl}
                   onChange={(e) => setEvidenceUrl(e.target.value)}
-                  placeholder="https://... URL or file path"
+                  placeholder="https://... URL or file path (Optional)"
                   className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy font-mono"
                 />
               </div>
@@ -489,17 +606,38 @@ export default function CitizenReportPage() {
                 />
               </div>
 
+              {/* Mobile Number (Mandatory) */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Mobile Number (For SMS Tracking Updates)
+                  Mobile Number (For SMS Tracking Updates) <span className="text-red-500 font-bold">*</span>
                 </label>
                 <input
                   type="tel"
                   value={reporterPhone}
-                  onChange={(e) => setReporterPhone(e.target.value)}
+                  onChange={(e) => {
+                    setReporterPhone(e.target.value);
+                    if (errors.reporterPhone) {
+                      setErrors((prev) => {
+                        const next = { ...prev };
+                        delete next.reporterPhone;
+                        return next;
+                      });
+                    }
+                  }}
                   placeholder="9823012345"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy font-mono"
+                  maxLength={10}
+                  className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none font-mono transition ${
+                    errors.reporterPhone
+                      ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
+                      : "border-slate-300 focus:border-gov-navy"
+                  }`}
                 />
+                {errors.reporterPhone && (
+                  <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 flex-shrink-0" />
+                    <span>{errors.reporterPhone}</span>
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -507,20 +645,10 @@ export default function CitizenReportPage() {
           {/* Submit CTA */}
           <button
             type="submit"
-            disabled={loading}
             className="w-full py-3.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2"
           >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Submitting & AI Ingesting Grievance...</span>
-              </>
-            ) : (
-              <>
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Submit Grievance to National Portal</span>
-              </>
-            )}
+            <CheckCircle2 className="w-4 h-4" />
+            <span>Submit Grievance to National Portal</span>
           </button>
         </form>
       ) : (
@@ -546,7 +674,7 @@ export default function CitizenReportPage() {
                 Registration / Complaint ID
               </span>
               <p className="text-lg font-mono font-extrabold text-gov-navy">
-                {submittedResult.data.publicProblemId}
+                {submittedResult.data?.publicProblemId || submittedResult.data?.id}
               </p>
             </div>
           </div>
@@ -554,19 +682,23 @@ export default function CitizenReportPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Category</span>
-              <p className="font-bold text-slate-900 mt-0.5">{submittedResult.data.category}</p>
+              <p className="font-bold text-slate-900 mt-0.5">{submittedResult.data?.category || "Infrastructure"}</p>
             </div>
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Priority Index</span>
-              <p className="font-bold text-gov-saffron font-mono mt-0.5">{submittedResult.data.priorityScore} / 100</p>
+              <p className="font-bold text-gov-saffron font-mono mt-0.5">
+                {submittedResult.data?.priorityScore || 85} / 100
+              </p>
             </div>
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Status</span>
-              <p className="font-bold text-blue-800 font-mono mt-0.5">{submittedResult.data.status}</p>
+              <p className="font-bold text-blue-800 font-mono mt-0.5">{submittedResult.data?.status || "UNDER_REVIEW"}</p>
             </div>
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Nodal Dept</span>
-              <p className="font-bold text-slate-900 mt-0.5 truncate">{submittedResult.data.departmentName}</p>
+              <p className="font-bold text-slate-900 mt-0.5 truncate">
+                {submittedResult.data?.departmentName || "Public Works Department (PWD)"}
+              </p>
             </div>
           </div>
 
@@ -585,19 +717,200 @@ export default function CitizenReportPage() {
           <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200">
             <button
               type="button"
-              onClick={() => setSubmittedResult(null)}
+              onClick={() => {
+                setSubmittedResult(null);
+                setTitle("");
+                setDescription("");
+                setAudioTranscript("");
+                setReporterName("");
+                setReporterPhone("");
+                setAddress("");
+              }}
               className="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
             >
               Lodge Another Grievance
             </button>
 
             <Link
-              href={`/track?id=${submittedResult.data.publicProblemId}`}
+              href={`/track?id=${submittedResult.data?.publicProblemId || submittedResult.data?.id}`}
               className="px-5 py-2 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm"
             >
               <span>View Full SmadhanX Dossier</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation & Final Verification Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-xl w-full max-h-[90vh] overflow-y-auto flex flex-col">
+            {/* Modal Header */}
+            <div className="p-5 border-b border-slate-200 bg-slate-50/80 flex items-start justify-between rounded-t-2xl">
+              <div className="flex items-start space-x-3">
+                <div className="w-10 h-10 rounded-xl bg-gov-navy text-white flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">
+                  <Shield className="w-5 h-5 text-gov-saffron" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gov-navy font-serif">
+                    Review Your Information
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    Please check your grievance details and credentials carefully before submitting. Once submitted, the information will be sent to the National Portal.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowConfirmModal(false)}
+                disabled={loading}
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/60 transition disabled:opacity-50"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Content / Summary Data */}
+            <div className="p-6 space-y-4 text-xs">
+              <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                {/* Title */}
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
+                    Grievance Subject / Title
+                  </span>
+                  <p className="text-sm font-bold text-gov-navy mt-0.5">{title}</p>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
+                    Problem Description & Impact
+                  </span>
+                  <p className="text-slate-800 mt-0.5 whitespace-pre-wrap leading-relaxed">
+                    {description || audioTranscript}
+                  </p>
+                </div>
+
+                {/* Location & Contact Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                  <div className="flex items-start space-x-2">
+                    <MapPin className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                        Location / Landmark
+                      </span>
+                      <p className="font-semibold text-slate-900">{address}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-2">
+                    <Phone className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                        Contact Mobile (For SMS)
+                      </span>
+                      <p className="font-semibold font-mono text-slate-900">{reporterPhone}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Citizen Name & Method */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                  <div className="flex items-start space-x-2">
+                    <User className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                        Complainant Name
+                      </span>
+                      <p className="font-medium text-slate-700">
+                        {reporterName.trim() ? reporterName : <span className="italic text-slate-400">Anonymous (Optional)</span>}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                      Submission Mode
+                    </span>
+                    <p className="font-medium text-slate-700">
+                      {submissionMode === "QUICK" ? "⚡ 1-Tap Quick Report" : "📝 Full Detailed Form"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Detailed mode extras */}
+                {submissionMode === "DETAILED" && (category || department) && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                    {category && (
+                      <div className="flex items-start space-x-2">
+                        <Tag className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-[10px] uppercase font-bold text-slate-500 block">Category</span>
+                          <p className="font-medium text-slate-700">{category}</p>
+                        </div>
+                      </div>
+                    )}
+                    {department && (
+                      <div className="flex items-start space-x-2">
+                        <Building className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-[10px] uppercase font-bold text-slate-500 block">Department</span>
+                          <p className="font-medium text-slate-700">{department}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Evidence */}
+                {evidenceUrl && (
+                  <div className="pt-2 border-t border-slate-200">
+                    <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                      Evidence Media ({evidenceType})
+                    </span>
+                    <p className="font-mono text-[11px] text-slate-600 truncate mt-0.5">{evidenceUrl}</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-[11px] flex items-center space-x-2">
+                <AlertCircle className="w-4 h-4 text-amber-700 flex-shrink-0" />
+                <span>
+                  By confirming, you certify that the provided information is true to the best of your knowledge and will be dispatched to the national grievance pipeline.
+                </span>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="p-4 border-t border-slate-200 bg-slate-50/80 flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5 rounded-b-2xl">
+              <button
+                type="button"
+                onClick={() => setShowConfirmModal(false)}
+                disabled={loading}
+                className="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition disabled:opacity-50"
+              >
+                Go Back / Edit
+              </button>
+              <button
+                type="button"
+                onClick={handleFinalSubmit}
+                disabled={loading}
+                className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm disabled:opacity-75"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Submitting to National Portal...</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-gov-saffron" />
+                    <span>Confirm & Submit</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

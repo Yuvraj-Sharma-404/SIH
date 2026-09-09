@@ -25,7 +25,7 @@ export default function SmadhanXFooter() {
           }));
         }
       })
-      .catch(() => {});
+      .catch(() => { });
 
     // Live persistent unique visitor counter
     try {
@@ -36,71 +36,65 @@ export default function SmadhanXFooter() {
         sessionStorage.setItem("smadhanx_session_active", "true");
       }
       setStats((prev) => ({ ...prev, visitors: v }));
-    } catch {}
+    } catch { }
   }, []);
+
   return (
     <footer className="bg-[#001c5a] text-white text-xs border-t-4 border-gov-saffron mt-auto">
-      {/* 1. Top Section - Social Media & Department Ownership Notice */}
+      {/* 1. Top Section - Social Media & Student Team Attribution */}
       <div className="border-b border-white/10 py-5 sm:py-6 px-3 sm:px-6">
         <div className="max-w-7xl mx-auto text-center space-y-3 sm:space-y-4">
-          {/* Social Media Links with Official Scraped Icons */}
+          {/* Social Media Links */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">
             <span className="text-[11px] text-slate-300 font-semibold uppercase tracking-wider">
-              Connect With DARPG:
+              Connect With Us:
             </span>
             <a
-              href="https://www.facebook.com/DARPGIndia/"
+              href="https://facebook.com"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 bg-white/10 hover:bg-white/25 rounded-full transition-transform hover:scale-110"
-              title="DARPG on Facebook"
+              title="Facebook"
             >
               <img src="/Images/f.png" alt="Facebook" className="w-5 h-5 object-contain" />
             </a>
             <a
-              href="https://twitter.com/DARPG_GoI"
+              href="https://twitter.com"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 bg-white/10 hover:bg-white/25 rounded-full transition-transform hover:scale-110"
-              title="DARPG on X (Twitter)"
+              title="Twitter / X"
             >
               <img src="/Images/x.png" alt="Twitter / X" className="w-5 h-5 object-contain" />
             </a>
             <a
-              href="https://youtube.com/@darpg5380?si=Z2Va_V5kGY1dX_yb"
+              href="https://youtube.com"
               target="_blank"
               rel="noreferrer"
               className="p-1.5 bg-white/10 hover:bg-white/25 rounded-full transition-transform hover:scale-110"
-              title="DARPG on YouTube"
+              title="YouTube"
             >
               <img src="/Images/yt.png" alt="YouTube" className="w-5 h-5 object-contain" />
             </a>
           </div>
 
-          {/* Official NIC & DARPG Ownership Statement */}
-          <p className="max-w-4xl mx-auto text-slate-300 text-xs sm:text-[13px] leading-relaxed">
-            This portal is designed, developed & hosted by{" "}
-            <span className="font-bold text-white">National Informatics Centre (NIC)</span>, Ministry of
-            Electronics & Information Technology (MeitY), Government of India. Content owned and maintained by{" "}
-            <span className="font-bold text-white">
-              Department of Administrative Reforms & Public Grievances (DARPG)
-            </span>
-            .
-          </p>
+          {/* Team Code Alchemist Attribution */}
+          <div className="max-w-4xl mx-auto space-y-1.5">
+            <p className="text-slate-200 text-xs sm:text-[13px] leading-relaxed">
+              This platform is designed, developed &amp; maintained by{" "}
+              <span className="font-bold text-white">Team, Code Alchemist</span>, a student innovation team
+              participating in <span className="font-semibold text-amber-300">Smart India Hackathon 2026</span>.
+            </p>
+            <p className="text-slate-300 text-[11px] sm:text-xs leading-relaxed">
+              Our platform empowers citizens, universities and industry partners to collaboratively identify, solve and track real-world societal challenges.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* 2. Middle Section - Browser Compatibility */}
-      <div className="bg-[#00133d] py-3 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-[11px] text-[#f3f19c]">
-            Portal is compatible with all major browsers like Google Chrome, Mozilla Firefox, Microsoft Edge, Safari etc. Best viewed in 1440 x 900 resolution.
-          </p>
-        </div>
-      </div>
 
-      {/* 3. Bottom Section - Official Policies, Version & Visitor Statistics */}
-      <div className="bg-[#000d2b] py-4 px-3 sm:px-6 border-t border-white/10">
+      {/* 3. Bottom Section - Policies, Statistics & Project Attribution */}
+      <div className="bg-[#000d2b] py-3.5 px-3 sm:px-6 border-t border-white/10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-300 gap-3 text-center">
           {/* Policy Links */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
@@ -112,23 +106,14 @@ export default function SmadhanXFooter() {
               Website Policies
             </Link>
             <span className="text-slate-600">•</span>
-            <a
-              href="https://darpg.gov.in/en/web-information-manager"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-amber-300 transition hover:underline"
-            >
-              Web Information Manager
-            </a>
-            <span className="text-slate-600">•</span>
             <Link href="/contact" className="hover:text-amber-300 transition hover:underline">
-              Helpdesk & Support
+              Helpdesk &amp; Support
             </Link>
           </div>
 
           {/* Version & Real Stats */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-slate-400">
-            <span>Version {stats.version}, Copyright © 2026 SmadhanX</span>
+            <span>Version {stats.version}</span>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span>Last Updated On: {stats.lastUpdated}</span>
             <span className="hidden sm:inline text-slate-600">•</span>
@@ -146,6 +131,13 @@ export default function SmadhanXFooter() {
               </span>
             </div>
           </div>
+        </div>
+
+        {/* Bottom Team Code Alchemist Copyright & Event Notice */}
+        <div className="mt-2.5 pt-2.5 border-t border-white/5 text-center">
+          <p className="text-[11px] text-slate-400 font-medium tracking-wide">
+            © 2026 Team Code Alchemist • Smart India Hackathon 2026 • Student Innovation Project
+          </p>
         </div>
       </div>
     </footer>
