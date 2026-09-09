@@ -3,12 +3,12 @@
 import React from "react";
 import { X } from "lucide-react";
 
-interface CpgramsQrModalProps {
+interface SmadhanXQrModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function CpgramsQrModal({ isOpen, onClose }: CpgramsQrModalProps) {
+export default function SmadhanXQrModal({ isOpen, onClose }: SmadhanXQrModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -56,7 +56,7 @@ export default function CpgramsQrModal({ isOpen, onClose }: CpgramsQrModalProps)
             <div className="text-center sm:text-left space-y-2">
               <div>
                 <span className="text-xs font-bold text-slate-800">Android Smartphone</span>
-                <p className="text-[11px] text-slate-500">MyGrievance / CPGRAMS App</p>
+                <p className="text-[11px] text-slate-500">SmadhanX Mobile Redressal App</p>
               </div>
               <a
                 href="https://play.google.com/store/apps/details?id=nic.org.mygrievance&pcampaignid=web_share"
@@ -78,15 +78,14 @@ export default function CpgramsQrModal({ isOpen, onClose }: CpgramsQrModalProps)
           {/* iOS App Store */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-gov-navy/30 transition">
             <img
-              src="/Images/iosAppStore_myGrievance.png"
-              alt="CPGRAMS Apple App Store QR Code"
-              className="w-28 h-28 object-contain border border-slate-300 rounded-lg p-1 bg-white shadow-sm"
-              title="Scan QR to download iOS app"
+              src="/Images/appleStore.png"
+              alt="Scan QR for iOS App"
+              className="w-24 h-24 object-contain p-1 bg-white rounded-lg border border-slate-200"
             />
             <div className="text-center sm:text-left space-y-2">
               <div>
                 <span className="text-xs font-bold text-slate-800">Apple iPhone / iPad</span>
-                <p className="text-[11px] text-slate-500">CPGRAMS iOS Application</p>
+                <p className="text-[11px] text-slate-500">SmadhanX iOS Application</p>
               </div>
               <a
                 href="https://apps.apple.com/in/app/cpgrams/id6746528698"

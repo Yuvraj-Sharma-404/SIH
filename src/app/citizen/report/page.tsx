@@ -102,7 +102,7 @@ export default function CitizenReportPage() {
       setDepartment("Jal Jeevan Mission / Water Supply Board");
       setAddress("Zilla Parishad School Ward 4, Wardha");
       setEvidenceType("DOCUMENT");
-      setEvidenceUrl("https://cpgrams.gov.in/docs/Ward4_Water_Lab_Report.pdf");
+      setEvidenceUrl("https://smadhanx.gov.in/docs/Ward4_Water_Lab_Report.pdf");
     } else if (type === "electric") {
       setTitle("Open Sparking 11kV Transformer Next to Bus Stand");
       setDescription(
@@ -240,7 +240,7 @@ export default function CitizenReportPage() {
               <div>
                 <p className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
                   <Mic className="w-4 h-4 text-gov-saffron" />
-                  <span>Assisted Voice Input (Low-Literacy Friendly - PRD FR-06)</span>
+                  <span>Assisted Voice Input (बोलकर शिकायत दर्ज करें)</span>
                 </p>
                 <p className="text-[11px] text-slate-500">
                   Select your preferred language and speak. Audio is transcribed automatically into the complaint form.
@@ -408,7 +408,7 @@ export default function CitizenReportPage() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Evidence Media Attachment (PRD FR-03 / TRD Section 6)
+                  Evidence Media Attachment (Photos, Videos, Documents)
                 </label>
                 <div className="flex items-center space-x-1 mb-2">
                   <button
@@ -441,7 +441,7 @@ export default function CitizenReportPage() {
                     type="button"
                     onClick={() => {
                       setEvidenceType("DOCUMENT");
-                      setEvidenceUrl("https://cpgrams.gov.in/docs/Wardha_PWD_Structural_Inspection_Report.pdf");
+                      setEvidenceUrl("https://smadhanx.gov.in/docs/Wardha_PWD_Structural_Inspection_Report.pdf");
                     }}
                     className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
                       evidenceType === "DOCUMENT" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -454,7 +454,7 @@ export default function CitizenReportPage() {
                     type="button"
                     onClick={() => {
                       setEvidenceType("AUDIO");
-                      setEvidenceUrl("https://cpgrams.gov.in/audio/citizen_voice_complaint_0912.mp3");
+                      setEvidenceUrl("https://smadhanx.gov.in/audio/citizen_voice_complaint_0912.mp3");
                     }}
                     className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
                       evidenceType === "AUDIO" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"

@@ -5,22 +5,41 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
 }
 
 model User {
-  id           String    @id @default(uuid())
-  email        String    @unique
-  phone        String?
-  name         String
-  role         String    @default("CITIZEN") // CITIZEN, GOVERNMENT_OFFICIAL, UNIVERSITY_MEMBER, INDUSTRY_PARTNER, ADMIN
-  organization String?
-  designation  String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id                    String     @id @default(uuid())
+  email                 String     @unique
+  phone                 String?
+  name                  String
+  role                  String     @default("CITIZEN") // CITIZEN, GOVERNMENT_OFFICIAL, UNIVERSITY_MEMBER, INDUSTRY_PARTNER, ADMIN
+  status                String     @default("VERIFIED") // VERIFIED, PENDING_OTP, VERIFICATION_PENDING, REJECTED
+  passwordHash          String?
+  verificationCode      String?
+  verificationExpiresAt DateTime?
+  department            String?
+  organization          String?
+  designation           String?
+  profileData           String?    // JSON stringified role-specific metadata
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
 
-  problems     Problem[] @relation("CitizenProblems")
-  feedback     Feedback[]
+  roles                 UserRole[]
+  problems              Problem[]  @relation("CitizenProblems")
+  feedback              Feedback[]
 }
+
+model UserRole {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        String   // CITIZEN, GOVERNMENT_OFFICIAL, UNIVERSITY_MEMBER, INDUSTRY_PARTNER, ADMIN
+  permissions String   @default("[]") // JSON stringified array of permission keys
+  status      String   @default("ACTIVE") // ACTIVE, PENDING_CLEARANCE, SUSPENDED
+  createdAt   DateTime @default(now())
+}
+
 
 model Problem {
   id                String    @id @default(uuid())

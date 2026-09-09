@@ -203,7 +203,7 @@ export default function UniversityChallengesPage() {
                 University & Researcher Collaboration Hub
               </h1>
               <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
-                PRD FR-11 & TRD Section 10 Aligned
+                National Innovation Network
               </span>
             </div>
             <p className="text-xs text-slate-600 mt-1">
@@ -322,7 +322,7 @@ export default function UniversityChallengesPage() {
                         Submitted Proposals ({proposals.length})
                       </h4>
                       <span className="text-[11px] text-slate-500 font-mono">
-                        TRD 6-Factor Evaluated
+                        6-Factor Evaluated
                       </span>
                     </div>
 
@@ -656,7 +656,7 @@ export default function UniversityChallengesPage() {
               <div className="flex items-center space-x-2">
                 <Award className="w-5 h-5 text-gov-navy" />
                 <h3 className="text-base font-bold text-gov-navy font-serif">
-                  Evaluate Proposal (TRD Section 11 Weighted Scoring)
+                  Evaluate Proposal (Weighted Scoring)
                 </h3>
               </div>
               <button

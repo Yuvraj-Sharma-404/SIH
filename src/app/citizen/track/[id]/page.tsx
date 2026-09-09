@@ -136,7 +136,7 @@ export default function CitizenTrackDynamicPage() {
           <span>Back to Complaint Search</span>
         </Link>
         <span className="text-xs font-mono text-slate-500">
-          SmadhanX Lifecycle Engine • PRD FR-17 Aligned
+          SmadhanX Grievance Redressal Lifecycle
         </span>
       </div>
 
@@ -292,7 +292,7 @@ export default function CitizenTrackDynamicPage() {
               <div className="flex items-center space-x-2 text-gov-emerald">
                 <ShieldCheck className="w-5 h-5" />
                 <h3 className="text-base font-bold text-gov-navy font-serif">
-                  Citizen Feedback & Resolution Confirmation (PRD FR-17)
+                  Citizen Feedback & Resolution Confirmation
                 </h3>
               </div>
 

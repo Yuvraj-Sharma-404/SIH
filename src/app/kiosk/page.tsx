@@ -97,7 +97,7 @@ export default function KioskSimulatorPage() {
                 Assisted Citizen Kiosk & Hardware Simulator
               </h1>
               <span className="text-[10px] uppercase font-mono px-2.5 py-0.5 rounded bg-orange-50 text-orange-900 font-bold border border-orange-200">
-                PRD FR-03 & TRD Section 24 Aligned
+                Gram Panchayat Kiosk Network
               </span>
             </div>
             <p className="text-xs text-slate-600 mt-1">

@@ -64,7 +64,7 @@ const banners: BannerSlide[] = [
   },
 ];
 
-export default function CpgramsBannerCarousel() {
+export default function SmadhanXBannerCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 

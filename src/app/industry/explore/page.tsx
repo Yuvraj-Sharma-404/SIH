@@ -263,7 +263,7 @@ export default function IndustryPortal() {
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Pledge Category (PRD FR-12)
+                    Pledge Category
                   </label>
                   <select
                     value={pledgeType}

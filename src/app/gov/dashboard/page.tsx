@@ -877,7 +877,7 @@ export default function GovernmentDashboardPage() {
               <div className="flex items-center space-x-2 text-gov-navy">
                 <TrendingUp className="w-5 h-5" />
                 <h3 className="text-base font-bold text-gov-navy font-serif">
-                  Human Priority Override (TRD Section 8 Audited)
+                  Official Priority Calibration
                 </h3>
               </div>
               <button onClick={() => setOverrideProblem(null)} className="text-slate-400 hover:text-slate-700">

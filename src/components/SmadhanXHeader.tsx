@@ -7,11 +7,11 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import CpgramsQrModal from "./CpgramsQrModal";
+import SmadhanXQrModal from "./SmadhanXQrModal";
 import PensionRedirectModal from "./PensionRedirectModal";
 import SmadhanXLogo from "./SmadhanXLogo";
 
-export default function CpgramsHeader() {
+export default function SmadhanXHeader() {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isPensionOpen, setIsPensionOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,18 +35,17 @@ export default function CpgramsHeader() {
     // Check cookie or localStorage on initial load
     const match = document.cookie.match(/(?:^|;\s*)googtrans=([^;]+)/);
     const cookieLang = match ? decodeURIComponent(match[1]) : "";
-    const saved = typeof window !== "undefined" ? localStorage.getItem("cpgrams_lang") : null;
-    if (cookieLang.includes("/hi") || saved === "hi") {
-      setCurrentLang("हिंदी (Hindi)");
-    } else {
-      setCurrentLang("English");
+    const saved = typeof window !== "undefined" ? localStorage.getItem("smadhanx_lang") : null;
+    if (saved) {
+      const match = languages.find((l) => l.code === saved);
+      if (match) setCurrentLang(match.label);
     }
   }, []);
 
   const handleLanguageChange = (code: string, label: string) => {
     setCurrentLang(label);
     if (typeof window !== "undefined") {
-      localStorage.setItem("cpgrams_lang", code);
+      localStorage.setItem("smadhanx_lang", code);
 
       const hostname = window.location.hostname;
       const cookieVal = `/en/${code}`;
@@ -135,35 +134,14 @@ export default function CpgramsHeader() {
                   onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  University R&D & Proposals
+                  University
                 </Link>
                 <Link
                   href="/industry/explore"
                   onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
-                  Corporate CSR Pledges
-                </Link>
-                <Link
-                  href="/kiosk"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  Gram Panchayat Kiosk
-                </Link>
-                <Link
-                  href="/map"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  National GIS Spatial Map
-                </Link>
-                <Link
-                  href="/impact"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  Impact & SLA Metrics
+                  Industries
                 </Link>
               </div>
             </div>
@@ -505,7 +483,7 @@ export default function CpgramsHeader() {
 
               {/* Official Sign In Button */}
               <Link
-                href="/citizen/report"
+                href="/login"
                 className="flex items-center space-x-1.5 px-4 py-1.5 rounded-lg bg-gov-saffron hover:bg-orange-600 text-white font-bold transition shadow-sm"
               >
                 <img src="/Images/signIn.png" alt="Sign In" className="w-3.5 h-3.5 object-contain" />
@@ -612,35 +590,14 @@ export default function CpgramsHeader() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
                   >
-                    University R&D & Proposals
+                    University
                   </Link>
                   <Link
                     href="/industry/explore"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
                   >
-                    Corporate CSR Pledges
-                  </Link>
-                  <Link
-                    href="/kiosk"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
-                  >
-                    Gram Panchayat Kiosk
-                  </Link>
-                  <Link
-                    href="/map"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
-                  >
-                    National GIS Spatial Map
-                  </Link>
-                  <Link
-                    href="/impact"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
-                  >
-                    Impact & SLA Metrics
+                    Industries
                   </Link>
                 </div>
               </div>
@@ -743,7 +700,7 @@ export default function CpgramsHeader() {
                   Download Mobile App
                 </button>
                 <Link
-                  href="/citizen/report"
+                  href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex-1 py-2 px-3 bg-gov-saffron hover:bg-orange-600 rounded text-center text-xs font-bold"
                 >
@@ -756,7 +713,7 @@ export default function CpgramsHeader() {
       </nav>
 
       {/* Popups & Modals */}
-      <CpgramsQrModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
+      <SmadhanXQrModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
       <PensionRedirectModal isOpen={isPensionOpen} onClose={() => setIsPensionOpen(false)} />
     </>
   );

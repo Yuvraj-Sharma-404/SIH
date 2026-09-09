@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function CpgramsFooter() {
+export default function SmadhanXFooter() {
   const [stats, setStats] = useState({
     version: "1.0.0",
     lastUpdated: "08-09-2026",

@@ -10,7 +10,7 @@ import {
   ClipboardList,
   Headphones,
 } from "lucide-react";
-import CpgramsBannerCarousel from "@/components/CpgramsBannerCarousel";
+import SmadhanXBannerCarousel from "@/components/SmadhanXBannerCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -25,8 +25,8 @@ export default function HomePage() {
         </span>
       </div>
 
-      {/* 2. Official CPGRAMS Hero Banner Carousel */}
-      <CpgramsBannerCarousel />
+      {/* 2. Official SmadhanX Hero Banner Carousel */}
+      <SmadhanXBannerCarousel />
 
       {/* 3. Quick Grievance Tracking / Search Strip */}
       <div className="gov-card p-4 sm:p-6 gov-border-t-navy bg-white">
@@ -146,7 +146,7 @@ export default function HomePage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {/* Box 1: Register / Login */}
         <Link
-          href="/citizen/report"
+          href="/signup"
           className="group rounded-2xl p-5 sm:p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[160px] sm:min-h-[180px]"
           style={{ background: "#80c8ea" }}
         >

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import CpgramsHeader from "@/components/CpgramsHeader";
-import CpgramsFooter from "@/components/CpgramsFooter";
+import SmadhanXHeader from "@/components/SmadhanXHeader";
+import SmadhanXFooter from "@/components/SmadhanXFooter";
 import GoogleTranslate from "@/components/GoogleTranslate";
 
 const inter = Inter({
@@ -29,11 +29,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} min-h-screen flex flex-col bg-[#f4f6f9] text-slate-900 selection:bg-orange-100 selection:text-orange-900`}>
         <GoogleTranslate />
-        <CpgramsHeader />
+        <SmadhanXHeader />
         <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6">
           {children}
         </main>
-        <CpgramsFooter />
+        <SmadhanXFooter />
       </body>
     </html>
   );
