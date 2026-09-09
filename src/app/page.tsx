@@ -5,7 +5,12 @@ import {
   AlertCircle,
   Info,
   PhoneCall,
+  BellOff,
+  UserPlus,
+  ClipboardList,
+  Headphones,
 } from "lucide-react";
+import CpgramsBannerCarousel from "@/components/CpgramsBannerCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -42,12 +47,12 @@ export default function HomePage() {
                 type="text"
                 name="id"
                 placeholder="Enter Registration ID / Grievance Number"
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 text-xs sm:text-sm focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
               />
             </div>
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-lg bg-[#001c5a] hover:bg-[#00133d] text-white font-bold text-xs shadow-sm transition whitespace-nowrap flex items-center justify-center gap-1.5"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#001c5a] hover:bg-[#00133d] text-white font-bold text-xs sm:text-sm shadow-sm transition whitespace-nowrap flex items-center justify-center gap-1.5"
             >
               <span>View Status</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -57,7 +62,7 @@ export default function HomePage() {
       </div>
 
       {/* 4. Authentic "ABOUT SMADHANX" & "WHAT'S NEW" Two-Column Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
         {/* Left Column (8 Cols): About SmadhanX & Guidelines */}
         <div className="lg:col-span-8 space-y-4">
           <div className="border-b border-slate-200 pb-2">
@@ -66,7 +71,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-3 text-justify">
+          <div className="text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-3 text-left sm:text-justify">
             <p>
               <strong>SmadhanX</strong> is an online platform available to the citizens 24x7 to lodge their grievances to the public authorities on any subject related to service delivery. It is a single portal connected to all the Ministries/Departments of Government of India and States. Every Ministry and State has role-based access to this system. SmadhanX is also accessible to the citizens through standalone mobile application downloadable through Google Play store and mobile application integrated with UMANG.
             </p>
@@ -138,16 +143,16 @@ export default function HomePage() {
       </div>
 
       {/* 4. Action Quick Access Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {/* Box 1: Register / Login */}
         <Link
           href="/citizen/report"
-          className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
+          className="group rounded-2xl p-5 sm:p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[160px] sm:min-h-[180px]"
           style={{ background: "#80c8ea" }}
         >
-          <div className="space-y-3 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
-              <UserPlus className="w-8 h-8 text-gov-navy" />
+          <div className="space-y-2.5 sm:space-y-3 flex flex-col items-center">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
+              <UserPlus className="w-7 h-7 sm:w-8 sm:h-8 text-gov-navy" />
             </div>
             <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
               Register / Login
@@ -161,12 +166,12 @@ export default function HomePage() {
         {/* Box 2: View Status */}
         <Link
           href="/track"
-          className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
+          className="group rounded-2xl p-5 sm:p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[160px] sm:min-h-[180px]"
           style={{ background: "#e28faa" }}
         >
-          <div className="space-y-3 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
-              <ClipboardList className="w-8 h-8 text-gov-navy" />
+          <div className="space-y-2.5 sm:space-y-3 flex flex-col items-center">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
+              <ClipboardList className="w-7 h-7 sm:w-8 sm:h-8 text-gov-navy" />
             </div>
             <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
               View Status
@@ -180,12 +185,12 @@ export default function HomePage() {
         {/* Box 3: Contact Us */}
         <Link
           href="/contact"
-          className="group rounded-2xl p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[180px]"
+          className="group rounded-2xl p-5 sm:p-6 text-center transition-all transform hover:-translate-y-1 shadow-md hover:shadow-xl flex flex-col items-center justify-between min-h-[160px] sm:min-h-[180px]"
           style={{ background: "#f3cf9b" }}
         >
-          <div className="space-y-3 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
-              <Headphones className="w-8 h-8 text-gov-navy" />
+          <div className="space-y-2.5 sm:space-y-3 flex flex-col items-center">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/40 flex items-center justify-center text-gov-navy shadow-inner group-hover:scale-110 transition-transform">
+              <Headphones className="w-7 h-7 sm:w-8 sm:h-8 text-gov-navy" />
             </div>
             <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
               Contact Us

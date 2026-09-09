@@ -17,7 +17,7 @@ export default function PensionRedirectModal({ isOpen, onClose }: PensionRedirec
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 text-center border-2 border-amber-300"
+        className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-5 sm:p-6 text-center border-2 border-amber-300 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -41,11 +41,11 @@ export default function PensionRedirectModal({ isOpen, onClose }: PensionRedirec
           आपको पेंशन और पेंशनभोगी कल्याण विभाग की शिकायत प्रणाली पर पुनर्निर्देशित किया जा रहा है।
         </p>
 
-        <div className="mt-6 flex items-center justify-center gap-3">
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition"
+            className="w-full sm:w-auto px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition text-center"
           >
             Cancel / रद्द करें
           </button>
@@ -54,7 +54,7 @@ export default function PensionRedirectModal({ isOpen, onClose }: PensionRedirec
             target="_blank"
             rel="noreferrer"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold flex items-center gap-1.5 transition shadow-sm"
+            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-sm text-center"
           >
             <span>Proceed / आगे बढ़ें</span>
             <ExternalLink className="w-3.5 h-3.5" />

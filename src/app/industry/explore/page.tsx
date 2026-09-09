@@ -192,7 +192,7 @@ export default function IndustryPortal() {
       {/* CSR Sponsorship Pledge Modal */}
       {selectedChallenge && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-slate-300 space-y-4 shadow-xl">
+          <div className="gov-card w-full max-w-lg rounded-2xl p-5 sm:p-6 bg-white border border-slate-300 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center space-x-2 text-purple-900">
                 <HeartHandshake className="w-5 h-5" />
@@ -235,7 +235,7 @@ export default function IndustryPortal() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
                       Official Contact Email

@@ -664,7 +664,7 @@ export default function GovernmentDashboardPage() {
       {/* Convert to Societal Challenge Modal */}
       {selectedProblem && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="gov-card w-full max-w-2xl rounded-2xl p-6 bg-white border border-slate-300 space-y-4 shadow-xl">
+          <div className="gov-card w-full max-w-2xl rounded-2xl p-6 bg-white border border-slate-300 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center space-x-2">
                 <PlusCircle className="w-5 h-5 text-gov-navy" />
@@ -758,7 +758,7 @@ export default function GovernmentDashboardPage() {
       {/* Official Reject Grievance Modal (PRD FR-08) */}
       {rejectProblem && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-rose-300 space-y-4 shadow-xl">
+          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-rose-300 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center space-x-2 text-rose-700">
                 <AlertCircle className="w-5 h-5" />
@@ -815,7 +815,7 @@ export default function GovernmentDashboardPage() {
       {/* Official Request Information Modal (PRD FR-08 & TRD Section 9) */}
       {requestInfoProblem && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-amber-300 space-y-4 shadow-xl">
+          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-amber-300 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center space-x-2 text-amber-700">
                 <Info className="w-5 h-5" />
@@ -872,7 +872,7 @@ export default function GovernmentDashboardPage() {
       {/* Official Human Priority Override Modal (TRD Section 8) */}
       {overrideProblem && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-slate-300 space-y-4 shadow-xl">
+          <div className="gov-card w-full max-w-lg rounded-2xl p-6 bg-white border border-slate-300 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center space-x-2 text-gov-navy">
                 <TrendingUp className="w-5 h-5" />

@@ -206,13 +206,13 @@ export default function CitizenReportPage() {
       {!submittedResult ? (
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Submission Mode Selector (Accessible / Low Digital Literacy Mode) */}
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs gap-2 sm:gap-3">
             <span className="font-bold text-slate-800">Submission Method:</span>
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <button
                 type="button"
                 onClick={() => setSubmissionMode("QUICK")}
-                className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                className={`px-3 py-2 sm:py-1.5 rounded-lg font-bold transition text-center ${
                   submissionMode === "QUICK"
                     ? "bg-gov-navy text-white shadow-sm"
                     : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300"
@@ -223,7 +223,7 @@ export default function CitizenReportPage() {
               <button
                 type="button"
                 onClick={() => setSubmissionMode("DETAILED")}
-                className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                className={`px-3 py-2 sm:py-1.5 rounded-lg font-bold transition text-center ${
                   submissionMode === "DETAILED"
                     ? "bg-gov-navy text-white shadow-sm"
                     : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300"

@@ -73,17 +73,17 @@ export default function AboutPage() {
         </div>
 
         {/* Action Links */}
-        <div className="pt-4 flex items-center justify-center gap-4">
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <Link
             href="/citizen/report"
-            className="px-6 py-2.5 rounded-lg bg-gov-saffron hover:bg-orange-600 text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-saffron hover:bg-orange-600 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5 text-center"
           >
             <span>Lodge Grievance</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/process-flow"
-            className="px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5 text-center"
           >
             <span>View Process Flow</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -17,7 +17,7 @@ export default function CpgramsQrModal({ isOpen, onClose }: CpgramsQrModalProps)
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 text-center border-2 border-slate-200"
+        className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-5 sm:p-6 text-center border-2 border-slate-200 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -25,9 +25,9 @@ export default function CpgramsQrModal({ isOpen, onClose }: CpgramsQrModalProps)
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute -top-3.5 -right-3.5 bg-gov-navy text-white hover:bg-gov-saffron rounded-full p-2 shadow-lg transition-colors"
+          className="absolute top-3 right-3 sm:-top-3.5 sm:-right-3.5 bg-gov-navy text-white hover:bg-gov-saffron rounded-full p-1.5 sm:p-2 shadow-lg transition-colors z-10"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Modal Header */}

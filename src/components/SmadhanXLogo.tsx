@@ -17,15 +17,15 @@ export default function SmadhanXLogo({
   href = "/",
 }: SmadhanXLogoProps) {
   const iconSizes = {
-    sm: "w-9 h-9",
-    md: "w-12 h-12 sm:w-14 sm:h-14",
-    lg: "w-16 h-16 sm:w-18 sm:h-18",
+    sm: "w-7 h-7 sm:w-8 sm:h-8",
+    md: "w-9 h-9 xs:w-11 xs:h-11 sm:w-12 sm:h-12 md:w-14 md:h-14",
+    lg: "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16",
   };
 
   const titleSizes = {
-    sm: "text-xl",
-    md: "text-2xl sm:text-3xl",
-    lg: "text-3xl sm:text-4xl",
+    sm: "text-base sm:text-lg",
+    md: "text-lg xs:text-xl sm:text-2xl md:text-3xl",
+    lg: "text-xl sm:text-2xl md:text-4xl",
   };
 
   const logoContent = (

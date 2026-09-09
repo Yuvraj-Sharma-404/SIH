@@ -89,7 +89,7 @@ export default function CpgramsBannerCarousel() {
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Aspect Ratio Container for Banner Images */}
-      <div className="relative aspect-[21/9] sm:aspect-[24/8] md:aspect-[28/8] w-full overflow-hidden">
+      <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[28/8] w-full overflow-hidden">
         {banners.map((slide, index) => {
           const isActive = index === currentIndex;
           return (
@@ -124,17 +124,17 @@ export default function CpgramsBannerCarousel() {
         type="button"
         onClick={prevSlide}
         aria-label="Previous banner"
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-gov-navy text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md backdrop-blur-sm"
+        className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/50 hover:bg-gov-navy text-white flex items-center justify-center transition-all opacity-70 sm:opacity-0 sm:group-hover:opacity-100 shadow-md backdrop-blur-sm"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
       <button
         type="button"
         onClick={nextSlide}
         aria-label="Next banner"
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-gov-navy text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md backdrop-blur-sm"
+        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/50 hover:bg-gov-navy text-white flex items-center justify-center transition-all opacity-70 sm:opacity-0 sm:group-hover:opacity-100 shadow-md backdrop-blur-sm"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       {/* Slide Indicators Dots */}

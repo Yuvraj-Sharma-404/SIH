@@ -15,6 +15,7 @@ export default function CpgramsHeader() {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isPensionOpen, setIsPensionOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isRoleSwitcherOpen, setIsRoleSwitcherOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
   const [fontSize, setFontSize] = useState<"normal" | "large">("normal");
 
@@ -79,11 +80,11 @@ export default function CpgramsHeader() {
   return (
     <>
       {/* 1. Topbar - Government of India & Ministries with Quick Links */}
-      <div className="bg-[#f0f4f8] border-b border-slate-300 text-[11px] text-slate-700 py-1 px-3 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div className="bg-[#f0f4f8] border-b border-slate-300 text-[11px] text-slate-700 py-1.5 px-3 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-center">
           {/* Left: Ministry Details */}
-          <div className="flex items-center space-x-3">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 leading-tight">
+          <div className="flex items-center justify-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-2 leading-tight text-center">
               <span className="font-bold text-slate-900 font-devanagari">
                 भारत सरकार / Government of India
               </span>
@@ -95,58 +96,71 @@ export default function CpgramsHeader() {
           </div>
 
           {/* Right: Quick Action Links, Persona Switcher & Accessibility */}
-          <div className="flex items-center space-x-3 text-[11px]">
+          <div className="flex flex-wrap items-center justify-center space-x-3 text-[11px]">
             {/* Stakeholder Persona Quick Switcher */}
             <div className="relative group">
               <button
                 type="button"
+                onClick={() => setIsRoleSwitcherOpen((prev) => !prev)}
                 className="flex items-center space-x-1 px-2.5 py-0.5 rounded bg-gov-navy/10 text-gov-navy font-bold hover:bg-gov-navy/20 transition"
+                aria-expanded={isRoleSwitcherOpen}
               >
                 <span>Role Switcher</span>
-                <ChevronDown className="w-3 h-3 ml-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
+                <ChevronDown className={`w-3 h-3 ml-0.5 opacity-70 transition-transform ${isRoleSwitcherOpen ? "rotate-180" : "group-hover:rotate-180"}`} />
               </button>
-              <div className="absolute right-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[230px] py-1.5 animate-fadeIn z-50">
+              <div
+                className={`absolute right-0 top-full ${
+                  isRoleSwitcherOpen ? "block" : "hidden"
+                } group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[230px] py-1.5 animate-fadeIn z-50`}
+              >
                 <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
                   Select Stakeholder Persona
                 </div>
                 <Link
                   href="/citizen/report"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   Citizen (Lodge Grievance)
                 </Link>
                 <Link
                   href="/gov/dashboard"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   Gov Officer Dashboard
                 </Link>
                 <Link
                   href="/university/challenges"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   University R&D & Proposals
                 </Link>
                 <Link
                   href="/industry/explore"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   Corporate CSR Pledges
                 </Link>
                 <Link
                   href="/kiosk"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   Gram Panchayat Kiosk
                 </Link>
                 <Link
                   href="/map"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   National GIS Spatial Map
                 </Link>
                 <Link
                   href="/impact"
+                  onClick={() => setIsRoleSwitcherOpen(false)}
                   className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                 >
                   Impact & SLA Metrics
@@ -214,26 +228,64 @@ export default function CpgramsHeader() {
         </div>
       </div>
 
-      {/* 3. Main Header with SmadhanX Unique Symbol and Branding */}
+      {/* 2. Main Header with SmadhanX Unique Symbol and Branding */}
       <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           {/* SmadhanX Unique Logo and Name at left-most corner */}
           <SmadhanXLogo size="md" href="/" />
 
           {/* Right Header: Mobile Menu Toggle Button */}
-          <div className="flex items-center">
-            {/* Mobile Menu Button */}
+          <div className="xl:hidden flex items-center">
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20 transition"
+              className="p-2 rounded-lg bg-gov-navy text-white hover:bg-gov-navy/90 transition shadow-sm"
               aria-label="Toggle navigation menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
+        </div>
+      </div>
 
-          <div className="hidden lg:flex items-center justify-between h-12">
+      {/* 3. Main Dark Navbar with Sticky Top & Tricolor Ribbon */}
+      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-0 z-40">
+        {/* Indian National Tricolor Ribbon */}
+        <div className="h-1.5 w-full flex">
+          <div className="flex-1 bg-[#FF9933]"></div>
+          <div className="flex-1 bg-white"></div>
+          <div className="flex-1 bg-[#138808]"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-3 sm:px-6">
+          {/* Mobile Sticky Bar on screens < xl */}
+          <div className="xl:hidden flex items-center justify-between h-11">
+            <Link href="/" className="flex items-center gap-1.5 text-white font-bold text-sm">
+              <span className="text-amber-400 font-extrabold tracking-wide">Smadhan</span>
+              <span className="text-gov-saffron font-black">X</span>
+              <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">| Grievance Portal</span>
+            </Link>
+
+            <div className="flex items-center gap-2">
+              <Link
+                href="/citizen/report"
+                className="px-2.5 py-1 rounded bg-gov-saffron hover:bg-orange-600 text-white font-bold text-[11px] transition shadow-xs whitespace-nowrap"
+              >
+                Lodge Grievance
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20 transition"
+                aria-label="Toggle navigation menu"
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop Navigation for xl screens */}
+          <div className="hidden xl:flex items-center justify-between h-12">
             {/* Left Nav Menu Items */}
             <div className="flex items-center space-x-1">
               {/* View Status Dropdown */}
@@ -464,7 +516,7 @@ export default function CpgramsHeader() {
 
           {/* Mobile Collapsible Navigation Drawer */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-white/10 space-y-2 animate-fadeIn">
+            <div className="xl:hidden py-4 border-t border-white/10 space-y-2 animate-fadeIn max-h-[82vh] overflow-y-auto overscroll-contain">
               {/* Mobile Language Selector */}
               <div className="flex items-center justify-between px-3 py-2 bg-white/10 rounded-lg mb-2">
                 <span className="text-xs text-slate-300">Language / भाषा:</span>
@@ -534,6 +586,66 @@ export default function CpgramsHeader() {
               >
                 Nodal Authority for Appeal
               </Link>
+
+              {/* Stakeholder Role Switcher Section for Mobile */}
+              <div className="pt-2 border-t border-white/10 space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-300 block px-3">
+                  Stakeholder Role Portals
+                </span>
+                <div className="grid grid-cols-1 gap-1">
+                  <Link
+                    href="/citizen/report"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    Citizen (Lodge Grievance)
+                  </Link>
+                  <Link
+                    href="/gov/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    Gov Officer Dashboard
+                  </Link>
+                  <Link
+                    href="/university/challenges"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    University R&D & Proposals
+                  </Link>
+                  <Link
+                    href="/industry/explore"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    Corporate CSR Pledges
+                  </Link>
+                  <Link
+                    href="/kiosk"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    Gram Panchayat Kiosk
+                  </Link>
+                  <Link
+                    href="/map"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    National GIS Spatial Map
+                  </Link>
+                  <Link
+                    href="/impact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-1.5 rounded hover:bg-white/10 transition text-xs font-semibold text-slate-200 hover:text-white"
+                  >
+                    Impact & SLA Metrics
+                  </Link>
+                </div>
+              </div>
+
+              {/* Grand Challenges section */}
               <div className="pt-2 border-t border-white/10 space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 block px-3">
                   Societal Grand Challenges
@@ -581,6 +693,44 @@ export default function CpgramsHeader() {
                   Offline Kiosk Hardware Mode
                 </Link>
               </div>
+
+              {/* General Portal Links */}
+              <div className="pt-2 border-t border-white/10 space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block px-3">
+                  Quick Portal Links
+                </span>
+                <div className="grid grid-cols-2 gap-1 px-1">
+                  <Link
+                    href="/about"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-2 py-1.5 rounded hover:bg-white/10 transition text-xs text-slate-300"
+                  >
+                    About Us
+                  </Link>
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-2 py-1.5 rounded hover:bg-white/10 transition text-xs text-slate-300"
+                  >
+                    Contact Us
+                  </Link>
+                  <Link
+                    href="/faq"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-2 py-1.5 rounded hover:bg-white/10 transition text-xs text-slate-300"
+                  >
+                    FAQs & Help
+                  </Link>
+                  <Link
+                    href="/process-flow"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-2 py-1.5 rounded hover:bg-white/10 transition text-xs text-slate-300"
+                  >
+                    Site Map
+                  </Link>
+                </div>
+              </div>
+
               <div className="pt-2 border-t border-white/10 flex gap-2">
                 <button
                   type="button"
