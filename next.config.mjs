@@ -14,7 +14,7 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/Home/Fa',
+        source: '/Home/Faq',
         destination: '/faq',
         permanent: false,
       },
