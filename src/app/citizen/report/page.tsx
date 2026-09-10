@@ -104,47 +104,12 @@ export default function CitizenReportPage() {
     }
   };
 
-<<<<<<< Updated upstream
-  // Quick Demo Presets
-  const loadScenario = (type: string) => {
-    if (type === "bridge") {
-      setTitle("Severe Structural Pier Cracks & Vibration on Dham River Bridge");
-      setDescription(
-        "Severe vertical crack noticed along Pier #3 of Dham River Bridge on Sevagram Road. High vibration during school bus crossings. Immediate engineering safety inspection needed."
-      );
-      setCategory("Infrastructure");
-      setDepartment("Public Works Department (PWD)");
-      setAddress("Sevagram Road, Wardha, Maharashtra");
-      setEvidenceType("IMAGE");
-      setEvidenceUrl("https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80");
-    } else if (type === "water") {
-      setTitle("High Turbidity & Contaminated Water in Primary School Pipeline");
-      setDescription(
-        "Borewell drinking water pipeline in Ward 4 has high yellow silt and foul chemical odor. Over 24 primary schoolchildren hospitalized with acute diarrhea."
-      );
-      setCategory("Water & Sanitation");
-      setDepartment("Jal Jeevan Mission / Water Supply Board");
-      setAddress("Zilla Parishad School Ward 4, Wardha");
-      setEvidenceType("DOCUMENT");
-      setEvidenceUrl("https://smadhanx.gov.in/docs/Ward4_Water_Lab_Report.pdf");
-    } else if (type === "electric") {
-      setTitle("Open Sparking 11kV Transformer Next to Bus Stand");
-      setDescription(
-        "11kV distribution transformer fence is completely broken. Live wires hanging within hand reach of pedestrians and school children."
-      );
-      setCategory("Energy");
-      setDepartment("State Power Distribution Corporation (DISCOM)");
-      setAddress("Central Bus Station, Wardha");
-      setEvidenceType("IMAGE");
-      setEvidenceUrl("https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80");
-=======
   // Helper to validate all required fields
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!title.trim()) {
       newErrors.title = "Grievance Title / Subject is required.";
->>>>>>> Stashed changes
     }
 
     const effectiveDesc = description.trim() || audioTranscript.trim();
@@ -521,11 +486,7 @@ export default function CitizenReportPage() {
               {/* Evidence Media Attachment (Optional) */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-<<<<<<< Updated upstream
-                  Evidence Media Attachment (Photos, Videos, Documents)
-=======
                   Evidence Media Attachment (Optional)
->>>>>>> Stashed changes
                 </label>
                 <div className="flex items-center space-x-1 mb-2">
                   <button

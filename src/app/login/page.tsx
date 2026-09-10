@@ -4,10 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  User,
-  GraduationCap,
-  Landmark,
-  Building2,
   Lock,
   Mail,
   Eye,
@@ -16,9 +12,7 @@ import {
   ShieldCheck,
   AlertCircle,
   RefreshCw,
-  Sparkles,
 } from "lucide-react";
-import { UserRoleType } from "@/lib/auth/permissions";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -61,30 +55,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleQuickLogin = async (role: UserRoleType) => {
-    setError(null);
-    setLoading(true);
 
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role, isQuickLogin: true }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Quick role login failed.");
-      }
-
-      router.push(data.redirectUrl || "/dashboard");
-    } catch (err: any) {
-      setError(err.message || "Could not switch to role account.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="py-4 sm:py-8">
@@ -212,74 +183,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Role Evaluation Switcher */}
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-1 text-xs font-bold text-slate-700">
-                <Sparkles className="w-3.5 h-3.5 text-gov-saffron" />
-                <span>Quick Role Demo Access</span>
-              </div>
-              <span className="text-[10px] uppercase font-bold text-slate-400">1-Click Test</span>
-            </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("CITIZEN")}
-                className="p-2.5 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50/60 transition text-left flex items-center space-x-2"
-              >
-                <div className="w-7 h-7 rounded bg-blue-100 text-gov-navy flex items-center justify-center font-bold">
-                  <User className="w-3.5 h-3.5" />
-                </div>
-                <div className="truncate">
-                  <span className="font-bold block text-slate-800">Citizen</span>
-                  <span className="text-[10px] text-slate-500 block truncate">Public Grievances</span>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("UNIVERSITY_MEMBER")}
-                className="p-2.5 rounded-lg border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/60 transition text-left flex items-center space-x-2"
-              >
-                <div className="w-7 h-7 rounded bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
-                  <GraduationCap className="w-3.5 h-3.5" />
-                </div>
-                <div className="truncate">
-                  <span className="font-bold block text-slate-800">University</span>
-                  <span className="text-[10px] text-slate-500 block truncate">R&D Challenges</span>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("GOVERNMENT_OFFICIAL")}
-                className="p-2.5 rounded-lg border border-slate-200 hover:border-amber-300 hover:bg-amber-50/60 transition text-left flex items-center space-x-2"
-              >
-                <div className="w-7 h-7 rounded bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
-                  <Landmark className="w-3.5 h-3.5" />
-                </div>
-                <div className="truncate">
-                  <span className="font-bold block text-slate-800">Gov Official</span>
-                  <span className="text-[10px] text-slate-500 block truncate">Nodal Triage</span>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("INDUSTRY_PARTNER")}
-                className="p-2.5 rounded-lg border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/60 transition text-left flex items-center space-x-2"
-              >
-                <div className="w-7 h-7 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-                  <Building2 className="w-3.5 h-3.5" />
-                </div>
-                <div className="truncate">
-                  <span className="font-bold block text-slate-800">Industries</span>
-                  <span className="text-[10px] text-slate-500 block truncate">CSR Co-Funding</span>
-                </div>
-              </button>
-            </div>
-          </div>
 
           {/* Footer Registration Link */}
           <div className="mt-6 pt-5 border-t border-slate-200 text-center text-xs">
