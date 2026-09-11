@@ -2,6 +2,7 @@ import { prisma } from "./db";
 import { structureProblemWithAI } from "./ai/structuring";
 import { detectDuplicates } from "./ai/deduplication";
 import { calculatePriority } from "./ai/priority";
+import { classifyGrievance } from "@/services/gemini.service";
 
 export interface PipelineInput {
   title: string;
@@ -87,7 +88,7 @@ export async function processIngestionPipeline(input: PipelineInput) {
   const publicProblemId =
     input.idempotencyKey || `PS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
-  // 2. Create initial problem record with validated/explicit values (no fake demo defaults)
+  // 2. Create initial problem record with validated/explicit values
   const problem = await prisma.problem.create({
     data: {
       publicProblemId,
@@ -105,6 +106,7 @@ export async function processIngestionPipeline(input: PipelineInput) {
       district: input.district?.trim() || "Unspecified District",
       state: input.state?.trim() || "Unspecified State",
       status: "SUBMITTED",
+      aiStatus: "PENDING",
     },
   });
 
@@ -120,52 +122,111 @@ export async function processIngestionPipeline(input: PipelineInput) {
     });
   }
 
-  // 3. AI Structuring (Categorization, Department, Severity, Required Expertise)
-  const aiResult = await structureProblemWithAI(input.title, input.description);
+  // 3. Gemini AI Grievance Classification
+  let geminiClassification;
+  try {
+    const locationHint =
+      input.address ||
+      (input.district ? `${input.district}, ${input.state || ""}` : null);
+    geminiClassification = await classifyGrievance(
+      input.title,
+      input.description,
+      locationHint
+    );
+  } catch (err) {
+    console.error("[Pipeline] Gemini classification failed:", err);
+  }
 
-  await prisma.aIAnalysis.create({
-    data: {
-      problemId: problem.id,
-      summary: aiResult.summary,
-      extractedCategory: aiResult.category,
-      severityScore: aiResult.severity,
-      urgencyScore: aiResult.urgency,
-      recommendedDepartment: aiResult.recommendedDepartment,
-      requiredExpertise: aiResult.requiredExpertise.join(", "),
-      confidence: aiResult.confidence,
-    },
-  });
+  const effectiveCategory =
+    geminiClassification?.category || "Roads & Infrastructure";
 
   // 4. Duplicate Detection
   const duplicateResult = await detectDuplicates(
     problem.id,
     input.title,
     input.description,
-    aiResult.category,
+    effectiveCategory,
     input.latitude,
     input.longitude
   );
 
+  // Map AI Priority to numerical scores for downstream scoring
+  let numericPriority = 50;
+  let severityScore = 0.5;
+  let urgencyScore = 0.5;
+
+  if (geminiClassification) {
+    if (geminiClassification.priority === "CRITICAL") {
+      numericPriority = 92;
+      severityScore = 0.95;
+      urgencyScore = 0.95;
+    } else if (geminiClassification.priority === "HIGH") {
+      numericPriority = 78;
+      severityScore = 0.8;
+      urgencyScore = 0.75;
+    } else if (geminiClassification.priority === "MEDIUM") {
+      numericPriority = 55;
+      severityScore = 0.55;
+      urgencyScore = 0.5;
+    } else {
+      numericPriority = 35;
+      severityScore = 0.35;
+      urgencyScore = 0.3;
+    }
+  }
+
   // 5. Multi-factor Priority Assessment
   const priorityResult = await calculatePriority(
     problem.id,
-    aiResult.severity,
-    aiResult.urgency,
-    aiResult.category,
+    severityScore,
+    urgencyScore,
+    effectiveCategory,
     input.description
   );
 
-  // 6. Finalize problem state transition to PENDING_VERIFICATION
+  // Store AIAnalysis record
+  if (geminiClassification) {
+    await prisma.aIAnalysis.create({
+      data: {
+        problemId: problem.id,
+        provider: "GEMINI",
+        summary: geminiClassification.summary,
+        extractedCategory: geminiClassification.category,
+        severityScore,
+        urgencyScore,
+        recommendedDepartment: geminiClassification.department,
+        requiredExpertise: geminiClassification.subcategory,
+        confidence: geminiClassification.confidence,
+        rawOutput: geminiClassification.rawOutput,
+      },
+    });
+  }
+
+  // 6. Finalize problem record with Gemini AI classification and verification status
   const updatedProblem = await prisma.problem.update({
     where: { id: problem.id },
     data: {
-      category: aiResult.category,
-      problemType: aiResult.problemType,
-      severity: aiResult.severity,
-      urgency: aiResult.urgency,
-      priorityScore: priorityResult.totalScore,
-      departmentName: aiResult.recommendedDepartment,
+      category: effectiveCategory,
+      problemType: geminiClassification?.subcategory || "Civic Grievance",
+      severity: severityScore,
+      urgency: urgencyScore,
+      priorityScore: priorityResult.totalScore || numericPriority,
+      departmentName:
+        geminiClassification?.department || "Municipal Corporation",
       status: "PENDING_VERIFICATION",
+
+      // Gemini AI classification fields
+      aiCategory: geminiClassification?.category,
+      aiSubcategory: geminiClassification?.subcategory,
+      aiDepartment: geminiClassification?.department,
+      aiPriority: geminiClassification?.priority,
+      aiSummary: geminiClassification?.summary,
+      aiUrgencyReason: geminiClassification?.urgencyReason,
+      aiLocation: geminiClassification?.location,
+      aiConfidence: geminiClassification?.confidence,
+      aiStatus: geminiClassification ? "COMPLETED" : "FAILED",
+      aiReviewStatus: geminiClassification?.reviewStatus || "NEEDS_REVIEW",
+      aiProcessedAt: new Date(),
     },
     include: {
       evidence: true,

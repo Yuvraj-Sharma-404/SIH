@@ -72,6 +72,19 @@ model Problem {
   rejectionReason   String?
   requestNote       String?
 
+  // Gemini AI Classification Fields
+  aiCategory        String?
+  aiSubcategory     String?
+  aiDepartment      String?
+  aiPriority        String?   // LOW, MEDIUM, HIGH, CRITICAL
+  aiSummary         String?
+  aiUrgencyReason   String?
+  aiLocation        String?
+  aiConfidence      Float?
+  aiStatus          String?   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  aiReviewStatus    String?   // NORMAL, NEEDS_REVIEW, HUMAN_REVIEW_REQUIRED
+  aiProcessedAt     DateTime?
+
   evidence          Evidence[]
   aiAnalyses        AIAnalysis[]
   priorityAssessments PriorityAssessment[]

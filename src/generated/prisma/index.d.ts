@@ -4578,6 +4578,7 @@ export namespace Prisma {
     priorityScore: number | null
     latitude: number | null
     longitude: number | null
+    aiConfidence: number | null
   }
 
   export type ProblemSumAggregateOutputType = {
@@ -4586,6 +4587,7 @@ export namespace Prisma {
     priorityScore: number | null
     latitude: number | null
     longitude: number | null
+    aiConfidence: number | null
   }
 
   export type ProblemMinAggregateOutputType = {
@@ -4612,6 +4614,17 @@ export namespace Prisma {
     state: string | null
     rejectionReason: string | null
     requestNote: string | null
+    aiCategory: string | null
+    aiSubcategory: string | null
+    aiDepartment: string | null
+    aiPriority: string | null
+    aiSummary: string | null
+    aiUrgencyReason: string | null
+    aiLocation: string | null
+    aiConfidence: number | null
+    aiStatus: string | null
+    aiReviewStatus: string | null
+    aiProcessedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4640,6 +4653,17 @@ export namespace Prisma {
     state: string | null
     rejectionReason: string | null
     requestNote: string | null
+    aiCategory: string | null
+    aiSubcategory: string | null
+    aiDepartment: string | null
+    aiPriority: string | null
+    aiSummary: string | null
+    aiUrgencyReason: string | null
+    aiLocation: string | null
+    aiConfidence: number | null
+    aiStatus: string | null
+    aiReviewStatus: string | null
+    aiProcessedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4668,6 +4692,17 @@ export namespace Prisma {
     state: number
     rejectionReason: number
     requestNote: number
+    aiCategory: number
+    aiSubcategory: number
+    aiDepartment: number
+    aiPriority: number
+    aiSummary: number
+    aiUrgencyReason: number
+    aiLocation: number
+    aiConfidence: number
+    aiStatus: number
+    aiReviewStatus: number
+    aiProcessedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4680,6 +4715,7 @@ export namespace Prisma {
     priorityScore?: true
     latitude?: true
     longitude?: true
+    aiConfidence?: true
   }
 
   export type ProblemSumAggregateInputType = {
@@ -4688,6 +4724,7 @@ export namespace Prisma {
     priorityScore?: true
     latitude?: true
     longitude?: true
+    aiConfidence?: true
   }
 
   export type ProblemMinAggregateInputType = {
@@ -4714,6 +4751,17 @@ export namespace Prisma {
     state?: true
     rejectionReason?: true
     requestNote?: true
+    aiCategory?: true
+    aiSubcategory?: true
+    aiDepartment?: true
+    aiPriority?: true
+    aiSummary?: true
+    aiUrgencyReason?: true
+    aiLocation?: true
+    aiConfidence?: true
+    aiStatus?: true
+    aiReviewStatus?: true
+    aiProcessedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4742,6 +4790,17 @@ export namespace Prisma {
     state?: true
     rejectionReason?: true
     requestNote?: true
+    aiCategory?: true
+    aiSubcategory?: true
+    aiDepartment?: true
+    aiPriority?: true
+    aiSummary?: true
+    aiUrgencyReason?: true
+    aiLocation?: true
+    aiConfidence?: true
+    aiStatus?: true
+    aiReviewStatus?: true
+    aiProcessedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4770,6 +4829,17 @@ export namespace Prisma {
     state?: true
     rejectionReason?: true
     requestNote?: true
+    aiCategory?: true
+    aiSubcategory?: true
+    aiDepartment?: true
+    aiPriority?: true
+    aiSummary?: true
+    aiUrgencyReason?: true
+    aiLocation?: true
+    aiConfidence?: true
+    aiStatus?: true
+    aiReviewStatus?: true
+    aiProcessedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4885,6 +4955,17 @@ export namespace Prisma {
     state: string | null
     rejectionReason: string | null
     requestNote: string | null
+    aiCategory: string | null
+    aiSubcategory: string | null
+    aiDepartment: string | null
+    aiPriority: string | null
+    aiSummary: string | null
+    aiUrgencyReason: string | null
+    aiLocation: string | null
+    aiConfidence: number | null
+    aiStatus: string | null
+    aiReviewStatus: string | null
+    aiProcessedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: ProblemCountAggregateOutputType | null
@@ -4932,6 +5013,17 @@ export namespace Prisma {
     state?: boolean
     rejectionReason?: boolean
     requestNote?: boolean
+    aiCategory?: boolean
+    aiSubcategory?: boolean
+    aiDepartment?: boolean
+    aiPriority?: boolean
+    aiSummary?: boolean
+    aiUrgencyReason?: boolean
+    aiLocation?: boolean
+    aiConfidence?: boolean
+    aiStatus?: boolean
+    aiReviewStatus?: boolean
+    aiProcessedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     citizen?: boolean | Problem$citizenArgs<ExtArgs>
@@ -4969,6 +5061,17 @@ export namespace Prisma {
     state?: boolean
     rejectionReason?: boolean
     requestNote?: boolean
+    aiCategory?: boolean
+    aiSubcategory?: boolean
+    aiDepartment?: boolean
+    aiPriority?: boolean
+    aiSummary?: boolean
+    aiUrgencyReason?: boolean
+    aiLocation?: boolean
+    aiConfidence?: boolean
+    aiStatus?: boolean
+    aiReviewStatus?: boolean
+    aiProcessedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     citizen?: boolean | Problem$citizenArgs<ExtArgs>
@@ -4998,6 +5101,17 @@ export namespace Prisma {
     state?: boolean
     rejectionReason?: boolean
     requestNote?: boolean
+    aiCategory?: boolean
+    aiSubcategory?: boolean
+    aiDepartment?: boolean
+    aiPriority?: boolean
+    aiSummary?: boolean
+    aiUrgencyReason?: boolean
+    aiLocation?: boolean
+    aiConfidence?: boolean
+    aiStatus?: boolean
+    aiReviewStatus?: boolean
+    aiProcessedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -5053,6 +5167,17 @@ export namespace Prisma {
       state: string | null
       rejectionReason: string | null
       requestNote: string | null
+      aiCategory: string | null
+      aiSubcategory: string | null
+      aiDepartment: string | null
+      aiPriority: string | null
+      aiSummary: string | null
+      aiUrgencyReason: string | null
+      aiLocation: string | null
+      aiConfidence: number | null
+      aiStatus: string | null
+      aiReviewStatus: string | null
+      aiProcessedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["problem"]>
@@ -5479,6 +5604,17 @@ export namespace Prisma {
     readonly state: FieldRef<"Problem", 'String'>
     readonly rejectionReason: FieldRef<"Problem", 'String'>
     readonly requestNote: FieldRef<"Problem", 'String'>
+    readonly aiCategory: FieldRef<"Problem", 'String'>
+    readonly aiSubcategory: FieldRef<"Problem", 'String'>
+    readonly aiDepartment: FieldRef<"Problem", 'String'>
+    readonly aiPriority: FieldRef<"Problem", 'String'>
+    readonly aiSummary: FieldRef<"Problem", 'String'>
+    readonly aiUrgencyReason: FieldRef<"Problem", 'String'>
+    readonly aiLocation: FieldRef<"Problem", 'String'>
+    readonly aiConfidence: FieldRef<"Problem", 'Float'>
+    readonly aiStatus: FieldRef<"Problem", 'String'>
+    readonly aiReviewStatus: FieldRef<"Problem", 'String'>
+    readonly aiProcessedAt: FieldRef<"Problem", 'DateTime'>
     readonly createdAt: FieldRef<"Problem", 'DateTime'>
     readonly updatedAt: FieldRef<"Problem", 'DateTime'>
   }
@@ -20338,6 +20474,17 @@ export namespace Prisma {
     state: 'state',
     rejectionReason: 'rejectionReason',
     requestNote: 'requestNote',
+    aiCategory: 'aiCategory',
+    aiSubcategory: 'aiSubcategory',
+    aiDepartment: 'aiDepartment',
+    aiPriority: 'aiPriority',
+    aiSummary: 'aiSummary',
+    aiUrgencyReason: 'aiUrgencyReason',
+    aiLocation: 'aiLocation',
+    aiConfidence: 'aiConfidence',
+    aiStatus: 'aiStatus',
+    aiReviewStatus: 'aiReviewStatus',
+    aiProcessedAt: 'aiProcessedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -20818,6 +20965,17 @@ export namespace Prisma {
     state?: StringNullableFilter<"Problem"> | string | null
     rejectionReason?: StringNullableFilter<"Problem"> | string | null
     requestNote?: StringNullableFilter<"Problem"> | string | null
+    aiCategory?: StringNullableFilter<"Problem"> | string | null
+    aiSubcategory?: StringNullableFilter<"Problem"> | string | null
+    aiDepartment?: StringNullableFilter<"Problem"> | string | null
+    aiPriority?: StringNullableFilter<"Problem"> | string | null
+    aiSummary?: StringNullableFilter<"Problem"> | string | null
+    aiUrgencyReason?: StringNullableFilter<"Problem"> | string | null
+    aiLocation?: StringNullableFilter<"Problem"> | string | null
+    aiConfidence?: FloatNullableFilter<"Problem"> | number | null
+    aiStatus?: StringNullableFilter<"Problem"> | string | null
+    aiReviewStatus?: StringNullableFilter<"Problem"> | string | null
+    aiProcessedAt?: DateTimeNullableFilter<"Problem"> | Date | string | null
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     citizen?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -20854,6 +21012,17 @@ export namespace Prisma {
     state?: SortOrderInput | SortOrder
     rejectionReason?: SortOrderInput | SortOrder
     requestNote?: SortOrderInput | SortOrder
+    aiCategory?: SortOrderInput | SortOrder
+    aiSubcategory?: SortOrderInput | SortOrder
+    aiDepartment?: SortOrderInput | SortOrder
+    aiPriority?: SortOrderInput | SortOrder
+    aiSummary?: SortOrderInput | SortOrder
+    aiUrgencyReason?: SortOrderInput | SortOrder
+    aiLocation?: SortOrderInput | SortOrder
+    aiConfidence?: SortOrderInput | SortOrder
+    aiStatus?: SortOrderInput | SortOrder
+    aiReviewStatus?: SortOrderInput | SortOrder
+    aiProcessedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     citizen?: UserOrderByWithRelationInput
@@ -20893,6 +21062,17 @@ export namespace Prisma {
     state?: StringNullableFilter<"Problem"> | string | null
     rejectionReason?: StringNullableFilter<"Problem"> | string | null
     requestNote?: StringNullableFilter<"Problem"> | string | null
+    aiCategory?: StringNullableFilter<"Problem"> | string | null
+    aiSubcategory?: StringNullableFilter<"Problem"> | string | null
+    aiDepartment?: StringNullableFilter<"Problem"> | string | null
+    aiPriority?: StringNullableFilter<"Problem"> | string | null
+    aiSummary?: StringNullableFilter<"Problem"> | string | null
+    aiUrgencyReason?: StringNullableFilter<"Problem"> | string | null
+    aiLocation?: StringNullableFilter<"Problem"> | string | null
+    aiConfidence?: FloatNullableFilter<"Problem"> | number | null
+    aiStatus?: StringNullableFilter<"Problem"> | string | null
+    aiReviewStatus?: StringNullableFilter<"Problem"> | string | null
+    aiProcessedAt?: DateTimeNullableFilter<"Problem"> | Date | string | null
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     citizen?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -20929,6 +21109,17 @@ export namespace Prisma {
     state?: SortOrderInput | SortOrder
     rejectionReason?: SortOrderInput | SortOrder
     requestNote?: SortOrderInput | SortOrder
+    aiCategory?: SortOrderInput | SortOrder
+    aiSubcategory?: SortOrderInput | SortOrder
+    aiDepartment?: SortOrderInput | SortOrder
+    aiPriority?: SortOrderInput | SortOrder
+    aiSummary?: SortOrderInput | SortOrder
+    aiUrgencyReason?: SortOrderInput | SortOrder
+    aiLocation?: SortOrderInput | SortOrder
+    aiConfidence?: SortOrderInput | SortOrder
+    aiStatus?: SortOrderInput | SortOrder
+    aiReviewStatus?: SortOrderInput | SortOrder
+    aiProcessedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProblemCountOrderByAggregateInput
@@ -20965,6 +21156,17 @@ export namespace Prisma {
     state?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     rejectionReason?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     requestNote?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiCategory?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiSubcategory?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiDepartment?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiPriority?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiSummary?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiUrgencyReason?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiLocation?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiConfidence?: FloatNullableWithAggregatesFilter<"Problem"> | number | null
+    aiStatus?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiReviewStatus?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    aiProcessedAt?: DateTimeNullableWithAggregatesFilter<"Problem"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
   }
@@ -22320,6 +22522,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -22356,6 +22569,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -22390,6 +22614,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -22426,6 +22661,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -22461,6 +22707,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22488,6 +22745,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22516,6 +22784,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24088,6 +24367,17 @@ export namespace Prisma {
     state?: SortOrder
     rejectionReason?: SortOrder
     requestNote?: SortOrder
+    aiCategory?: SortOrder
+    aiSubcategory?: SortOrder
+    aiDepartment?: SortOrder
+    aiPriority?: SortOrder
+    aiSummary?: SortOrder
+    aiUrgencyReason?: SortOrder
+    aiLocation?: SortOrder
+    aiConfidence?: SortOrder
+    aiStatus?: SortOrder
+    aiReviewStatus?: SortOrder
+    aiProcessedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24098,6 +24388,7 @@ export namespace Prisma {
     priorityScore?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type ProblemMaxOrderByAggregateInput = {
@@ -24124,6 +24415,17 @@ export namespace Prisma {
     state?: SortOrder
     rejectionReason?: SortOrder
     requestNote?: SortOrder
+    aiCategory?: SortOrder
+    aiSubcategory?: SortOrder
+    aiDepartment?: SortOrder
+    aiPriority?: SortOrder
+    aiSummary?: SortOrder
+    aiUrgencyReason?: SortOrder
+    aiLocation?: SortOrder
+    aiConfidence?: SortOrder
+    aiStatus?: SortOrder
+    aiReviewStatus?: SortOrder
+    aiProcessedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24152,6 +24454,17 @@ export namespace Prisma {
     state?: SortOrder
     rejectionReason?: SortOrder
     requestNote?: SortOrder
+    aiCategory?: SortOrder
+    aiSubcategory?: SortOrder
+    aiDepartment?: SortOrder
+    aiPriority?: SortOrder
+    aiSummary?: SortOrder
+    aiUrgencyReason?: SortOrder
+    aiLocation?: SortOrder
+    aiConfidence?: SortOrder
+    aiStatus?: SortOrder
+    aiReviewStatus?: SortOrder
+    aiProcessedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24162,6 +24475,7 @@ export namespace Prisma {
     priorityScore?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -26308,6 +26622,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceCreateNestedManyWithoutProblemInput
@@ -26342,6 +26667,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -26460,6 +26796,17 @@ export namespace Prisma {
     state?: StringNullableFilter<"Problem"> | string | null
     rejectionReason?: StringNullableFilter<"Problem"> | string | null
     requestNote?: StringNullableFilter<"Problem"> | string | null
+    aiCategory?: StringNullableFilter<"Problem"> | string | null
+    aiSubcategory?: StringNullableFilter<"Problem"> | string | null
+    aiDepartment?: StringNullableFilter<"Problem"> | string | null
+    aiPriority?: StringNullableFilter<"Problem"> | string | null
+    aiSummary?: StringNullableFilter<"Problem"> | string | null
+    aiUrgencyReason?: StringNullableFilter<"Problem"> | string | null
+    aiLocation?: StringNullableFilter<"Problem"> | string | null
+    aiConfidence?: FloatNullableFilter<"Problem"> | number | null
+    aiStatus?: StringNullableFilter<"Problem"> | string | null
+    aiReviewStatus?: StringNullableFilter<"Problem"> | string | null
+    aiProcessedAt?: DateTimeNullableFilter<"Problem"> | Date | string | null
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
   }
@@ -27141,6 +27488,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -27176,6 +27534,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     aiAnalyses?: AIAnalysisUncheckedCreateNestedManyWithoutProblemInput
@@ -27225,6 +27594,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -27260,6 +27640,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiAnalyses?: AIAnalysisUncheckedUpdateManyWithoutProblemNestedInput
@@ -27293,6 +27684,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -27328,6 +27730,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -27377,6 +27790,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -27412,6 +27836,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -27445,6 +27880,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -27480,6 +27926,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -27518,6 +27975,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -27553,6 +28021,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -27602,6 +28081,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -27637,6 +28127,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -27681,6 +28182,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -27716,6 +28228,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -27749,6 +28272,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -27784,6 +28318,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -27833,6 +28378,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -27868,6 +28424,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -27901,6 +28468,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -27936,6 +28514,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -28090,6 +28679,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -28125,6 +28725,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -29084,6 +29695,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     citizen?: UserCreateNestedOneWithoutProblemsInput
@@ -29119,6 +29741,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     evidence?: EvidenceUncheckedCreateNestedManyWithoutProblemInput
@@ -29213,6 +29846,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     citizen?: UserUpdateOneWithoutProblemsNestedInput
@@ -29248,6 +29892,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -29428,6 +30083,17 @@ export namespace Prisma {
     state?: string | null
     rejectionReason?: string | null
     requestNote?: string | null
+    aiCategory?: string | null
+    aiSubcategory?: string | null
+    aiDepartment?: string | null
+    aiPriority?: string | null
+    aiSummary?: string | null
+    aiUrgencyReason?: string | null
+    aiLocation?: string | null
+    aiConfidence?: number | null
+    aiStatus?: string | null
+    aiReviewStatus?: string | null
+    aiProcessedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29488,6 +30154,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUpdateManyWithoutProblemNestedInput
@@ -29522,6 +30199,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     evidence?: EvidenceUncheckedUpdateManyWithoutProblemNestedInput
@@ -29556,6 +30244,17 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     requestNote?: NullableStringFieldUpdateOperationsInput | string | null
+    aiCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSubcategory?: NullableStringFieldUpdateOperationsInput | string | null
+    aiDepartment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiPriority?: NullableStringFieldUpdateOperationsInput | string | null
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    aiUrgencyReason?: NullableStringFieldUpdateOperationsInput | string | null
+    aiLocation?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReviewStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    aiProcessedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

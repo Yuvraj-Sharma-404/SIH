@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { hashPassword } from "@/lib/auth/password";
+import { sendOtpEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -83,6 +84,9 @@ export async function POST(req: NextRequest) {
         },
       });
     }
+
+    // Send real verification email via Resend
+    await sendOtpEmail(user.email, otp, user.name);
 
     return NextResponse.json({
       success: true,

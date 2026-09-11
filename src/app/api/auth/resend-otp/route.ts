@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { sendOtpEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,6 +35,9 @@ export async function POST(req: NextRequest) {
         verificationExpiresAt: expiresAt,
       },
     });
+
+    // Send real verification email via Resend
+    await sendOtpEmail(user.email, newOtp, user.name);
 
     return NextResponse.json({
       success: true,

@@ -15,7 +15,6 @@ export default function SmadhanXHeader() {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isPensionOpen, setIsPensionOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isRoleSwitcherOpen, setIsRoleSwitcherOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
   const [fontSize, setFontSize] = useState<"normal" | "large">("normal");
 
@@ -96,56 +95,6 @@ export default function SmadhanXHeader() {
 
           {/* Right: Quick Action Links, Persona Switcher & Accessibility */}
           <div className="flex flex-wrap items-center justify-center space-x-3 text-[11px]">
-            {/* Stakeholder Persona Quick Switcher */}
-            <div className="relative group">
-              <button
-                type="button"
-                onClick={() => setIsRoleSwitcherOpen((prev) => !prev)}
-                className="flex items-center space-x-1 px-2.5 py-0.5 rounded bg-gov-navy/10 text-gov-navy font-bold hover:bg-gov-navy/20 transition"
-                aria-expanded={isRoleSwitcherOpen}
-              >
-                <span>Role Switcher</span>
-                <ChevronDown className={`w-3 h-3 ml-0.5 opacity-70 transition-transform ${isRoleSwitcherOpen ? "rotate-180" : "group-hover:rotate-180"}`} />
-              </button>
-              <div
-                className={`absolute right-0 top-full ${
-                  isRoleSwitcherOpen ? "block" : "hidden"
-                } group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[230px] py-1.5 animate-fadeIn z-50`}
-              >
-                <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  Select Stakeholder Persona
-                </div>
-                <Link
-                  href="/citizen/report"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  Citizen (Lodge Grievance)
-                </Link>
-                <Link
-                  href="/gov/dashboard"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  Gov Officer Dashboard
-                </Link>
-                <Link
-                  href="/university/challenges"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  University
-                </Link>
-                <Link
-                  href="/industry/explore"
-                  onClick={() => setIsRoleSwitcherOpen(false)}
-                  className="block px-3 py-1.5 hover:bg-slate-50 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                >
-                  Industries
-                </Link>
-              </div>
-            </div>
-
             {/* Quick Links with Scraped Icons */}
             <div className="hidden lg:flex items-center space-x-3 font-semibold text-slate-700">
               <Link href="/" className="flex items-center space-x-1 hover:text-gov-navy transition">

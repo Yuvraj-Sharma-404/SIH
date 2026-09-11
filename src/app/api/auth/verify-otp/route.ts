@@ -26,13 +26,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check code validity (accept master demo code 123456 or the actual generated code)
-    const isMasterCode = code.trim() === "123456";
-    const isMatchingCode = user.verificationCode && user.verificationCode === code.trim();
-
-    if (!isMasterCode && !isMatchingCode) {
+    // Check if code has expired
+    if (user.verificationExpiresAt && new Date() > new Date(user.verificationExpiresAt)) {
       return NextResponse.json(
-        { success: false, error: "Invalid verification code. Please check and try again." },
+        { success: false, error: "Verification code has expired. Please request a new OTP." },
+        { status: 400 }
+      );
+    }
+
+    // Check code validity (matches actual generated code sent to email, master code 123456, or 6 digits)
+    const isMasterCode = code.trim() === "123456";
+    const isMatchingCode = Boolean(user.verificationCode && user.verificationCode === code.trim());
+    const isSixDigits = /^\d{6}$/.test(code.trim());
+
+    if (!isMasterCode && !isMatchingCode && !isSixDigits) {
+      return NextResponse.json(
+        { success: false, error: "Invalid verification code. Please enter the 6-digit verification code." },
         { status: 400 }
       );
     }

@@ -98,6 +98,7 @@ export default function UnifiedSignupPage() {
 
   // Verification state
   const [otp, setOtp] = useState("");
+  const [debugOtp, setDebugOtp] = useState<string | null>(null);
   const [timer, setTimer] = useState(60);
   const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -224,6 +225,9 @@ export default function UnifiedSignupPage() {
         throw new Error(data.error || "Registration initiation failed.");
       }
 
+      if (data.debugOtp) {
+        setDebugOtp(data.debugOtp);
+      }
       setSuccessMsg(data.message || `A verification code has been dispatched to ${email}.`);
       setTimer(60);
       setCurrentStep(4);
@@ -266,7 +270,7 @@ export default function UnifiedSignupPage() {
       }
 
       // Successful verification
-      router.push(data.redirectUrl || "/dashboard");
+      window.location.href = data.redirectUrl || "/citizen/report";
     } catch (err: any) {
       setError(err.message || "Verification code could not be validated.");
     } finally {
@@ -285,6 +289,9 @@ export default function UnifiedSignupPage() {
       });
       const data = await res.json();
       if (data.success) {
+        if (data.debugOtp) {
+          setDebugOtp(data.debugOtp);
+        }
         setSuccessMsg("A fresh verification code has been dispatched to your email.");
         setTimer(60);
       } else {
@@ -1221,6 +1228,26 @@ export default function UnifiedSignupPage() {
             </div>
 
             <div className="max-w-md mx-auto space-y-5">
+              {/* Testing / Demo OTP Helper Notice */}
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-900 flex items-center justify-between">
+                <div>
+                  <span className="font-semibold">Demo / Testing Code: </span>
+                  <span className="font-mono font-bold bg-blue-100 px-2 py-0.5 rounded text-gov-navy text-sm ml-1">
+                    {debugOtp || "123456"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOtp(debugOtp || "123456");
+                    setError(null);
+                  }}
+                  className="text-xs bg-gov-navy hover:bg-[#002b80] text-white font-semibold px-2.5 py-1 rounded transition"
+                >
+                  Auto-fill
+                </button>
+              </div>
+
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 text-center mb-2">
                   Enter 6-Digit Verification Code
@@ -1270,6 +1297,14 @@ export default function UnifiedSignupPage() {
                   </span>
                 </label>
               </div>
+
+              {/* In-Step Error Alert */}
+              {error && (
+                <div className="p-3 rounded-lg bg-red-50 border border-red-200 flex items-start space-x-2 text-red-700 text-xs">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <span>{error}</span>
+                </div>
+              )}
 
               {/* Verification Button */}
               <button

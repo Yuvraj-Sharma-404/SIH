@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Mic,
+  MicOff,
   Square,
   MapPin,
   Sparkles,
@@ -21,9 +22,10 @@ import {
   X,
   Phone,
   User,
-  Building,
-  Tag,
   AlertTriangle,
+  Volume2,
+  RotateCcw,
+  Sparkle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -31,13 +33,10 @@ export default function CitizenReportPage() {
   const router = useRouter();
 
   // Form State
-  const [submissionMode, setSubmissionMode] = useState<"QUICK" | "DETAILED">("QUICK");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [reporterName, setReporterName] = useState("");
   const [reporterPhone, setReporterPhone] = useState("");
-  const [department, setDepartment] = useState("");
-  const [category, setCategory] = useState("");
   const [latitude, setLatitude] = useState<number | null>(20.7453);
   const [longitude, setLongitude] = useState<number | null>(78.6022);
   const [address, setAddress] = useState("");
@@ -46,10 +45,18 @@ export default function CitizenReportPage() {
     "https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80"
   );
 
-  // Audio Recording State with Multilingual Simulation (PRD FR-06: English & Hindi)
+  // Audio Recording State with Real Multilingual Web Speech API (English & Hindi)
   const [voiceLang, setVoiceLang] = useState<"en" | "hi">("en");
   const [isRecording, setIsRecording] = useState(false);
   const [audioTranscript, setAudioTranscript] = useState("");
+  const [interimTranscript, setInterimTranscript] = useState("");
+  const [speechError, setSpeechError] = useState<string | null>(null);
+  const [isSpeechSupported, setIsSpeechSupported] = useState(true);
+
+  const recognitionRef = useRef<any>(null);
+  const isExplicitStopRef = useRef(false);
+  const baseTranscriptRef = useRef("");
+  const sessionFinalRef = useRef("");
 
   // Validation State
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -62,45 +69,228 @@ export default function CitizenReportPage() {
   const [loading, setLoading] = useState(false);
   const [submittedResult, setSubmittedResult] = useState<any | null>(null);
 
-  // Voice recording simulation (Supports English & Hindi)
-  const toggleRecording = () => {
-    if (!isRecording) {
-      setIsRecording(true);
-      setTimeout(() => {
-        setIsRecording(false);
-        let sampleAudio = "";
-        let sampleTitle = "";
+  // Clean up speech recognition on unmount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const SpeechRecognition =
+        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        setIsSpeechSupported(false);
+      }
+    }
+    return () => {
+      isExplicitStopRef.current = true;
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch (e) {
+          // ignore
+        }
+      }
+    };
+  }, []);
 
-        if (voiceLang === "hi") {
-          sampleAudio =
-            "वर्धा और सेवाग्राम को जोड़ने वाले मुख्य पुल के पिलर नंबर 3 में गहरी दरारें आ गई हैं। नदी के पानी से नीचे की नींव कट रही है और स्कूल बसें निकलते समय पुल कांपता है।";
-          sampleTitle = "धाम नदी पुल के पिलर में गंभीर दरारें और कंपन";
-        } else {
-          sampleAudio =
-            "The main bridge connecting Wardha and Sevagram has severe vertical cracks on pier number 3. Water scour has eroded the foundation. School buses shake heavily during crossing.";
-          sampleTitle = "Severe Structural Cracks on Dham River Bridge Pier";
+  // Continuous, unlimited speech recognition loop
+  const initAndStartRecognition = () => {
+    if (typeof window === "undefined") return;
+
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setIsSpeechSupported(false);
+      setSpeechError(
+        "Voice speech recognition is not supported in this browser. Please use Google Chrome, Microsoft Edge, or Safari."
+      );
+      return;
+    }
+
+    try {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+      recognition.lang = voiceLang === "hi" ? "hi-IN" : "en-IN";
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setIsRecording(true);
+        setSpeechError(null);
+      };
+
+      recognition.onresult = (event: any) => {
+        let currentFinal = "";
+        let currentInterim = "";
+
+        for (let i = 0; i < event.results.length; i++) {
+          const item = event.results[i];
+          if (item.isFinal) {
+            currentFinal += item[0].transcript + " ";
+          } else {
+            currentInterim += item[0].transcript;
+          }
         }
 
-        setAudioTranscript(sampleAudio);
-        if (!title.trim()) {
-          setTitle(sampleTitle);
-          setErrors((prev) => {
-            const next = { ...prev };
-            delete next.title;
-            return next;
-          });
-        }
-        if (!description.trim()) {
-          setDescription(sampleAudio);
+        sessionFinalRef.current = currentFinal.trim();
+        setInterimTranscript(currentInterim);
+
+        const combinedParts = [
+          baseTranscriptRef.current,
+          sessionFinalRef.current,
+          currentInterim.trim(),
+        ].filter(Boolean);
+
+        const fullCombined = combinedParts.join(" ").replace(/\s+/g, " ").trim();
+
+        if (fullCombined) {
+          setAudioTranscript(fullCombined);
+          setDescription(fullCombined);
           setErrors((prev) => {
             const next = { ...prev };
             delete next.description;
             return next;
           });
         }
-      }, 3000);
-    } else {
+      };
+
+      recognition.onerror = (event: any) => {
+        console.warn("Speech recognition event:", event.error);
+        if (event.error === "not-allowed" || event.error === "permission-denied") {
+          isExplicitStopRef.current = true;
+          setSpeechError(
+            "Microphone permission was denied. Please click the camera/mic lock icon in your browser address bar and allow Microphone access."
+          );
+          setIsRecording(false);
+        } else if (event.error === "no-speech") {
+          // Natural speech pause between sentences - DO NOT STOP! Keep listening.
+        } else if (event.error === "network") {
+          setSpeechError("Network error with speech recognition service. You can also type or use sample audio.");
+        } else {
+          setSpeechError(`Speech recognition note: ${event.error}`);
+        }
+      };
+
+      recognition.onend = () => {
+        // Fold finalized chunk into base transcript
+        if (sessionFinalRef.current) {
+          baseTranscriptRef.current = [
+            baseTranscriptRef.current,
+            sessionFinalRef.current,
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .replace(/\s+/g, " ")
+            .trim();
+          sessionFinalRef.current = "";
+        }
+        setInterimTranscript("");
+
+        // Auto-restart if user has not clicked Stop Recording (truly unlimited recording)
+        if (!isExplicitStopRef.current) {
+          setTimeout(() => {
+            if (!isExplicitStopRef.current) {
+              try {
+                initAndStartRecognition();
+              } catch (e) {
+                console.warn("Speech recognition restart retry:", e);
+              }
+            }
+          }, 150);
+          return;
+        }
+
+        setIsRecording(false);
+      };
+
+      recognition.start();
+    } catch (err: any) {
+      console.error("Speech recognition start failed:", err);
+      if (!isExplicitStopRef.current) {
+        setSpeechError(err.message || "Could not start microphone. Please check permissions.");
+      }
       setIsRecording(false);
+    }
+  };
+
+  const startRecording = () => {
+    setSpeechError(null);
+    isExplicitStopRef.current = false;
+    sessionFinalRef.current = "";
+    baseTranscriptRef.current = description.trim();
+    initAndStartRecognition();
+  };
+
+  const stopRecording = () => {
+    isExplicitStopRef.current = true;
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        // ignore
+      }
+      recognitionRef.current = null;
+    }
+    if (sessionFinalRef.current) {
+      baseTranscriptRef.current = [
+        baseTranscriptRef.current,
+        sessionFinalRef.current,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
+      sessionFinalRef.current = "";
+    }
+    setIsRecording(false);
+    setInterimTranscript("");
+  };
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
+  // Fallback demo speech simulation for testing without mic or unsupported browsers
+  const handleSampleAudio = () => {
+    let sampleAudio = "";
+
+    if (voiceLang === "hi") {
+      sampleAudio =
+        "वर्धा और सेवाग्राम को जोड़ने वाले मुख्य पुल के पिलर नंबर 3 में गहरी दरारें आ गई हैं। नदी के पानी से नीचे की नींव कट रही है और स्कूल बसें निकलते समय पुल कांपता है।";
+    } else {
+      sampleAudio =
+        "The main bridge connecting Wardha and Sevagram has severe vertical cracks on pier number 3. Water scour has eroded the foundation. School buses shake heavily during crossing.";
+    }
+
+    setAudioTranscript(sampleAudio);
+    setDescription(sampleAudio);
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.description;
+      return next;
+    });
+    setSpeechError(null);
+  };
+
+  const clearVoiceInput = () => {
+    stopRecording();
+    baseTranscriptRef.current = "";
+    sessionFinalRef.current = "";
+    setAudioTranscript("");
+    setInterimTranscript("");
+    if (description === audioTranscript) {
+      setDescription("");
     }
   };
 
@@ -221,35 +411,6 @@ export default function CitizenReportPage() {
             </div>
           )}
 
-          {/* Submission Mode Selector (Accessible / Low Digital Literacy Mode) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs gap-2 sm:gap-3">
-            <span className="font-bold text-slate-800">Submission Method:</span>
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setSubmissionMode("QUICK")}
-                className={`px-3 py-2 sm:py-1.5 rounded-lg font-bold transition text-center ${
-                  submissionMode === "QUICK"
-                    ? "bg-gov-navy text-white shadow-sm"
-                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300"
-                }`}
-              >
-                📸 1-Tap Quick Report (Photo/Voice + Pin)
-              </button>
-              <button
-                type="button"
-                onClick={() => setSubmissionMode("DETAILED")}
-                className={`px-3 py-2 sm:py-1.5 rounded-lg font-bold transition text-center ${
-                  submissionMode === "DETAILED"
-                    ? "bg-gov-navy text-white shadow-sm"
-                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300"
-                }`}
-              >
-                📝 Full Detailed Form
-              </button>
-            </div>
-          </div>
-
           {/* Multimodal Voice Input Assistant */}
           <div className="gov-card p-5 bg-white border border-slate-200 space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -259,7 +420,7 @@ export default function CitizenReportPage() {
                   <span>Assisted Voice Input (बोलकर शिकायत दर्ज करें)</span>
                 </p>
                 <p className="text-[11px] text-slate-500">
-                  Select your preferred language and speak. Audio is transcribed automatically into the complaint form.
+                  Select your preferred language and speak clearly. Real-time audio is transcribed directly into your complaint.
                 </p>
               </div>
 
@@ -267,7 +428,12 @@ export default function CitizenReportPage() {
                 <div className="flex items-center border border-slate-200 rounded-lg p-0.5 bg-slate-50 text-[11px]">
                   <button
                     type="button"
-                    onClick={() => setVoiceLang("en")}
+                    onClick={() => {
+                      setVoiceLang("en");
+                      if (isRecording) {
+                        stopRecording();
+                      }
+                    }}
                     className={`px-3 py-1 rounded font-medium transition ${
                       voiceLang === "en" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
@@ -276,7 +442,12 @@ export default function CitizenReportPage() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setVoiceLang("hi")}
+                    onClick={() => {
+                      setVoiceLang("hi");
+                      if (isRecording) {
+                        stopRecording();
+                      }
+                    }}
                     className={`px-3 py-1 rounded font-medium transition font-devanagari ${
                       voiceLang === "hi" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                     }`}
@@ -288,16 +459,16 @@ export default function CitizenReportPage() {
                 <button
                   type="button"
                   onClick={toggleRecording}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 shadow-sm whitespace-nowrap ${
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 shadow-sm whitespace-nowrap ${
                     isRecording
-                      ? "bg-red-600 text-white animate-pulse"
+                      ? "bg-red-600 text-white animate-pulse shadow-red-200 ring-2 ring-red-400"
                       : "bg-orange-50 text-gov-saffron border border-orange-200 hover:bg-orange-100"
                   }`}
                 >
                   {isRecording ? (
                     <>
-                      <Square className="w-3.5 h-3.5" />
-                      <span>Listening... (3s)</span>
+                      <Square className="w-3.5 h-3.5 fill-current" />
+                      <span>Stop Recording</span>
                     </>
                   ) : (
                     <>
@@ -309,13 +480,95 @@ export default function CitizenReportPage() {
               </div>
             </div>
 
-            {audioTranscript && (
-              <div className="p-3 rounded-lg bg-orange-50/60 border border-orange-200 text-xs text-orange-950 flex items-start space-x-2">
-                <Sparkles className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold">Speech-to-Text Transcribed: </span>
-                  <span>"{audioTranscript}"</span>
+            {/* Live Recording Sound Wave Visualizer & Status */}
+            {isRecording && (
+              <div className="p-3.5 rounded-xl bg-red-50/80 border border-red-200 flex items-center justify-between gap-3 animate-in fade-in duration-200">
+                <div className="flex items-center space-x-3">
+                  <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-red-100">
+                    <span className="absolute w-full h-full rounded-full bg-red-400 animate-ping opacity-40"></span>
+                    <Volume2 className="w-4 h-4 text-red-600 z-10" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-red-900 flex items-center gap-1.5">
+                      <span>Listening... Speak into microphone</span>
+                      <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-200 text-red-800">
+                        {voiceLang === "hi" ? "Hindi (हिंदी)" : "English (India)"}
+                      </span>
+                    </p>
+                    <p className="text-[11px] text-red-700">
+                      {interimTranscript ? `"${interimTranscript}"` : "Say grievance details, location, and issue..."}
+                    </p>
+                  </div>
                 </div>
+
+                {/* Animated Equalizer Waves */}
+                <div className="flex items-end space-x-1 h-6 px-2">
+                  <div className="w-1 bg-red-500 rounded-full animate-[bounce_0.6s_infinite_100ms] h-4"></div>
+                  <div className="w-1 bg-red-600 rounded-full animate-[bounce_0.8s_infinite_200ms] h-6"></div>
+                  <div className="w-1 bg-red-500 rounded-full animate-[bounce_0.5s_infinite_300ms] h-3"></div>
+                  <div className="w-1 bg-red-600 rounded-full animate-[bounce_0.7s_infinite_150ms] h-5"></div>
+                  <div className="w-1 bg-red-500 rounded-full animate-[bounce_0.6s_infinite_250ms] h-4"></div>
+                </div>
+              </div>
+            )}
+
+            {/* Speech Error Banner with Quick Action */}
+            {speechError && (
+              <div className="p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex items-start space-x-2">
+                  <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <span>{speechError}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleSampleAudio}
+                  className="px-3 py-1 rounded bg-amber-200/80 hover:bg-amber-300 text-amber-900 font-semibold text-[11px] whitespace-nowrap transition"
+                >
+                  Load Sample Voice Audio
+                </button>
+              </div>
+            )}
+
+            {/* Speech-to-Text Transcribed Result Bar */}
+            {audioTranscript && (
+              <div className="p-3.5 rounded-xl bg-orange-50/70 border border-orange-200 text-xs text-orange-950 flex items-start justify-between gap-2">
+                <div className="flex items-start space-x-2.5">
+                  <Sparkles className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-slate-900">Speech-to-Text Live Transcript:</span>
+                      <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded">
+                        Transcribed
+                      </span>
+                    </div>
+                    <p className="text-slate-800 leading-relaxed italic">"{audioTranscript}"</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-1.5 flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={clearVoiceInput}
+                    title="Clear Voice Input"
+                    className="p-1 rounded text-slate-500 hover:text-red-600 hover:bg-red-50 transition text-[11px] flex items-center gap-1"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Clear</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Quick Demo Test Option */}
+            {!audioTranscript && !isRecording && (
+              <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
+                <span>Microphone not connected? You can test with a sample voice note:</span>
+                <button
+                  type="button"
+                  onClick={handleSampleAudio}
+                  className="text-gov-navy hover:text-gov-saffron font-semibold underline underline-offset-2 transition"
+                >
+                  Insert Sample Voice Grievance ({voiceLang === "hi" ? "हिंदी" : "English"})
+                </button>
               </div>
             )}
           </div>
@@ -355,52 +608,13 @@ export default function CitizenReportPage() {
               )}
             </div>
 
-            {submissionMode === "DETAILED" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Category (Optional - Auto-structured by AI)
-                  </label>
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
-                  >
-                    <option value="">✨ AI Auto-Detect Category</option>
-                    <option value="Infrastructure">Infrastructure (Roads & Bridges)</option>
-                    <option value="Water & Sanitation">Water Supply & Sanitation</option>
-                    <option value="Energy">Electricity & Energy</option>
-                    <option value="Public Health">Public Health & Sanitation</option>
-                    <option value="Agriculture">Agriculture & Irrigation</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Responsible Department (Optional - Auto-assigned by AI)
-                  </label>
-                  <select
-                    value={department}
-                    onChange={(e) => setDepartment(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
-                  >
-                    <option value="">✨ AI Auto-Recommend Department</option>
-                    <option value="Public Works Department (PWD)">Public Works Department (PWD)</option>
-                    <option value="Jal Jeevan Mission / Water Supply Board">Jal Jeevan Mission / Water Board</option>
-                    <option value="State Power Distribution Corporation (DISCOM)">State Power DISCOM</option>
-                    <option value="Municipal Corporation">Municipal Corporation</option>
-                  </select>
-                </div>
-              </div>
-            )}
-
             {/* Description (Mandatory) */}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
                 Description of the Issue & Impact <span className="text-red-500 font-bold">*</span>
               </label>
               <textarea
-                rows={submissionMode === "QUICK" ? 3 : 4}
+                rows={4}
                 value={description}
                 onChange={(e) => {
                   setDescription(e.target.value);
@@ -789,40 +1003,9 @@ export default function CitizenReportPage() {
                       </p>
                     </div>
                   </div>
-
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-500 block">
-                      Submission Mode
-                    </span>
-                    <p className="font-medium text-slate-700">
-                      {submissionMode === "QUICK" ? "⚡ 1-Tap Quick Report" : "📝 Full Detailed Form"}
-                    </p>
-                  </div>
                 </div>
 
-                {/* Detailed mode extras */}
-                {submissionMode === "DETAILED" && (category || department) && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
-                    {category && (
-                      <div className="flex items-start space-x-2">
-                        <Tag className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <span className="text-[10px] uppercase font-bold text-slate-500 block">Category</span>
-                          <p className="font-medium text-slate-700">{category}</p>
-                        </div>
-                      </div>
-                    )}
-                    {department && (
-                      <div className="flex items-start space-x-2">
-                        <Building className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <span className="text-[10px] uppercase font-bold text-slate-500 block">Department</span>
-                          <p className="font-medium text-slate-700">{department}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
+
 
                 {/* Evidence */}
                 {evidenceUrl && (

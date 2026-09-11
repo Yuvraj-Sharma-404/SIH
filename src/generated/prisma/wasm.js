@@ -170,6 +170,17 @@ exports.Prisma.ProblemScalarFieldEnum = {
   state: 'state',
   rejectionReason: 'rejectionReason',
   requestNote: 'requestNote',
+  aiCategory: 'aiCategory',
+  aiSubcategory: 'aiSubcategory',
+  aiDepartment: 'aiDepartment',
+  aiPriority: 'aiPriority',
+  aiSummary: 'aiSummary',
+  aiUrgencyReason: 'aiUrgencyReason',
+  aiLocation: 'aiLocation',
+  aiConfidence: 'aiConfidence',
+  aiStatus: 'aiStatus',
+  aiReviewStatus: 'aiReviewStatus',
+  aiProcessedAt: 'aiProcessedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
