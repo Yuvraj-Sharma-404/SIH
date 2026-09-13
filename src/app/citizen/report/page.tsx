@@ -1487,12 +1487,12 @@ export default function CitizenReportPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Category</span>
-              <p className="font-bold text-slate-900 mt-0.5">{submittedResult.data?.category || "Infrastructure"}</p>
+              <p className="font-bold text-slate-900 mt-0.5">{submittedResult.data?.category || "General Grievance"}</p>
             </div>
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Priority Index</span>
               <p className="font-bold text-gov-saffron font-mono mt-0.5">
-                {submittedResult.data?.priorityScore || 85} / 100
+                {submittedResult.data?.priorityScore ?? 0} / 100
               </p>
             </div>
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
@@ -1502,7 +1502,7 @@ export default function CitizenReportPage() {
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Nodal Dept</span>
               <p className="font-bold text-slate-900 mt-0.5 truncate">
-                {submittedResult.data?.departmentName || "Public Works Department (PWD)"}
+                {submittedResult.data?.departmentName || "Pending Department Assignment"}
               </p>
             </div>
           </div>

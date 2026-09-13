@@ -47,7 +47,7 @@ export default function CitizenTrackDynamicPage() {
 
   // Citizen Feedback Form State (PRD FR-17)
   const [rating, setRating] = useState(5);
-  const [feedbackComments, setFeedbackComments] = useState("The structural repair was completed and vibration is gone.");
+  const [feedbackComments, setFeedbackComments] = useState("");
   const [isResolvedConfirmed, setIsResolvedConfirmed] = useState(true);
   const [submittingFeedback, setSubmittingFeedback] = useState(false);
   const [feedbackDone, setFeedbackDone] = useState(false);
@@ -190,7 +190,7 @@ export default function CitizenTrackDynamicPage() {
                 <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 mt-1.5">
                   <span className="flex items-center space-x-1">
                     <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{complaint.address || "Wardha District, Maharashtra"}</span>
+                    <span>{complaint.address || "Location not specified"}</span>
                   </span>
                   <span>•</span>
                   <span>Lodge Date: {new Date(complaint.createdAt).toLocaleDateString()}</span>
@@ -257,19 +257,24 @@ export default function CitizenTrackDynamicPage() {
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
                 <span className="text-[10px] text-slate-500 uppercase font-semibold block">Responsible Department</span>
                 <p className="font-bold text-gov-navy mt-0.5">
-                  {complaint.departmentName || "Public Works Department"}
+                  {complaint.departmentName || "Pending Department Assignment"}
                 </p>
               </div>
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
                 <span className="text-[10px] text-slate-500 uppercase font-semibold block">Designated Nodal Officer</span>
                 <p className="font-bold text-slate-800 mt-0.5">
-                  {complaint.assignedOfficer || "Er. A. K. Sharma (PWD Wardha)"}
+                  {complaint.assignedOfficer || "Officer Assignment in Progress"}
                 </p>
               </div>
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
                 <span className="text-[10px] text-slate-500 uppercase font-semibold block">Priority Assessment Index</span>
                 <p className="font-bold text-gov-saffron mt-0.5 font-mono">
-                  {complaint.priorityScore} / 100
+                  {complaint.priorityScore ?? 0} / 100
+                  {complaint.priorityScore != null && (
+                    <span className="text-[10px] font-sans font-medium text-slate-600 ml-1.5">
+                      ({complaint.priorityScore >= 75 ? "High Priority" : complaint.priorityScore >= 40 ? "Medium Priority" : "Standard Priority"})
+                    </span>
+                  )}
                 </p>
               </div>
             </div>

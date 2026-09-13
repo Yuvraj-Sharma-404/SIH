@@ -11,14 +11,12 @@ import {
   LogOut,
 } from "lucide-react";
 import SmadhanXQrModal from "./SmadhanXQrModal";
-import PensionRedirectModal from "./PensionRedirectModal";
 import UserProfileModal, { UserProfileData } from "./UserProfileModal";
 import SmadhanXLogo from "./SmadhanXLogo";
 
 export default function SmadhanXHeader() {
   const pathname = usePathname();
   const [isQrOpen, setIsQrOpen] = useState(false);
-  const [isPensionOpen, setIsPensionOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
@@ -147,7 +145,34 @@ export default function SmadhanXHeader() {
 
   return (
     <>
-      {/* 1. Topbar - Government of India & Ministries with Quick Links */}
+      {/* Indian National Tricolor Ribbon */}
+      <div className="h-1.5 w-full flex sticky top-0 z-50 shadow-xs">
+        <div className="flex-1 bg-[#FF9933]"></div>
+        <div className="flex-1 bg-white"></div>
+        <div className="flex-1 bg-[#138808]"></div>
+      </div>
+
+      {/* 1. Main Header with SmadhanX Unique Symbol and Branding */}
+      <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 shadow-sm">
+        <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
+          {/* SmadhanX Unique Logo and Name at left-most corner */}
+          <SmadhanXLogo size="md" href="/" />
+
+          {/* Right Header: Mobile Menu Toggle Button */}
+          <div className="xl:hidden flex items-center">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg bg-gov-navy text-white hover:bg-gov-navy/90 transition shadow-sm"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Topbar - Government of India & Ministries with Quick Links */}
       <div className="bg-[#f0f4f8] border-b border-slate-300 text-[11px] text-slate-700 py-1.5 px-3 sm:px-6">
         <div className="max-w-[1440px] mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-center">
           {/* Left: Ministry Details */}
@@ -225,34 +250,8 @@ export default function SmadhanXHeader() {
         </div>
       </div>
 
-      {/* 2. Main Header with SmadhanX Unique Symbol and Branding */}
-      <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 shadow-sm">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
-          {/* SmadhanX Unique Logo and Name at left-most corner */}
-          <SmadhanXLogo size="md" href="/" />
-
-          {/* Right Header: Mobile Menu Toggle Button */}
-          <div className="xl:hidden flex items-center">
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg bg-gov-navy text-white hover:bg-gov-navy/90 transition shadow-sm"
-              aria-label="Toggle navigation menu"
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Main Dark Navbar with Sticky Top & Tricolor Ribbon */}
-      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-0 z-40">
-        {/* Indian National Tricolor Ribbon */}
-        <div className="h-1.5 w-full flex">
-          <div className="flex-1 bg-[#FF9933]"></div>
-          <div className="flex-1 bg-white"></div>
-          <div className="flex-1 bg-[#138808]"></div>
-        </div>
+      {/* 3. Main Dark Navbar with Sticky Top */}
+      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-1.5 z-40">
 
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile Sticky Bar on screens < xl */}
@@ -374,13 +373,6 @@ export default function SmadhanXHeader() {
                   >
                     Lodge Public Grievance
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => setIsPensionOpen(true)}
-                    className="w-full text-left px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                  >
-                    Lodge Pension Grievance
-                  </button>
                   <Link
                     href="/track"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
@@ -786,7 +778,6 @@ export default function SmadhanXHeader() {
 
       {/* Popups & Modals */}
       <SmadhanXQrModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
-      <PensionRedirectModal isOpen={isPensionOpen} onClose={() => setIsPensionOpen(false)} />
       <UserProfileModal
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
