@@ -350,12 +350,6 @@ export default function SmadhanXHeader() {
                     Lodge Public Grievance
                   </Link>
                   <Link
-                    href="/track"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                  >
-                    View Status
-                  </Link>
-                  <Link
                     href="/reminder"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
                   >
