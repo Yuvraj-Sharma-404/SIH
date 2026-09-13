@@ -72,7 +72,7 @@ export default function ReminderPage() {
               required
               value={regId}
               onChange={(e) => setRegId(e.target.value)}
-              placeholder="e.g. PS-2026-1042 or DARPG/E/2026/001"
+              placeholder="e.g. DARPG/E/2026/00001"
               className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-gov-navy focus:ring-1 focus:ring-gov-navy font-mono"
             />
           </div>
