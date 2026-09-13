@@ -33,5 +33,5 @@ export default function GoogleTranslate() {
     }
   }, []);
 
-  return <div id="google_translate_element" style={{ display: "none" }} />;
+  return <div id="google_translate_element" style={{ display: "none" }} suppressHydrationWarning />;
 }

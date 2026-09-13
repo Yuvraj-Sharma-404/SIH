@@ -26,8 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-[#f4f6f9] text-slate-900 selection:bg-orange-100 selection:text-orange-900`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.className} min-h-screen flex flex-col bg-[#f4f6f9] text-slate-900 selection:bg-orange-100 selection:text-orange-900`}
+        suppressHydrationWarning
+      >
         <GoogleTranslate />
         <SmadhanXHeader />
         <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6">

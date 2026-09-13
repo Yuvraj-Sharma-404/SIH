@@ -23,15 +23,7 @@ export default function SmadhanXHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
   const [fontSize, setFontSize] = useState<"normal" | "large">("normal");
-  const [currentUser, setCurrentUser] = useState<UserProfileData | null>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const saved = localStorage.getItem("smadhanx_user");
-        if (saved) return JSON.parse(saved);
-      } catch {}
-    }
-    return null;
-  });
+  const [currentUser, setCurrentUser] = useState<UserProfileData | null>(null);
 
   React.useEffect(() => {
     async function checkAuth() {
