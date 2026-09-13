@@ -26,8 +26,27 @@ import {
   Volume2,
   RotateCcw,
   Sparkle,
+  Paperclip,
+  Upload,
+  Trash2,
+  RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
+
+export interface AttachmentItem {
+  id: string;
+  file: File;
+  category: "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO";
+  name: string;
+  size: number;
+  formattedSize: string;
+  progress: number;
+  status: "ready" | "uploading" | "success" | "error";
+  errorMessage?: string;
+  storageKey?: string;
+  fileUrl?: string;
+  previewUrl?: string;
+}
 
 export default function CitizenReportPage() {
   const router = useRouter();
@@ -37,13 +56,24 @@ export default function CitizenReportPage() {
   const [description, setDescription] = useState("");
   const [reporterName, setReporterName] = useState("");
   const [reporterPhone, setReporterPhone] = useState("");
-  const [latitude, setLatitude] = useState<number | null>(20.7453);
-  const [longitude, setLongitude] = useState<number | null>(78.6022);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
   const [address, setAddress] = useState("");
-  const [evidenceType, setEvidenceType] = useState<"IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO">("IMAGE");
-  const [evidenceUrl, setEvidenceUrl] = useState(
-    "https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80"
-  );
+  const [district, setDistrict] = useState("");
+  const [stateName, setStateName] = useState("");
+
+  // Real GPS & Reverse Geocoding States
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
+  const [locationStatus, setLocationStatus] = useState<"idle" | "detecting" | "success" | "error">("idle");
+  const [locationSuccessMessage, setLocationSuccessMessage] = useState<string | null>(null);
+  const [locationErrorMessage, setLocationErrorMessage] = useState<string | null>(null);
+
+  // Real File Upload Attachments State
+  const [attachments, setAttachments] = useState<AttachmentItem[]>([]);
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState<"ALL" | "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO">("ALL");
+  const [isDragging, setIsDragging] = useState(false);
+  const [attachmentError, setAttachmentError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Audio Recording State with Real Multilingual Web Speech API (English & Hindi)
   const [voiceLang, setVoiceLang] = useState<"en" | "hi">("en");
@@ -294,6 +324,362 @@ export default function CitizenReportPage() {
     }
   };
 
+  // Real Device GPS Geolocation with Backend Reverse-Geocoding
+  const handleDetectLocation = () => {
+    if (isDetectingLocation) return;
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[GPS] GPS detection requested by citizen");
+    }
+
+    if (typeof window === "undefined" || !("geolocation" in navigator)) {
+      setLocationStatus("error");
+      setLocationErrorMessage(
+        "Geolocation is not supported by your browser. Please enter your location manually."
+      );
+      return;
+    }
+
+    setIsDetectingLocation(true);
+    setLocationStatus("detecting");
+    setLocationErrorMessage(null);
+    setLocationSuccessMessage(null);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude: lat, longitude: lng } = position.coords;
+
+        if (process.env.NODE_ENV !== "production") {
+          console.log(`[GPS] Coordinates received: lat=${lat.toFixed(5)}, lng=${lng.toFixed(5)}`);
+          console.log("[GPS] Querying reverse-geocoding endpoint...");
+        }
+
+        setLatitude(lat);
+        setLongitude(lng);
+
+        try {
+          const res = await fetch(`/api/location/reverse-geocode?lat=${lat}&lng=${lng}`);
+          const data = await res.json();
+
+          if (data.success && data.formattedAddress) {
+            if (process.env.NODE_ENV !== "production") {
+              console.log(`[GPS] Reverse geocoding response received: "${data.formattedAddress}"`);
+            }
+
+            setAddress(data.formattedAddress);
+            if (data.address?.district) setDistrict(data.address.district);
+            if (data.address?.state) setStateName(data.address.state);
+
+            setLocationStatus("success");
+            setLocationSuccessMessage("✓ GPS location detected");
+            setErrors((prev) => {
+              const next = { ...prev };
+              delete next.address;
+              return next;
+            });
+          } else {
+            console.warn("[GPS] Reverse geocoding returned error:", data.error);
+            setLocationStatus("error");
+            setLocationErrorMessage(
+              "GPS coordinates detected, but we couldn't convert them into an address. You can enter the location manually."
+            );
+          }
+        } catch (fetchErr) {
+          console.error("[GPS] Reverse geocode network error:", fetchErr);
+          setLocationStatus("error");
+          setLocationErrorMessage(
+            "GPS coordinates detected, but we couldn't convert them into an address. You can enter the location manually."
+          );
+        } finally {
+          setIsDetectingLocation(false);
+        }
+      },
+      (error) => {
+        setIsDetectingLocation(false);
+        setLocationStatus("error");
+
+        if (process.env.NODE_ENV !== "production") {
+          console.warn("[GPS] Geolocation error code:", error.code, error.message);
+        }
+
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setLocationErrorMessage(
+              "Location permission was denied. Please allow location access or enter your location manually."
+            );
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setLocationErrorMessage(
+              "Unable to detect your location. Please try again or enter it manually."
+            );
+            break;
+          case error.TIMEOUT:
+            setLocationErrorMessage("Location detection timed out. Please try again.");
+            break;
+          default:
+            setLocationErrorMessage(
+              "Unable to detect your location. Please try again or enter it manually."
+            );
+            break;
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0,
+      }
+    );
+  };
+
+  // -------------------------------------------------------------
+  // Evidence File Upload System Helpers
+  // -------------------------------------------------------------
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const getCategoryLimitHint = (category: "ALL" | "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO") => {
+    switch (category) {
+      case "IMAGE":
+        return "Photos up to 10 MB (JPG, PNG, WEBP)";
+      case "VIDEO":
+        return "Videos up to 50 MB (MP4, MOV, WEBM)";
+      case "DOCUMENT":
+        return "Documents up to 10 MB (PDF, DOC, DOCX)";
+      case "AUDIO":
+        return "Audio up to 20 MB (MP3, WAV, M4A, WEBM)";
+      case "ALL":
+      default:
+        return "Photos up to 10 MB • Videos up to 50 MB • Docs 10 MB • Audio 20 MB";
+    }
+  };
+
+  const getAcceptAttribute = (category: "ALL" | "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO") => {
+    switch (category) {
+      case "IMAGE":
+        return "image/jpeg,image/png,image/webp";
+      case "VIDEO":
+        return "video/mp4,video/quicktime,video/webm";
+      case "DOCUMENT":
+        return ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+      case "AUDIO":
+        return "audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a,audio/webm";
+      case "ALL":
+      default:
+        return "image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm,.pdf,.doc,.docx,audio/mpeg,audio/wav,audio/mp4,audio/webm";
+    }
+  };
+
+  const detectCategory = (file: File): "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO" | null => {
+    const ext = file.name.substring(file.name.lastIndexOf(".")).toLowerCase();
+    const type = file.type.toLowerCase();
+
+    if ([".jpg", ".jpeg", ".png", ".webp"].includes(ext) || type.startsWith("image/")) {
+      return "IMAGE";
+    }
+    if ([".mp4", ".mov", ".webm"].includes(ext) || type.startsWith("video/")) {
+      return "VIDEO";
+    }
+    if (
+      [".pdf", ".doc", ".docx"].includes(ext) ||
+      type.includes("pdf") ||
+      type.includes("word") ||
+      type.includes("officedocument")
+    ) {
+      return "DOCUMENT";
+    }
+    if ([".mp3", ".wav", ".m4a"].includes(ext) || type.startsWith("audio/")) {
+      return "AUDIO";
+    }
+    return null;
+  };
+
+  const getCategoryMaxSize = (cat: "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO"): number => {
+    switch (cat) {
+      case "IMAGE":
+        return 10 * 1024 * 1024;
+      case "VIDEO":
+        return 50 * 1024 * 1024;
+      case "DOCUMENT":
+        return 10 * 1024 * 1024;
+      case "AUDIO":
+        return 20 * 1024 * 1024;
+    }
+  };
+
+  const uploadAttachment = (item: AttachmentItem) => {
+    setAttachments((prev) =>
+      prev.map((att) =>
+        att.id === item.id
+          ? { ...att, status: "uploading", progress: 5, errorMessage: undefined }
+          : att
+      )
+    );
+
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("files", item.file);
+
+    xhr.upload.addEventListener("progress", (e) => {
+      if (e.lengthComputable) {
+        const percent = Math.min(95, Math.round((e.loaded / e.total) * 100));
+        setAttachments((prev) =>
+          prev.map((att) => (att.id === item.id ? { ...att, progress: percent } : att))
+        );
+      }
+    });
+
+    xhr.addEventListener("load", () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res.success && res.files?.[0]) {
+            const uploaded = res.files[0];
+            setAttachments((prev) =>
+              prev.map((att) =>
+                att.id === item.id
+                  ? {
+                      ...att,
+                      status: "success",
+                      progress: 100,
+                      storageKey: uploaded.storageKey,
+                      fileUrl: uploaded.fileUrl,
+                    }
+                  : att
+              )
+            );
+            return;
+          }
+        } catch {}
+      }
+
+      let errorMsg = "Upload failed";
+      try {
+        const res = JSON.parse(xhr.responseText);
+        if (res.error) errorMsg = res.error;
+      } catch {}
+
+      setAttachments((prev) =>
+        prev.map((att) =>
+          att.id === item.id ? { ...att, status: "error", errorMessage: errorMsg } : att
+        )
+      );
+    });
+
+    xhr.addEventListener("error", () => {
+      setAttachments((prev) =>
+        prev.map((att) =>
+          att.id === item.id ? { ...att, status: "error", errorMessage: "Network error during upload" } : att
+        )
+      );
+    });
+
+    xhr.open("POST", "/api/upload");
+    xhr.send(formData);
+  };
+
+  const handleFilesSelected = (files: FileList | File[]) => {
+    setAttachmentError(null);
+    const newFiles = Array.from(files);
+
+    if (newFiles.length === 0) return;
+
+    // 1. Max 10 files limit
+    if (attachments.length + newFiles.length > 10) {
+      setAttachmentError(`You can upload a maximum of 10 files (currently ${attachments.length} selected).`);
+      return;
+    }
+
+    // 2. Combined 100 MB limit
+    const currentTotalSize = attachments.reduce((sum, a) => sum + a.size, 0);
+    const newFilesTotalSize = newFiles.reduce((sum, f) => sum + f.size, 0);
+
+    if (currentTotalSize + newFilesTotalSize > 100 * 1024 * 1024) {
+      const totalMB = ((currentTotalSize + newFilesTotalSize) / (1024 * 1024)).toFixed(1);
+      setAttachmentError(`Total upload size (${totalMB} MB) exceeds the 100 MB maximum limit per grievance.`);
+      return;
+    }
+
+    const itemsToUpload: AttachmentItem[] = [];
+    const validationErrors: string[] = [];
+
+    for (const file of newFiles) {
+      const category = detectCategory(file);
+      if (!category) {
+        validationErrors.push(`"${file.name}": File type is not supported.`);
+        continue;
+      }
+
+      const maxSize = getCategoryMaxSize(category);
+      if (file.size > maxSize) {
+        const maxMB = Math.round(maxSize / (1024 * 1024));
+        const fileMB = (file.size / (1024 * 1024)).toFixed(1);
+        validationErrors.push(`"${file.name}" (${fileMB} MB): Exceeds ${category.toLowerCase()} limit of ${maxMB} MB.`);
+        continue;
+      }
+
+      let previewUrl: string | undefined;
+      if (category === "IMAGE" || category === "VIDEO") {
+        try {
+          previewUrl = URL.createObjectURL(file);
+        } catch {}
+      }
+
+      const item: AttachmentItem = {
+        id: `att_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+        file,
+        category,
+        name: file.name,
+        size: file.size,
+        formattedSize: formatFileSize(file.size),
+        progress: 0,
+        status: "uploading",
+        previewUrl,
+      };
+
+      itemsToUpload.push(item);
+    }
+
+    if (validationErrors.length > 0) {
+      setAttachmentError(validationErrors.join(" "));
+    }
+
+    if (itemsToUpload.length > 0) {
+      setAttachments((prev) => [...prev, ...itemsToUpload]);
+      for (const item of itemsToUpload) {
+        uploadAttachment(item);
+      }
+    }
+  };
+
+  const handleRemoveAttachment = async (id: string) => {
+    const item = attachments.find((a) => a.id === id);
+    if (!item) return;
+
+    if (item.previewUrl) {
+      try {
+        URL.revokeObjectURL(item.previewUrl);
+      } catch {}
+    }
+
+    if (item.storageKey) {
+      try {
+        fetch(`/api/upload?key=${encodeURIComponent(item.storageKey)}`, { method: "DELETE" }).catch(() => {});
+      } catch {}
+    }
+
+    setAttachments((prev) => prev.filter((a) => a.id !== id));
+  };
+
+  const handleRetryAttachment = (id: string) => {
+    const item = attachments.find((a) => a.id === id);
+    if (item) {
+      uploadAttachment(item);
+    }
+  };
+
   // Helper to validate all required fields
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -334,6 +720,21 @@ export default function CitizenReportPage() {
       return;
     }
 
+    // Guard against uploads in progress or failed uploads
+    const isUploading = attachments.some((a) => a.status === "uploading");
+    if (isUploading) {
+      setValidationErrorBanner("Please wait for all attachments to finish uploading before submitting.");
+      window.scrollTo({ top: 180, behavior: "smooth" });
+      return;
+    }
+
+    const hasFailed = attachments.some((a) => a.status === "error");
+    if (hasFailed) {
+      setValidationErrorBanner("One or more attachments failed to upload. Please retry or remove them before submitting.");
+      window.scrollTo({ top: 180, behavior: "smooth" });
+      return;
+    }
+
     // Clear any previous error states and open confirmation popup
     setErrors({});
     setValidationErrorBanner(null);
@@ -347,6 +748,16 @@ export default function CitizenReportPage() {
     const finalTitle = title.trim() || (audioTranscript ? `Voice Grievance (${voiceLang.toUpperCase()})` : "Civic Grievance Report");
     const finalDescription = description.trim() || audioTranscript || "Reported via citizen portal with attached media evidence and location pin.";
 
+    const finalAttachments = attachments
+      .filter((a) => a.status === "success" && (a.storageKey || a.fileUrl))
+      .map((a) => ({
+        type: a.category,
+        fileUrl: a.fileUrl || `/api/attachments/${a.storageKey}`,
+        fileName: a.name,
+        fileSize: a.size,
+        mimeType: a.file.type || "application/octet-stream",
+      }));
+
     try {
       const res = await fetch("/api/problems", {
         method: "POST",
@@ -356,11 +767,12 @@ export default function CitizenReportPage() {
           description: finalDescription,
           reporterName: reporterName.trim() || undefined,
           reporterPhone: reporterPhone.trim() || undefined,
-          latitude,
-          longitude,
+          latitude: latitude != null ? latitude : undefined,
+          longitude: longitude != null ? longitude : undefined,
           address: address.trim() || undefined,
-          evidenceType,
-          evidenceUrl: evidenceUrl.trim() || undefined,
+          district: district.trim() || undefined,
+          state: stateName.trim() || undefined,
+          attachments: finalAttachments.length > 0 ? finalAttachments : undefined,
         }),
       });
 
@@ -654,6 +1066,10 @@ export default function CitizenReportPage() {
                     value={address}
                     onChange={(e) => {
                       setAddress(e.target.value);
+                      if (locationStatus === "success") {
+                        setLocationStatus("idle");
+                        setLocationSuccessMessage(null);
+                      }
                       if (errors.address) {
                         setErrors((prev) => {
                           const next = { ...prev };
@@ -662,7 +1078,7 @@ export default function CitizenReportPage() {
                         });
                       }
                     }}
-                    placeholder="e.g. Wardha, Maharashtra or use GPS"
+                    placeholder="Enter village, landmark, or click GPS"
                     className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition ${
                       errors.address
                         ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
@@ -671,24 +1087,66 @@ export default function CitizenReportPage() {
                   />
                   <button
                     type="button"
-                    onClick={() => {
-                      setAddress("Wardha, Maharashtra (GPS Detected)");
-                      setLatitude(20.7453);
-                      setLongitude(78.6022);
-                      if (errors.address) {
-                        setErrors((prev) => {
-                          const next = { ...prev };
-                          delete next.address;
-                          return next;
-                        });
-                      }
-                    }}
-                    className="px-2.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-[11px] font-semibold text-slate-700 flex items-center space-x-1 whitespace-nowrap transition"
+                    onClick={handleDetectLocation}
+                    disabled={isDetectingLocation}
+                    title={
+                      isDetectingLocation
+                        ? "Detecting location from device GPS..."
+                        : locationStatus === "success"
+                        ? "Location detected via GPS"
+                        : "Get exact location from device GPS"
+                    }
+                    className={`px-2.5 py-2 rounded-lg border text-[11px] font-semibold flex items-center space-x-1 whitespace-nowrap transition cursor-pointer disabled:cursor-not-allowed ${
+                      isDetectingLocation
+                        ? "bg-slate-100 border-slate-300 text-slate-500"
+                        : locationStatus === "success"
+                        ? "bg-emerald-50 border-emerald-300 text-emerald-700 hover:bg-emerald-100"
+                        : "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
+                    }`}
                   >
-                    <MapPin className="w-3.5 h-3.5 text-gov-navy" />
-                    <span>GPS</span>
+                    {isDetectingLocation ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-gov-navy" />
+                        <span>Detecting...</span>
+                      </>
+                    ) : locationStatus === "success" ? (
+                      <>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Location Detected</span>
+                      </>
+                    ) : (
+                      <>
+                        <MapPin className="w-3.5 h-3.5 text-gov-navy" />
+                        <span>GPS</span>
+                      </>
+                    )}
                   </button>
                 </div>
+
+                {/* GPS Success feedback with subtle coordinate info */}
+                {locationStatus === "success" && (
+                  <div className="flex items-center justify-between mt-1.5 text-[11px] text-emerald-700 font-medium animate-in fade-in duration-150">
+                    <span className="flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                      <span>{locationSuccessMessage || "✓ GPS location detected"}</span>
+                    </span>
+                    {latitude != null && longitude != null && (
+                      <span className="text-[10px] text-slate-400 font-mono" title="Device GPS Coordinates">
+                        ({latitude.toFixed(4)}°, {longitude.toFixed(4)}°)
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* GPS Error feedback */}
+                {locationStatus === "error" && locationErrorMessage && (
+                  <div className="flex items-start gap-1.5 mt-1.5 text-[11px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200 animate-in fade-in duration-150">
+                    <AlertCircle className="w-3.5 h-3.5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <span>{locationErrorMessage}</span>
+                  </div>
+                )}
+
+                {/* Validation Error feedback */}
                 {errors.address && (
                   <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3 flex-shrink-0" />
@@ -697,72 +1155,244 @@ export default function CitizenReportPage() {
                 )}
               </div>
 
-              {/* Evidence Media Attachment (Optional) */}
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Evidence Media Attachment (Optional)
-                </label>
-                <div className="flex items-center space-x-1 mb-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEvidenceType("IMAGE");
-                      setEvidenceUrl("https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80");
-                    }}
-                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
-                      evidenceType === "IMAGE" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                  >
-                    <Camera className="w-3 h-3" />
-                    <span>Photo</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEvidenceType("VIDEO");
-                      setEvidenceUrl("https://assets.mixkit.co/videos/preview/mixkit-traffic-crossing-a-bridge-under-the-sun-41553-large.mp4");
-                    }}
-                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
-                      evidenceType === "VIDEO" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                  >
-                    <Video className="w-3 h-3" />
-                    <span>Video</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEvidenceType("DOCUMENT");
-                      setEvidenceUrl("https://smadhanx.gov.in/docs/Wardha_PWD_Structural_Inspection_Report.pdf");
-                    }}
-                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
-                      evidenceType === "DOCUMENT" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                  >
-                    <FileText className="w-3 h-3" />
-                    <span>Doc/PDF</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEvidenceType("AUDIO");
-                      setEvidenceUrl("https://smadhanx.gov.in/audio/citizen_voice_complaint_0912.mp3");
-                    }}
-                    className={`flex items-center space-x-1 px-2 py-1 rounded text-[11px] font-semibold transition ${
-                      evidenceType === "AUDIO" ? "bg-gov-navy text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                  >
-                    <Music className="w-3 h-3" />
-                    <span>Audio</span>
-                  </button>
+              {/* Evidence Media Attachment (Real File Upload System) */}
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Evidence Media Attachment (Optional)
+                    </label>
+                    <span className="text-[11px] text-slate-500">
+                      Attach real photos, videos, documents, or audio from your device to corroborate your grievance.
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono font-semibold text-slate-500">
+                    {attachments.length} / 10 files
+                  </span>
                 </div>
+
+                {/* Category Filter Buttons with dynamic accept */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Filter Type:</span>
+                  {(
+                    [
+                      { key: "ALL", label: "All Files", icon: Paperclip },
+                      { key: "IMAGE", label: "Photo (10MB)", icon: Camera },
+                      { key: "VIDEO", label: "Video (50MB)", icon: Video },
+                      { key: "DOCUMENT", label: "Doc/PDF (10MB)", icon: FileText },
+                      { key: "AUDIO", label: "Audio (20MB)", icon: Music },
+                    ] as const
+                  ).map(({ key, label, icon: Icon }) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => {
+                        setActiveCategoryFilter(key);
+                      }}
+                      className={`flex items-center space-x-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition ${
+                        activeCategoryFilter === key
+                          ? "bg-gov-navy text-white shadow-sm"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      <Icon className="w-3 h-3" />
+                      <span>{label}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Hidden File Input */}
                 <input
-                  type="text"
-                  value={evidenceUrl}
-                  onChange={(e) => setEvidenceUrl(e.target.value)}
-                  placeholder="https://... URL or file path (Optional)"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy font-mono"
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept={getAcceptAttribute(activeCategoryFilter)}
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      handleFilesSelected(e.target.files);
+                      e.target.value = "";
+                    }
+                  }}
                 />
+
+                {/* Drag and Drop Dropzone */}
+                <div
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setIsDragging(true);
+                  }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setIsDragging(false);
+                    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                      handleFilesSelected(e.dataTransfer.files);
+                    }
+                  }}
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition flex flex-col items-center justify-center space-y-2 select-none ${
+                    isDragging
+                      ? "border-gov-navy bg-blue-50/60 scale-[1.005]"
+                      : "border-slate-300 hover:border-gov-navy bg-slate-50/50 hover:bg-slate-50"
+                  }`}
+                >
+                  <div className="w-10 h-10 rounded-full bg-blue-50 text-gov-navy flex items-center justify-center shadow-xs">
+                    <Upload className="w-5 h-5 text-gov-navy" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-slate-800">
+                      <span className="text-gov-navy font-bold underline">Choose files from device</span> or drag and drop here
+                    </p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      {getCategoryLimitHint(activeCategoryFilter)} • Max 10 files (100 MB total)
+                    </p>
+                  </div>
+                </div>
+
+                {/* Attachment Error Banner */}
+                {attachmentError && (
+                  <div className="flex items-start gap-1.5 text-[11px] text-rose-800 bg-rose-50 p-2.5 rounded-lg border border-rose-200 animate-in fade-in duration-150">
+                    <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-semibold">{attachmentError}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Selected Attachments List / Grid */}
+                {attachments.length > 0 && (
+                  <div className="space-y-2 pt-1">
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 px-0.5">
+                      <span className="font-semibold text-slate-700">
+                        Attached Evidence ({attachments.length}/10)
+                      </span>
+                      <span className="font-mono">
+                        Combined: {formatFileSize(attachments.reduce((sum, a) => sum + a.size, 0))} / 100 MB
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {attachments.map((item) => {
+                        const CategoryIcon =
+                          item.category === "IMAGE"
+                            ? Camera
+                            : item.category === "VIDEO"
+                            ? Video
+                            : item.category === "DOCUMENT"
+                            ? FileText
+                            : Music;
+
+                        return (
+                          <div
+                            key={item.id}
+                            className={`p-2.5 rounded-xl border flex items-center gap-3 transition bg-white shadow-2xs ${
+                              item.status === "error"
+                                ? "border-rose-200 bg-rose-50/20"
+                                : item.status === "success"
+                                ? "border-emerald-200"
+                                : "border-slate-200"
+                            }`}
+                          >
+                            {/* Thumbnail / Icon Preview */}
+                            <div className="w-12 h-12 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0 flex items-center justify-center border border-slate-200 relative">
+                              {item.previewUrl ? (
+                                item.category === "IMAGE" ? (
+                                  <img
+                                    src={item.previewUrl}
+                                    alt={item.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <video
+                                    src={item.previewUrl}
+                                    className="w-full h-full object-cover"
+                                  />
+                                )
+                              ) : (
+                                <CategoryIcon className="w-5 h-5 text-slate-500" />
+                              )}
+                              <span className="absolute bottom-0 inset-x-0 bg-slate-900/70 text-white text-[8px] font-mono px-0.5 text-center truncate">
+                                {item.category}
+                              </span>
+                            </div>
+
+                            {/* Details */}
+                            <div className="flex-1 min-w-0">
+                              <p
+                                className="text-xs font-semibold text-slate-800 truncate"
+                                title={item.name}
+                              >
+                                {item.name}
+                              </p>
+                              <div className="flex items-center gap-2 text-[10px] text-slate-500 mt-0.5 font-mono">
+                                <span>{item.formattedSize}</span>
+                                <span>•</span>
+                                {item.status === "uploading" && (
+                                  <span className="text-blue-600 font-semibold flex items-center gap-1">
+                                    <Loader2 className="w-2.5 h-2.5 animate-spin" />
+                                    <span>Uploading {item.progress}%</span>
+                                  </span>
+                                )}
+                                {item.status === "success" && (
+                                  <span className="text-emerald-700 font-semibold flex items-center gap-1">
+                                    <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                                    <span>Uploaded</span>
+                                  </span>
+                                )}
+                                {item.status === "error" && (
+                                  <span className="text-rose-600 font-semibold flex items-center gap-1">
+                                    <AlertCircle className="w-3 h-3 text-rose-600" />
+                                    <span>Failed</span>
+                                  </span>
+                                )}
+                              </div>
+
+                              {/* Progress bar when uploading */}
+                              {item.status === "uploading" && (
+                                <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mt-1.5 border border-slate-200">
+                                  <div
+                                    className="h-full bg-gov-navy transition-all duration-200"
+                                    style={{ width: `${item.progress}%` }}
+                                  />
+                                </div>
+                              )}
+
+                              {/* Error message */}
+                              {item.status === "error" && item.errorMessage && (
+                                <p className="text-[10px] text-rose-600 truncate mt-0.5">
+                                  {item.errorMessage}
+                                </p>
+                              )}
+                            </div>
+
+                            {/* Actions (Retry / Remove) */}
+                            <div className="flex items-center gap-1 flex-shrink-0">
+                              {item.status === "error" && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleRetryAttachment(item.id)}
+                                  title="Retry upload"
+                                  className="p-1.5 text-slate-500 hover:text-gov-navy hover:bg-slate-100 rounded-md transition"
+                                >
+                                  <RefreshCw className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveAttachment(item.id)}
+                                title="Remove file"
+                                className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -900,6 +1530,15 @@ export default function CitizenReportPage() {
                 setReporterName("");
                 setReporterPhone("");
                 setAddress("");
+                setLatitude(null);
+                setLongitude(null);
+                setDistrict("");
+                setStateName("");
+                setLocationStatus("idle");
+                setLocationSuccessMessage(null);
+                setLocationErrorMessage(null);
+                setAttachments([]);
+                setAttachmentError(null);
               }}
               className="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
             >
@@ -976,6 +1615,11 @@ export default function CitizenReportPage() {
                         Location / Landmark
                       </span>
                       <p className="font-semibold text-slate-900">{address}</p>
+                      {latitude != null && longitude != null && (
+                        <p className="text-[10px] text-slate-400 font-mono mt-0.5">
+                          GPS: {latitude.toFixed(4)}°, {longitude.toFixed(4)}°
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -1007,13 +1651,39 @@ export default function CitizenReportPage() {
 
 
 
-                {/* Evidence */}
-                {evidenceUrl && (
+                {/* Evidence Attachments in Modal */}
+                {attachments.length > 0 && (
                   <div className="pt-2 border-t border-slate-200">
-                    <span className="text-[10px] uppercase font-bold text-slate-500 block">
-                      Evidence Media ({evidenceType})
-                    </span>
-                    <p className="font-mono text-[11px] text-slate-600 truncate mt-0.5">{evidenceUrl}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                        Attached Evidence ({attachments.length} {attachments.length === 1 ? "file" : "files"})
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">
+                        {formatFileSize(attachments.reduce((sum, a) => sum + a.size, 0))}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1.5">
+                      {attachments.map((att) => (
+                        <div
+                          key={att.id}
+                          className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200"
+                        >
+                          <div className="w-7 h-7 rounded bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
+                            {att.category === "IMAGE" && <Camera className="w-3.5 h-3.5" />}
+                            {att.category === "VIDEO" && <Video className="w-3.5 h-3.5" />}
+                            {att.category === "DOCUMENT" && <FileText className="w-3.5 h-3.5" />}
+                            {att.category === "AUDIO" && <Music className="w-3.5 h-3.5" />}
+                          </div>
+                          <div className="flex-1 min-w-0 text-[11px]">
+                            <p className="font-medium text-slate-800 truncate">{att.name}</p>
+                            <p className="text-[10px] text-slate-400 font-mono">
+                              {att.category} • {att.formattedSize}
+                            </p>
+                          </div>
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

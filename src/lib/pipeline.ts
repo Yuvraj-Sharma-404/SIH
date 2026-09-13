@@ -4,6 +4,14 @@ import { detectDuplicates } from "./ai/deduplication";
 import { calculatePriority } from "./ai/priority";
 import { classifyGrievance } from "@/services/gemini.service";
 
+export interface AttachmentInput {
+  type: string; // IMAGE, VIDEO, DOCUMENT, AUDIO
+  fileUrl: string;
+  fileName: string;
+  fileSize?: number;
+  mimeType?: string;
+}
+
 export interface PipelineInput {
   title: string;
   description: string;
@@ -16,6 +24,7 @@ export interface PipelineInput {
   state?: string | null;
   evidenceType?: string; // IMAGE, AUDIO, VIDEO, DOCUMENT
   evidenceUrl?: string;
+  attachments?: AttachmentInput[];
   idempotencyKey?: string | null;
 }
 
@@ -111,7 +120,18 @@ export async function processIngestionPipeline(input: PipelineInput) {
   });
 
   // Attach evidence if provided
-  if (input.evidenceUrl) {
+  if (input.attachments && input.attachments.length > 0) {
+    await prisma.evidence.createMany({
+      data: input.attachments.map((att) => ({
+        problemId: problem.id,
+        type: att.type || "IMAGE",
+        fileUrl: att.fileUrl,
+        fileName: att.fileName || "attachment",
+        fileSize: att.fileSize || null,
+        mimeType: att.mimeType || null,
+      })),
+    });
+  } else if (input.evidenceUrl) {
     await prisma.evidence.create({
       data: {
         problemId: problem.id,

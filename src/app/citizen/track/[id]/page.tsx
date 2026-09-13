@@ -17,6 +17,12 @@ import {
   ShieldCheck,
   AlertCircle,
   TrendingUp,
+  FileText,
+  Camera,
+  Video,
+  Music,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -270,17 +276,125 @@ export default function CitizenTrackDynamicPage() {
 
             {/* Evidence Preview if attached */}
             {complaint.evidence && complaint.evidence.length > 0 && (
-              <div className="pt-2 border-t border-slate-100 space-y-2">
-                <span className="text-xs font-bold text-slate-700 block">Submitted Evidence Media:</span>
-                <div className="flex flex-wrap gap-3">
-                  {complaint.evidence.map((ev: any) => (
-                    <div key={ev.id} className="relative group rounded-lg overflow-hidden border border-slate-300 w-28 h-20 bg-slate-100">
-                      <img src={ev.fileUrl} alt="Evidence" className="w-full h-full object-cover" />
-                      <span className="absolute bottom-0 inset-x-0 bg-slate-900/70 text-white text-[9px] font-mono px-1 py-0.5 text-center truncate">
-                        {ev.type}
-                      </span>
-                    </div>
-                  ))}
+              <div className="pt-3 border-t border-slate-100 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-700">
+                    Corroborating Evidence Media ({complaint.evidence.length})
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono">
+                    Verified Digital Attachments
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {complaint.evidence.map((ev: any) => {
+                    const isImage = ev.type === "IMAGE" || (!ev.type && ev.fileUrl?.match(/\.(jpg|jpeg|png|webp)/i));
+                    const isVideo = ev.type === "VIDEO" || ev.fileUrl?.match(/\.(mp4|mov|webm)/i);
+                    const isAudio = ev.type === "AUDIO" || ev.fileUrl?.match(/\.(mp3|wav|m4a)/i);
+                    const isDoc = ev.type === "DOCUMENT" || ev.fileUrl?.match(/\.(pdf|doc|docx)/i);
+
+                    if (isImage) {
+                      return (
+                        <div
+                          key={ev.id}
+                          className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100 hover:border-gov-navy transition shadow-2xs"
+                        >
+                          <img
+                            src={ev.fileUrl}
+                            alt={ev.fileName || "Grievance Evidence"}
+                            className="w-full h-36 object-cover group-hover:scale-105 transition duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 justify-between">
+                            <span className="text-[10px] font-medium text-white truncate max-w-[70%] font-mono">
+                              {ev.fileName || "Evidence Photo"}
+                            </span>
+                            <a
+                              href={ev.fileUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-1 rounded bg-white/20 hover:bg-white/40 text-white transition"
+                              title="Open image full size"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    if (isVideo) {
+                      return (
+                        <div
+                          key={ev.id}
+                          className="rounded-xl overflow-hidden border border-slate-200 bg-slate-900 shadow-2xs"
+                        >
+                          <video
+                            src={ev.fileUrl}
+                            controls
+                            className="w-full h-36 object-cover"
+                            preload="metadata"
+                          />
+                          <div className="p-2 bg-slate-800 text-white flex items-center justify-between text-[10px]">
+                            <span className="truncate font-mono">{ev.fileName || "Evidence Video"}</span>
+                            <span className="px-1.5 py-0.5 rounded bg-blue-500/30 text-blue-300 text-[9px] font-bold">
+                              VIDEO
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    if (isAudio) {
+                      return (
+                        <div
+                          key={ev.id}
+                          className="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between space-y-2 shadow-2xs"
+                        >
+                          <div className="flex items-center space-x-2">
+                            <div className="w-8 h-8 rounded-lg bg-blue-100 text-gov-navy flex items-center justify-center flex-shrink-0">
+                              <Music className="w-4 h-4" />
+                            </div>
+                            <div className="truncate flex-1">
+                              <span className="text-xs font-semibold text-slate-800 block truncate">
+                                {ev.fileName || "Citizen Voice Complaint"}
+                              </span>
+                              <span className="text-[10px] text-slate-500 font-mono">AUDIO EVIDENCE</span>
+                            </div>
+                          </div>
+                          <audio src={ev.fileUrl} controls className="w-full h-8" />
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div
+                        key={ev.id}
+                        className="p-3 rounded-xl border border-slate-200 bg-white flex items-center justify-between gap-2 shadow-2xs hover:border-gov-navy transition"
+                      >
+                        <div className="flex items-center space-x-2.5 truncate">
+                          <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <div className="truncate">
+                            <p className="text-xs font-semibold text-slate-800 truncate">
+                              {ev.fileName || "Inspection Report"}
+                            </p>
+                            <span className="text-[10px] text-slate-400 font-mono">DOCUMENT / PDF</span>
+                          </div>
+                        </div>
+                        <a
+                          href={ev.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download={ev.fileName || "evidence-document"}
+                          className="p-2 rounded-lg bg-slate-100 hover:bg-gov-navy hover:text-white text-slate-600 transition flex-shrink-0"
+                          title="Download document"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}

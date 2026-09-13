@@ -20,6 +20,10 @@ dist
 .env.test.local
 .env.production.local
 
+# Local File Storage
+/storage/uploads/*
+!/storage/uploads/.gitkeep
+
 # Local SQLite databases (Prisma)
 *.db
 *.db-journal

@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
       state,
       evidenceType,
       evidenceUrl,
+      attachments,
       idempotencyKey,
     } = body;
 
@@ -77,6 +78,7 @@ export async function POST(req: NextRequest) {
       state,
       evidenceType,
       evidenceUrl,
+      attachments,
       idempotencyKey,
     });
 
