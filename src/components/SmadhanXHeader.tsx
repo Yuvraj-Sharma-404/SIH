@@ -310,31 +310,7 @@ export default function SmadhanXHeader() {
                 </div>
               </div>
 
-              {/* PG Officers Dropdown */}
-              <div className="relative group">
-                <button
-                  type="button"
-                  className="flex items-center space-x-1 px-2.5 py-2 rounded hover:bg-white/15 transition"
-                >
-                  <img src="/Images/ico_nodal.png" alt="Nodal Officers" className="w-4 h-4 object-contain" />
-                  <span>PG Officers</span>
-                  <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
-                </button>
-                <div className="absolute left-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[220px] py-1 animate-fadeIn z-50">
-                  <Link
-                    href="/nodal-officers?type=central"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                  >
-                    Central Government
-                  </Link>
-                  <Link
-                    href="/nodal-officers?type=state"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                  >
-                    State Government
-                  </Link>
-                </div>
-              </div>
+
 
               {/* Redress Process Dropdown */}
               <div className="relative group">
@@ -573,13 +549,7 @@ export default function SmadhanXHeader() {
               >
                 View Status
               </Link>
-              <Link
-                href="/nodal-officers"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded hover:bg-white/10 transition"
-              >
-                Nodal PG Officers (Central & State)
-              </Link>
+
               <Link
                 href="/process-flow"
                 onClick={() => setIsMobileMenuOpen(false)}
