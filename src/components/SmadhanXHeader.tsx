@@ -11,14 +11,12 @@ import {
   LogOut,
 } from "lucide-react";
 import SmadhanXQrModal from "./SmadhanXQrModal";
-import PensionRedirectModal from "./PensionRedirectModal";
 import UserProfileModal, { UserProfileData } from "./UserProfileModal";
 import SmadhanXLogo from "./SmadhanXLogo";
 
 export default function SmadhanXHeader() {
   const pathname = usePathname();
   const [isQrOpen, setIsQrOpen] = useState(false);
-  const [isPensionOpen, setIsPensionOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
@@ -375,13 +373,6 @@ export default function SmadhanXHeader() {
                   >
                     Lodge Public Grievance
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => setIsPensionOpen(true)}
-                    className="w-full text-left px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
-                  >
-                    Lodge Pension Grievance
-                  </button>
                   <Link
                     href="/track"
                     className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
@@ -787,7 +778,6 @@ export default function SmadhanXHeader() {
 
       {/* Popups & Modals */}
       <SmadhanXQrModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
-      <PensionRedirectModal isOpen={isPensionOpen} onClose={() => setIsPensionOpen(false)} />
       <UserProfileModal
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
