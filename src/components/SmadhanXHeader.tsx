@@ -172,24 +172,11 @@ export default function SmadhanXHeader() {
         </div>
       </div>
 
-      {/* 2. Topbar - Government of India & Ministries with Quick Links */}
+      {/* 2. Topbar - Quick Links & Accessibility */}
       <div className="bg-[#f0f4f8] border-b border-slate-300 text-[11px] text-slate-700 py-1.5 px-3 sm:px-6">
-        <div className="max-w-[1440px] mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-center">
-          {/* Left: Ministry Details */}
-          <div className="flex items-center justify-center space-x-3">
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-2 leading-tight text-center">
-              <span className="font-bold text-slate-900 font-devanagari">
-                भारत सरकार / Government of India
-              </span>
-              <span className="hidden sm:inline text-slate-400">|</span>
-              <span className="text-slate-600 hidden md:inline">
-                कार्मिक, लोक शिकायत और पेंशन मंत्रालय (Ministry of Personnel, Public Grievances & Pensions)
-              </span>
-            </div>
-          </div>
-
-          {/* Right: Quick Action Links, Persona Switcher & Accessibility */}
-          <div className="flex flex-wrap items-center justify-center space-x-3 text-[11px]">
+        <div className="max-w-[1440px] mx-auto flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-1.5 text-center">
+          {/* Quick Action Links, Persona Switcher & Accessibility */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-end space-x-3 text-[11px]">
             {/* Quick Links with Scraped Icons */}
             <div className="hidden lg:flex items-center space-x-3 font-semibold text-slate-700">
               <Link href="/" className="flex items-center space-x-1 hover:text-gov-navy transition">
@@ -259,7 +246,7 @@ export default function SmadhanXHeader() {
             <Link href="/" className="flex items-center gap-1.5 text-white font-bold text-sm">
               <span className="text-amber-400 font-extrabold tracking-wide">Smadhan</span>
               <span className="text-gov-saffron font-black">X</span>
-              <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">| Grievance Portal</span>
+              <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">| Beyond Grievances. Towards Solutions</span>
             </Link>
 
             <div className="flex items-center gap-2">

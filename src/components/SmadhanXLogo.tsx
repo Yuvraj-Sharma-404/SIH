@@ -28,6 +28,12 @@ export default function SmadhanXLogo({
     lg: "text-xl sm:text-2xl md:text-4xl",
   };
 
+  const subtitleSizes = {
+    sm: "text-[9px] sm:text-[10px]",
+    md: "text-[10px] xs:text-[11px] sm:text-[12px]",
+    lg: "text-xs sm:text-sm",
+  };
+
   const logoContent = (
     <div className={`flex items-center gap-2.5 sm:gap-3.5 group ${className}`}>
       {/* New Official SamadhanX Emblem Icon */}
@@ -52,8 +58,11 @@ export default function SmadhanXLogo({
               </span>
             </h1>
           </div>
-          <p className="text-xs sm:text-[13px] font-medium italic text-slate-600 tracking-normal font-sans">
-            Grievance Portal
+          <p className={`${subtitleSizes[size]} font-sans tracking-wide leading-tight select-none flex items-center flex-wrap gap-x-1.5 pt-0.5`}>
+            <span className="text-slate-500 font-medium italic">Beyond Grievances.</span>
+            <span className="font-bold tracking-tight bg-gradient-to-r from-gov-navy to-gov-saffron bg-clip-text text-transparent not-italic">
+              Towards Solutions
+            </span>
           </p>
         </div>
       )}
