@@ -1,5 +1,0 @@
-Failed Assets Report — generated 2026-09-03T19:42:27.355Z
-Total failed: 2
-
-[Failed after 5 retries] https://swalekh.blob.core.windows.net/swk-version/nic-dec-2024-build-swalekh-main.js
-[Failed after 5 retries] https://staticpreprod.india.gov.in/npidev/uploads/unesco_ee67b50d3a.jpg
