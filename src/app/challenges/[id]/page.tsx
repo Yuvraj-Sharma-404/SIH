@@ -147,8 +147,8 @@ export default function CanonicalChallengeDetailPage() {
                   <MapPin className="w-4 h-4 text-gov-saffron" />
                   <span>Originating Citizen Report ({challenge.problem.publicProblemId})</span>
                 </span>
-                <p className="text-slate-700">
-                  <strong>Location:</strong> {challenge.problem.address || "Wardha District, Maharashtra"} •{" "}
+                <p className="text-slate-700 dark:text-slate-300">
+                  <strong>Location:</strong> {challenge.problem.address || "Ranchi District, Jharkhand"} •{" "}
                   <strong>Citizen Reporter:</strong> {challenge.problem.reporterName}
                 </p>
               </div>

@@ -37,19 +37,19 @@ export default function KioskSimulatorPage() {
 
     let samplePayload = {
       action,
-      kioskId: "ESP32-WARDHA-NODE-01",
-      latitude: 20.7453,
-      longitude: 78.6022,
+      kioskId: "ESP32-JH-RANCHI-01",
+      latitude: 23.3569,
+      longitude: 85.3175,
       transcription: "",
       imageUrl: "",
     };
 
     if (action === "RECORD") {
       samplePayload.transcription =
-        "Citizen voice input via Village Kiosk: Underground main water pipe burst near Sevagram bus stop, flooding road.";
+        "Citizen voice input via Village Kiosk: Underground main water pipe burst near Harmu Housing Colony, flooding road in Ranchi.";
     } else if (action === "PHOTO") {
       samplePayload.transcription =
-        "Camera snapshot captured via Kiosk: Deep pothole cluster and exposed rebar on Dham River approach road.";
+        "Camera snapshot captured via Kiosk: Drainage silt blockage and road crack near Harmu River bridge approach in Ranchi, Jharkhand.";
       samplePayload.imageUrl =
         "https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=800&q=80";
     } else {

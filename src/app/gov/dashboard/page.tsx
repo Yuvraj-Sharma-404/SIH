@@ -253,8 +253,8 @@ export default function GovernmentDashboardPage() {
                 NIC Authenticated
               </span>
             </div>
-            <p className="text-xs text-slate-600 mt-0.5">
-              Authorized Officer: <strong className="text-slate-900">Er. A. K. Sharma</strong> (Executive Engineer, PWD Wardha Division)
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+              Authorized Officer: <strong className="text-slate-900 dark:text-white">Er. Prabhat Kumar Sinha</strong> (Executive Engineer, JUIDCO Ranchi Division, Jharkhand)
             </p>
           </div>
         </div>

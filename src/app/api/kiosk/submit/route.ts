@@ -5,14 +5,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const {
-      kioskId = "KIOSK-WARDHA-01",
+      kioskId = "KIOSK-JH-RANCHI-01",
       action = "RECORD", // RECORD, PHOTO, DOCUMENT
       transcription,
       title,
       description,
       imageUrl,
-      latitude = 20.7453,
-      longitude = 78.6022,
+      latitude = 23.3569,
+      longitude = 85.3175,
       reporterName = "Village Kiosk Citizen",
     } = body;
 
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       reporterPhone: "Kiosk-Assisted",
       latitude: Number(latitude),
       longitude: Number(longitude),
-      address: "Gram Panchayat Assisted Terminal, Wardha",
+      address: "Gram Panchayat Ormanjhi Assisted Terminal, Ranchi, Jharkhand",
       evidenceType: action === "RECORD" ? "AUDIO" : action === "PHOTO" ? "IMAGE" : "DOCUMENT",
       evidenceUrl:
         imageUrl ||

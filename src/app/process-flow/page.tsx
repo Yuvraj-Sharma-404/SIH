@@ -23,7 +23,7 @@ export default function ProcessFlowPage() {
     {
       step: "01",
       title: "Citizen Reports a Problem",
-      subtitle: "Mobile/Web Interface or Simple Kiosk",
+      subtitle: "Web Portal or Village Kiosk",
       desc: "Citizens easily report local civic issues (e.g. damaged roads, water leakage, waste accumulation, broken streetlights) through intuitive digital touchpoints or village kiosks.",
       icon: Sparkles,
       color: "bg-blue-600",
@@ -97,59 +97,59 @@ export default function ProcessFlowPage() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="gov-card p-6 gov-border-t-navy bg-white">
+      <div className="gov-card p-6 gov-border-t-navy bg-white dark:bg-slate-800/95 dark:border-slate-700 transition-colors">
         <div className="max-w-4xl mx-auto text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+          <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 dark:bg-amber-950/40 px-3 py-1 rounded-full border border-orange-200 dark:border-amber-800/60">
             SAMADHAN X Architecture & Standard Operating Procedure
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy dark:text-white font-serif tracking-tight">
             Redress Process Flow & Solution Architecture
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             From Citizen Problem to Collaborative Solution: Comprehensive next-generation grievance redressal architecture powered by AI, geo-intelligence, and multi-stakeholder collaboration.
           </p>
         </div>
       </div>
 
       {/* Official SAMADHAN X Architecture Diagram */}
-      <div className="gov-card p-6 sm:p-8 bg-white text-center shadow-lg border border-slate-200">
+      <div className="gov-card p-6 sm:p-8 bg-white dark:bg-slate-800/95 text-center shadow-lg border border-slate-200 dark:border-slate-700 transition-colors">
         <div className="max-w-4xl mx-auto mb-5">
-          <span className="text-[11px] font-bold text-gov-navy uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+          <span className="text-[11px] font-bold text-gov-navy dark:text-sky-400 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/50 px-2.5 py-1 rounded-md border border-blue-100 dark:border-blue-900">
             Official System Workflow
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-gov-navy mt-2 font-serif">
+          <h2 className="text-xl sm:text-2xl font-bold text-gov-navy dark:text-white mt-2 font-serif">
             SAMADHAN X Collaborative Redressal Architecture
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
             From Citizen Problem to Collaborative Solution — From Reporting Problems to Creating Measurable Impact
           </p>
         </div>
 
-        <div className="bg-gradient-to-b from-slate-50 to-slate-100/70 p-3 sm:p-5 rounded-2xl border border-slate-200 inline-block w-full max-w-5xl shadow-inner">
+        <div className="bg-gradient-to-b from-slate-50 to-slate-100/70 dark:from-slate-900/60 dark:to-slate-900/90 p-3 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700 inline-block w-full max-w-5xl shadow-inner">
           <img
             src="/Images/samadhanx-flow.png"
             alt="SAMADHAN X - From Citizen Problem to Collaborative Solution Process Flow Diagram"
-            className="w-full h-auto max-h-[750px] mx-auto object-contain rounded-xl shadow-md bg-white border border-slate-200"
+            className="w-full h-auto max-h-[750px] mx-auto object-contain rounded-xl shadow-md bg-white border border-slate-200 dark:border-slate-700"
           />
         </div>
-        <p className="text-xs text-slate-500 mt-4">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
           SAMADHAN X — Next-Generation National Civic Problem-Solving & Grievance Redressal Architecture.
         </p>
       </div>
 
       {/* Step by Step Breakdown */}
-      <div className="gov-card p-6 sm:p-8 bg-white space-y-6">
-        <div className="border-b border-slate-200 pb-3">
+      <div className="gov-card p-6 sm:p-8 bg-white dark:bg-slate-800/95 border border-slate-200 dark:border-slate-700 space-y-6 transition-colors">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h2 className="text-xl font-bold text-gov-navy font-serif">
+              <h2 className="text-xl font-bold text-gov-navy dark:text-white font-serif">
                 9-Stage Collaborative Redress Lifecycle
               </h2>
-              <p className="text-xs text-slate-600 mt-0.5">
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
                 Milestones tracked end-to-end with full transparency, accountability, and citizen participation.
               </p>
             </div>
-            <span className="text-xs font-semibold text-gov-navy bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+            <span className="text-xs font-semibold text-gov-navy dark:text-sky-400 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-600">
               Stages 01 – 09
             </span>
           </div>
@@ -161,11 +161,11 @@ export default function ProcessFlowPage() {
             return (
               <div
                 key={stage.step}
-                className="p-5 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-gov-navy hover:bg-white transition shadow-xs hover:shadow-md flex flex-col justify-between group"
+                className="p-5 rounded-xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 hover:border-gov-navy dark:hover:border-sky-500 hover:bg-white dark:hover:bg-slate-800/80 transition shadow-xs hover:shadow-md flex flex-col justify-between group"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="w-9 h-9 rounded-lg bg-gov-navy text-white flex items-center justify-center font-black text-xs shadow-xs group-hover:bg-gov-saffron transition-colors">
+                    <span className="w-9 h-9 rounded-lg bg-gov-navy dark:bg-sky-600 text-white flex items-center justify-center font-black text-xs shadow-xs group-hover:bg-gov-saffron transition-colors">
                       {stage.step}
                     </span>
                     <div className={`p-2 rounded-lg text-white ${stage.color} shadow-xs`}>
@@ -173,14 +173,14 @@ export default function ProcessFlowPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-gov-navy transition-colors">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug group-hover:text-gov-navy dark:group-hover:text-sky-400 transition-colors">
                       {stage.title}
                     </h3>
                     <p className="text-[11px] font-semibold text-gov-saffron mt-0.5">
                       {stage.subtitle}
                     </p>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed pt-1 border-t border-slate-200/60">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
                     {stage.desc}
                   </p>
                 </div>
@@ -190,7 +190,7 @@ export default function ProcessFlowPage() {
         </div>
 
         {/* Action Button Links */}
-        <div className="pt-4 flex flex-wrap items-center justify-center gap-4 border-t border-slate-200">
+        <div className="pt-4 flex flex-wrap items-center justify-center gap-4 border-t border-slate-200 dark:border-slate-700">
           <Link
             href="/citizen/report"
             className="px-6 py-2.5 rounded-lg bg-gov-saffron hover:bg-orange-600 text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5"
@@ -200,7 +200,7 @@ export default function ProcessFlowPage() {
           </Link>
           <Link
             href="/track"
-            className="px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5"
+            className="px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-[#002b80] dark:bg-sky-600 dark:hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5"
           >
             <span>Track Grievance Status</span>
             <ArrowRight className="w-3.5 h-3.5" />

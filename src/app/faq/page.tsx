@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: "Is there any fee charged for filing a grievance on SmadhanX?",
-    a: "No. The Government of India does NOT charge any fee from citizens for lodging grievances on SmadhanX or through the official mobile application.",
+    a: "No. The Government of India does NOT charge any fee from citizens for lodging grievances on SmadhanX through this official portal.",
   },
   {
     q: "How long does it take for a grievance to be redressed?",
@@ -38,43 +38,43 @@ export default function FaqPage() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="gov-card p-6 gov-border-t-navy bg-white">
+      <div className="gov-card p-6 gov-border-t-navy bg-white dark:bg-slate-800/95 dark:border-slate-700 transition-colors">
         <div className="max-w-4xl mx-auto text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
+          <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-full border border-orange-200 dark:border-amber-800/60">
             Citizen Helpdesk & Guidance
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy dark:text-white font-serif tracking-tight">
             Frequently Asked Questions (FAQs)
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Find answers to commonly asked questions regarding grievance registration, processing SLAs, appellate reviews, and portal features.
           </p>
         </div>
       </div>
 
       {/* FAQ Accordion List */}
-      <div className="gov-card p-6 sm:p-8 bg-white space-y-4">
+      <div className="gov-card p-6 sm:p-8 bg-white dark:bg-slate-800/95 dark:border-slate-700 space-y-4 transition-colors">
         {faqs.map((faq, idx) => (
           <div
             key={idx}
-            className="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-gov-navy transition space-y-2"
+            className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 hover:border-gov-navy dark:hover:border-sky-500 transition space-y-2"
           >
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-gov-navy text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-gov-navy dark:bg-sky-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
                 Q
               </div>
-              <h3 className="text-sm font-bold text-slate-900 leading-snug">{faq.q}</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">{faq.q}</h3>
             </div>
-            <div className="pl-9 text-xs text-slate-600 leading-relaxed">{faq.a}</div>
+            <div className="pl-9 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{faq.a}</div>
           </div>
         ))}
 
-        <div className="pt-6 border-t border-slate-200 text-center space-y-3">
-          <p className="text-xs text-slate-600">Still have questions or need personalized assistance?</p>
+        <div className="pt-6 border-t border-slate-200 dark:border-slate-700 text-center space-y-3">
+          <p className="text-xs text-slate-600 dark:text-slate-400">Still have questions or need personalized assistance?</p>
           <div className="flex items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="px-5 py-2 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition"
+              className="px-5 py-2 rounded-lg bg-gov-navy hover:bg-[#002b80] dark:bg-sky-600 dark:hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition"
             >
               Contact DARPG Support
             </Link>

@@ -320,27 +320,27 @@ export default function MediaGeotagPage() {
   return (
     <div className="space-y-6 py-4 max-w-[1400px] mx-auto px-4 sm:px-6">
       {/* Header & Breadcrumb */}
-      <div className="gov-card p-6 bg-white border border-slate-200 gov-border-t-navy flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="gov-card p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 gov-border-t-navy flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs text-slate-500 mb-1">
-            <Link href="/" className="hover:text-gov-navy transition">
+          <div className="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
+            <Link href="/" className="hover:text-gov-navy dark:hover:text-sky-400 transition">
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <Link href="/citizen/report" className="hover:text-gov-navy transition">
+            <Link href="/citizen/report" className="hover:text-gov-navy dark:hover:text-sky-400 transition">
               Citizen Portal
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-gov-navy">Image & Video Geotag Extractor</span>
+            <span className="font-semibold text-gov-navy dark:text-sky-400">Image & Video Geotag Extractor</span>
           </div>
 
           <span className="text-xs uppercase font-mono font-bold text-gov-saffron tracking-wider">
             Multimodal Geospatial Metadata Engine
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gov-navy font-serif mt-0.5">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gov-navy dark:text-white font-serif mt-0.5">
             Image & Video Geotag / GPS Coordinate Extractor
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-3xl">
             Automatically detect and extract embedded GPS location metadata from both photographs (EXIF) and videos
             (MP4, MOV, M4V, QuickTime ISO 6709). Converts coordinates into high-precision decimal degrees, performs
             reverse-geocoding, and renders interactive maps without browser geolocation.
@@ -353,7 +353,7 @@ export default function MediaGeotagPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 border border-slate-300 dark:border-slate-600 rounded-lg transition"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Upload New Media</span>
@@ -374,17 +374,17 @@ export default function MediaGeotagPage() {
         {/* Left Column: Upload & Media Preview */}
         <div className="lg:col-span-5 space-y-4">
           {/* Upload Card */}
-          <div className="gov-card p-6 bg-white border border-slate-200 shadow-sm space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="gov-card p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
               <div className="flex items-center space-x-2">
-                <div className="w-7 h-7 rounded-lg bg-gov-navy/10 flex items-center justify-center text-gov-navy">
+                <div className="w-7 h-7 rounded-lg bg-gov-navy/10 dark:bg-sky-500/20 flex items-center justify-center text-gov-navy dark:text-sky-400">
                   <Upload className="w-4 h-4" />
                 </div>
-                <h2 className="text-sm font-bold text-gov-navy uppercase tracking-wide">
+                <h2 className="text-sm font-bold text-gov-navy dark:text-sky-400 uppercase tracking-wide">
                   1. Media Upload
                 </h2>
               </div>
-              <span className="text-[11px] font-semibold text-slate-500">
+              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
                 Image: 15 MB • Video: 50 MB
               </span>
             </div>
@@ -407,19 +407,19 @@ export default function MediaGeotagPage() {
               onClick={() => fileInputRef.current?.click()}
               className={`relative cursor-pointer rounded-xl border-2 border-dashed p-6 text-center transition-all ${
                 isDragOver
-                  ? "border-gov-saffron bg-gov-saffron-light/50 scale-[0.99]"
-                  : "border-slate-300 hover:border-gov-navy hover:bg-slate-50"
+                  ? "border-gov-saffron bg-gov-saffron-light/50 dark:bg-amber-950/30 scale-[0.99]"
+                  : "border-slate-300 dark:border-slate-600 hover:border-gov-navy dark:hover:border-sky-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
               }`}
             >
               <div className="flex flex-col items-center justify-center space-y-2">
-                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-gov-navy shadow-inner">
-                  <Upload className="w-6 h-6 text-gov-navy" />
+                <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-gov-navy dark:text-sky-400 shadow-inner">
+                  <Upload className="w-6 h-6 text-gov-navy dark:text-sky-400" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-slate-800">
+                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                     Click to browse or drag & drop file here
                   </p>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     Images: JPG, PNG, WebP • Videos: MP4, MOV, M4V
                   </p>
                 </div>
@@ -433,64 +433,64 @@ export default function MediaGeotagPage() {
             </div>
 
             {/* Supported Formats & Security Badges */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-[11px] text-slate-500">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400">
               <div className="flex items-center gap-1 font-medium">
                 <Shield className="w-3.5 h-3.5 text-gov-emerald" />
                 <span>Zero-fabrication metadata parsing</span>
               </div>
-              <div className="flex items-center gap-1 font-mono text-[10px] text-slate-600">
-                <span className="px-1.5 py-0.5 bg-slate-100 rounded">JPG</span>
-                <span className="px-1.5 py-0.5 bg-slate-100 rounded">PNG</span>
-                <span className="px-1.5 py-0.5 bg-slate-100 rounded">MP4</span>
-                <span className="px-1.5 py-0.5 bg-slate-100 rounded">MOV</span>
+              <div className="flex items-center gap-1 font-mono text-[10px] text-slate-600 dark:text-slate-300">
+                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">JPG</span>
+                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">PNG</span>
+                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">MP4</span>
+                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">MOV</span>
               </div>
             </div>
 
             {/* Comprehensive Quick Test Verification Bar */}
-            <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-              <span className="text-[11px] font-bold text-slate-700 block mb-1.5">
+            <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+              <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1.5">
                 🧪 Instant Test Samples:
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px] font-semibold">
                 <button
                   type="button"
                   onClick={() => loadTestSample("image_gps")}
-                  className="px-2 py-1.5 bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 rounded transition text-center shadow-xs"
+                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 rounded transition text-center shadow-xs"
                 >
                   ✓ Photo with GPS
                 </button>
                 <button
                   type="button"
                   onClick={() => loadTestSample("video_gps")}
-                  className="px-2 py-1.5 bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 rounded transition text-center shadow-xs"
+                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 rounded transition text-center shadow-xs"
                 >
                   ✓ Video with GPS
                 </button>
                 <button
                   type="button"
                   onClick={() => loadTestSample("image_nogps")}
-                  className="px-2 py-1.5 bg-white hover:bg-amber-50 text-amber-800 border border-amber-300 rounded transition text-center shadow-xs"
+                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 rounded transition text-center shadow-xs"
                 >
                   ∅ Photo without GPS
                 </button>
                 <button
                   type="button"
                   onClick={() => loadTestSample("video_nogps")}
-                  className="px-2 py-1.5 bg-white hover:bg-amber-50 text-amber-800 border border-amber-300 rounded transition text-center shadow-xs"
+                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 rounded transition text-center shadow-xs"
                 >
                   ∅ Video without GPS
                 </button>
                 <button
                   type="button"
                   onClick={() => loadTestSample("corrupt")}
-                  className="px-2 py-1.5 bg-white hover:bg-rose-50 text-rose-800 border border-rose-300 rounded transition text-center shadow-xs"
+                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 rounded transition text-center shadow-xs"
                 >
                   ✕ Corrupt Media
                 </button>
                 <button
                   type="button"
                   onClick={() => loadTestSample("unsupported")}
-                  className="px-2 py-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded transition text-center shadow-xs"
+                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded transition text-center shadow-xs"
                 >
                   ✕ Unsupported File
                 </button>
@@ -500,14 +500,14 @@ export default function MediaGeotagPage() {
 
           {/* Media Preview Card */}
           {previewUrl && (
-            <div className="gov-card p-5 bg-white border border-slate-200 shadow-sm space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                <span className="text-xs font-bold text-gov-navy uppercase tracking-wide flex items-center gap-1.5">
+            <div className="gov-card p-5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+                <span className="text-xs font-bold text-gov-navy dark:text-sky-400 uppercase tracking-wide flex items-center gap-1.5">
                   {mediaType === "video" ? <Film className="w-3.5 h-3.5" /> : <ImageIcon className="w-3.5 h-3.5" />}
                   <span>Media Preview</span>
                 </span>
                 {mediaFile && (
-                  <span className="text-[11px] font-mono text-slate-500">
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     {formatBytes(mediaFile.size)}
                   </span>
                 )}
@@ -547,11 +547,11 @@ export default function MediaGeotagPage() {
 
               {/* File Info Bar */}
               {mediaFile && (
-                <div className="text-[11px] text-slate-600 font-mono flex items-center justify-between pt-1 border-t border-slate-100">
+                <div className="text-[11px] text-slate-600 dark:text-slate-300 font-mono flex items-center justify-between pt-1 border-t border-slate-100 dark:border-slate-700">
                   <span className="truncate max-w-[220px]" title={mediaFile.name}>
                     {mediaFile.name}
                   </span>
-                  <span className="text-slate-500 uppercase tracking-wider font-sans">
+                  <span className="text-slate-500 dark:text-slate-400 uppercase tracking-wider font-sans">
                     {mediaType}
                   </span>
                 </div>
@@ -563,20 +563,20 @@ export default function MediaGeotagPage() {
         {/* Right Column: Location Information & Map (7 cols) */}
         <div className="lg:col-span-7 space-y-5">
           {/* Location Information Card */}
-          <div className="gov-card p-6 bg-white border border-slate-200 shadow-sm space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="gov-card p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
               <div className="flex items-center space-x-2">
-                <div className="w-7 h-7 rounded-lg bg-gov-saffron/10 flex items-center justify-center text-gov-saffron">
+                <div className="w-7 h-7 rounded-lg bg-gov-saffron/10 dark:bg-amber-500/20 flex items-center justify-center text-gov-saffron">
                   <MapPin className="w-4 h-4" />
                 </div>
-                <h2 className="text-sm font-bold text-gov-navy uppercase tracking-wide">
+                <h2 className="text-sm font-bold text-gov-navy dark:text-sky-400 uppercase tracking-wide">
                   Location Information
                 </h2>
               </div>
 
               {/* State Status Badges */}
               {state === "idle" && (
-                <span className="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full border border-slate-200">
+                <span className="px-2.5 py-1 text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-600">
                   Ready for upload
                 </span>
               )}
@@ -585,7 +585,7 @@ export default function MediaGeotagPage() {
                 state === "extractingMetadata" ||
                 state === "extractingGPS" ||
                 state === "reverseGeocoding") && (
-                <span className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold bg-blue-50 text-blue-700 rounded-full border border-blue-200">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 rounded-full border border-blue-200 dark:border-blue-700">
                   <Loader2 className="w-3 h-3 animate-spin" />
                   <span>
                     {state === "uploading" && "Uploading..."}
@@ -597,29 +597,29 @@ export default function MediaGeotagPage() {
               )}
 
               {state === "success" && (
-                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 rounded-full border border-emerald-300 dark:border-emerald-700">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>GPS Status: Detected</span>
                 </span>
               )}
 
               {state === "noGpsData" && (
-                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-800 rounded-full border border-amber-300">
-                  <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 rounded-full border border-amber-300 dark:border-amber-700">
+                  <AlertCircle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>GPS Status: Not Available</span>
                 </span>
               )}
 
               {state === "unsupportedFormat" && (
-                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-purple-100 text-purple-800 rounded-full border border-purple-300">
-                  <FileX className="w-3.5 h-3.5 text-purple-600" />
+                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 rounded-full border border-purple-300 dark:border-purple-700">
+                  <FileX className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                   <span>Unsupported Format</span>
                 </span>
               )}
 
               {state === "error" && (
-                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-rose-100 text-rose-800 rounded-full border border-rose-300">
-                  <AlertCircle className="w-3.5 h-3.5 text-rose-600" />
+                <span className="flex items-center gap-1 px-2.5 py-1 text-xs font-bold bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 rounded-full border border-rose-300 dark:border-rose-700">
+                  <AlertCircle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   <span>Processing Failed</span>
                 </span>
               )}
@@ -628,14 +628,14 @@ export default function MediaGeotagPage() {
             {/* STATE: IDLE */}
             {state === "idle" && (
               <div className="py-10 text-center space-y-3">
-                <div className="w-14 h-14 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                <div className="w-14 h-14 mx-auto rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 dark:text-slate-500">
                   <Compass className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-700">
+                  <h3 className="text-base font-bold text-slate-700 dark:text-slate-200">
                     No image or video uploaded yet
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
                     Upload a photograph or video taken on a camera or mobile device to inspect its embedded
                     geographical coordinates and render its capture location on the map.
                   </p>
@@ -650,17 +650,17 @@ export default function MediaGeotagPage() {
               state === "reverseGeocoding") && (
               <div className="py-12 text-center space-y-4">
                 <div className="relative w-14 h-14 mx-auto">
-                  <div className="w-14 h-14 rounded-full border-4 border-slate-200 border-t-gov-navy animate-spin" />
+                  <div className="w-14 h-14 rounded-full border-4 border-slate-200 dark:border-slate-700 border-t-gov-navy dark:border-t-sky-400 animate-spin" />
                   <Compass className="w-6 h-6 text-gov-saffron absolute inset-0 m-auto" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-sm font-bold text-gov-navy">
+                  <h3 className="text-sm font-bold text-gov-navy dark:text-white">
                     {state === "uploading" && "Uploading Media Payload..."}
                     {state === "extractingMetadata" && `Scanning ${mediaType === "video" ? "Video Container Boxes" : "EXIF Metadata"}...`}
                     {state === "extractingGPS" && "Decoding Geotag Coordinates..."}
                     {state === "reverseGeocoding" && "Resolving Administrative Address..."}
                   </h3>
-                  <p className="text-xs text-slate-500 font-mono">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
                     {mediaType === "video" ? "Checking moov.udta.©xyz & QuickTime ISO 6709 location tags" : "Checking GPSLatitude, GPSLongitudeRef, GPSAltitude"}
                   </p>
                 </div>
@@ -671,19 +671,19 @@ export default function MediaGeotagPage() {
             {state === "success" && geotagData && (
               <div className="space-y-5 animate-fadeIn">
                 {/* Verified Location Banner */}
-                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
                         {geotagData.mediaType === "video" ? "Video Container GPS Verified" : "Image EXIF GPS Verified"}
                       </span>
-                      <h3 className="text-base font-bold text-slate-900 leading-snug">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug">
                         Location Detected
                       </h3>
-                      <p className="text-xs text-slate-600">
+                      <p className="text-xs text-slate-600 dark:text-slate-300">
                         {geotagData.locationName || "Valid geographical coordinates detected in media"}
                       </p>
                     </div>
@@ -692,7 +692,7 @@ export default function MediaGeotagPage() {
                   <button
                     type="button"
                     onClick={scrollToMap}
-                    className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-bold text-emerald-900 bg-emerald-200/80 hover:bg-emerald-300 rounded-lg transition shrink-0"
+                    className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-bold text-emerald-900 dark:text-emerald-200 bg-emerald-200/80 dark:bg-emerald-900/60 hover:bg-emerald-300 dark:hover:bg-emerald-900 rounded-lg transition shrink-0"
                   >
                     <span>View on Map</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -702,44 +702,44 @@ export default function MediaGeotagPage() {
                 {/* Structured Coordinate & Location Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   {/* Latitude */}
-                  <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                       Latitude
                     </span>
-                    <span className="text-base font-bold font-mono text-slate-900 block mt-0.5">
+                    <span className="text-base font-bold font-mono text-slate-900 dark:text-white block mt-0.5">
                       {geotagData.latitude?.toFixed(6)}°
                     </span>
                     {geotagData.dmsLatitude && (
-                      <span className="text-[11px] text-slate-500 font-mono">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                         DMS: {geotagData.dmsLatitude}
                       </span>
                     )}
                   </div>
 
                   {/* Longitude */}
-                  <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                       Longitude
                     </span>
-                    <span className="text-base font-bold font-mono text-slate-900 block mt-0.5">
+                    <span className="text-base font-bold font-mono text-slate-900 dark:text-white block mt-0.5">
                       {geotagData.longitude?.toFixed(6)}°
                     </span>
                     {geotagData.dmsLongitude && (
-                      <span className="text-[11px] text-slate-500 font-mono">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                         DMS: {geotagData.dmsLongitude}
                       </span>
                     )}
                   </div>
 
                   {/* Resolved Address */}
-                  <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200 sm:col-span-2">
-                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 sm:col-span-2">
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                       Resolved Administrative Location
                     </span>
-                    <span className="text-sm font-bold text-slate-900 block mt-0.5">
+                    <span className="text-sm font-bold text-slate-900 dark:text-white block mt-0.5">
                       {geotagData.locationName || "Coordinates detected"}
                     </span>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-[11px] text-slate-600">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-[11px] text-slate-600 dark:text-slate-300">
                       {geotagData.city && (
                         <span>
                           <strong>City:</strong> {geotagData.city}
@@ -764,24 +764,24 @@ export default function MediaGeotagPage() {
                   </div>
 
                   {/* Metadata Source */}
-                  <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                       Source
                     </span>
-                    <span className="text-xs font-bold text-gov-navy block mt-0.5">
+                    <span className="text-xs font-bold text-gov-navy dark:text-sky-400 block mt-0.5">
                       {geotagData.mediaType === "video" ? "Embedded Media Metadata" : "EXIF GPS Metadata"}
                     </span>
-                    <span className="text-[10px] text-slate-500">
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">
                       {geotagData.mediaType === "video" ? "QuickTime ISO 6709 Atom" : "Exif.GPSInfo Tag"}
                     </span>
                   </div>
 
                   {/* Altitude, Heading, Timestamp */}
-                  <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                       Altitude & Timestamp
                     </span>
-                    <span className="text-xs font-semibold text-slate-800 block mt-0.5 truncate">
+                    <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 block mt-0.5 truncate">
                       {geotagData.altitude !== null && geotagData.altitude !== undefined
                         ? `${geotagData.altitude} m`
                         : "Altitude: Not recorded"}
@@ -789,17 +789,17 @@ export default function MediaGeotagPage() {
                         <span className="ml-2 font-mono">Heading: {geotagData.heading}°</span>
                       )}
                     </span>
-                    <span className="text-[10px] text-slate-500 block truncate">
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 block truncate">
                       Captured: {formatDate(geotagData.capturedAt)}
                     </span>
                   </div>
                 </div>
 
                 {/* Grievance Integration Link */}
-                <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-between">
+                <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Sparkles className="w-4 h-4 text-gov-saffron shrink-0" />
-                    <span className="text-xs text-amber-900 font-medium">
+                    <span className="text-xs text-amber-900 dark:text-amber-200 font-medium">
                       Lodge grievance using this verified capture location?
                     </span>
                   </div>
@@ -817,32 +817,32 @@ export default function MediaGeotagPage() {
 
             {/* STATE: NO GPS DATA */}
             {state === "noGpsData" && (
-              <div className="p-6 rounded-xl bg-amber-50/70 border border-amber-200 space-y-4 animate-fadeIn">
+              <div className="p-6 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 space-y-4 animate-fadeIn">
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 border border-amber-300 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/60 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 mt-0.5">
                     <AlertCircle className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-sm font-bold text-amber-900">
+                    <h3 className="text-sm font-bold text-amber-900 dark:text-amber-200">
                       No GPS location data found in this {mediaType}.
                     </h3>
-                    <p className="text-xs text-amber-800 leading-relaxed">
+                    <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
                       The {mediaType} does not contain embedded GPS metadata. Location cannot be determined from media metadata.
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-white p-4 rounded-lg border border-amber-200 space-y-2 text-xs text-slate-600">
-                  <span className="font-bold text-slate-800 flex items-center gap-1.5">
-                    <Info className="w-4 h-4 text-slate-500" />
+                <div className="bg-white dark:bg-slate-900/70 p-4 rounded-lg border border-amber-200 dark:border-amber-800/70 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                    <Info className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                     Why might a {mediaType} lack GPS metadata?
                   </span>
-                  <ul className="list-disc list-inside space-y-1 text-slate-600 pl-1">
+                  <ul className="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-300 pl-1">
                     <li>Camera location / GPS recording was disabled when the {mediaType} was recorded.</li>
                     <li>The video was shared or compressed via messaging platforms (e.g. WhatsApp) which strip container metadata.</li>
                     <li>The video was re-encoded or screen-recorded by editing software.</li>
                   </ul>
-                  <p className="text-[11px] text-slate-500 pt-1 border-t border-slate-100 italic">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 pt-1 border-t border-slate-100 dark:border-slate-800 italic">
                     Privacy Guarantee: SamadhanX never fabricates coordinates or treats your upload location as the capture location.
                   </p>
                 </div>
@@ -851,19 +851,19 @@ export default function MediaGeotagPage() {
 
             {/* STATE: UNSUPPORTED FORMAT */}
             {state === "unsupportedFormat" && (
-              <div className="p-6 rounded-xl bg-purple-50 border border-purple-200 space-y-3 animate-fadeIn">
+              <div className="p-6 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 space-y-3 animate-fadeIn">
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-purple-100 border border-purple-300 text-purple-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/60 border border-purple-300 dark:border-purple-700 text-purple-700 dark:text-purple-300 flex items-center justify-center shrink-0 mt-0.5">
                     <FileX className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-purple-900">
+                    <h3 className="text-sm font-bold text-purple-900 dark:text-purple-200">
                       Unsupported Media Format
                     </h3>
-                    <p className="text-xs text-purple-700 mt-1">
+                    <p className="text-xs text-purple-700 dark:text-purple-300 mt-1">
                       {errorMessage || "The uploaded file format is not supported for metadata inspection."}
                     </p>
-                    <p className="text-xs text-purple-600 mt-1">
+                    <p className="text-xs text-purple-600 dark:text-purple-400 mt-1">
                       Supported formats: <strong>Images</strong> (JPG, JPEG, PNG, WebP) and <strong>Videos</strong> (MP4, MOV, M4V).
                     </p>
                   </div>
@@ -882,16 +882,16 @@ export default function MediaGeotagPage() {
 
             {/* STATE: ERROR / CORRUPT */}
             {state === "error" && (
-              <div className="p-6 rounded-xl bg-rose-50 border border-rose-200 space-y-3 animate-fadeIn">
+              <div className="p-6 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 space-y-3 animate-fadeIn">
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-rose-100 border border-rose-300 text-rose-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-full bg-rose-100 dark:bg-rose-900/60 border border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 flex items-center justify-center shrink-0 mt-0.5">
                     <AlertCircle className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-rose-900">
+                    <h3 className="text-sm font-bold text-rose-900 dark:text-rose-200">
                       Processing Error
                     </h3>
-                    <p className="text-xs text-rose-700 mt-1">
+                    <p className="text-xs text-rose-700 dark:text-rose-300 mt-1">
                       {errorMessage || "An unexpected error occurred while inspecting the media file."}
                     </p>
                   </div>
@@ -913,13 +913,13 @@ export default function MediaGeotagPage() {
           <div ref={mapSectionRef} className="space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <Globe className="w-4 h-4 text-gov-navy" />
-                <h3 className="text-sm font-bold text-gov-navy">
+                <Globe className="w-4 h-4 text-gov-navy dark:text-sky-400" />
+                <h3 className="text-sm font-bold text-gov-navy dark:text-sky-400">
                   Interactive Geospatial Map
                 </h3>
               </div>
               {geotagData?.hasGpsData && (
-                <span className="text-xs text-slate-500 font-mono">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
                   {geotagData.latitude?.toFixed(4)}°, {geotagData.longitude?.toFixed(4)}°
                 </span>
               )}
@@ -935,12 +935,12 @@ export default function MediaGeotagPage() {
                 height="400px"
               />
             ) : (
-              <div className="h-[280px] rounded-xl border border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center p-6 text-center space-y-2">
-                <Compass className="w-8 h-8 text-slate-300" />
-                <p className="text-xs font-semibold text-slate-500">
+              <div className="h-[280px] rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 flex flex-col items-center justify-center p-6 text-center space-y-2">
+                <Compass className="w-8 h-8 text-slate-300 dark:text-slate-600" />
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                   Interactive map will activate when GPS coordinates are detected from media metadata.
                 </p>
-                <p className="text-[11px] text-slate-400 max-w-sm">
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 max-w-sm">
                   The map displays the exact coordinates where the image or video was recorded.
                 </p>
               </div>
