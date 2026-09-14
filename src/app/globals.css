@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&family=Pacifico&family=Satisfy&family=Hind:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+@import "leaflet/dist/leaflet.css";
+@import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -320,4 +323,43 @@ body {
 .skiptranslate > iframe {
   display: none !important;
 }
+
+/* ──────────────────────────────────────────
+   Leaflet OpenGIS Map Canvas & Cluster Styling
+────────────────────────────────────────── */
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  font-family: inherit !important;
+  background-color: #f1f5f9 !important;
+}
+
+.dark .leaflet-container {
+  background-color: #0f172a !important;
+}
+
+.custom-gis-cluster-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 12px 28px -5px rgba(0, 0, 0, 0.25), 0 8px 12px -6px rgba(0, 0, 0, 0.2) !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-content {
+  margin: 10px !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-control-zoom {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
 

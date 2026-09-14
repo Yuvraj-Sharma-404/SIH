@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import {
   MapPin,
   Layers,
@@ -11,84 +12,49 @@ import {
   TrendingUp,
   ArrowRight,
   Sparkles,
+  Loader2,
+  Users,
+  Activity,
+  Compass,
+  FileText,
+  ExternalLink,
+  ChevronRight,
+  ShieldCheck,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
+import {
+  JHARKHAND_SECTORS,
+  JHARKHAND_DISTRICTS,
+  JHARKHAND_GIS_STATS,
+  JharkhandSector,
+} from "@/lib/data/jharkhand-data";
 
-interface SectorData {
-  id: string;
-  name: string;
-  district: string;
-  density: "HIGH" | "MEDIUM" | "LOW";
-  coordinates: [number, number];
-  problemsCount: number;
-  highPriorityCount: number;
-  activeProjectsCount: number;
-  challengesCount: number;
-  primaryCategory: string;
-  recentIssue: string;
-}
-
-const DEMO_SECTORS: SectorData[] = [
+// Dynamically import Leaflet Map to avoid SSR errors
+const GISSpatialClusterMap = dynamic(
+  () => import("@/components/GISSpatialClusterMap"),
   {
-    id: "sec-4",
-    name: "Sector 4 — Sevagram Corridor",
-    district: "Wardha",
-    density: "HIGH",
-    coordinates: [20.7453, 78.6022],
-    problemsCount: 142,
-    highPriorityCount: 23,
-    activeProjectsCount: 7,
-    challengesCount: 3,
-    primaryCategory: "Infrastructure & Bridge Health",
-    recentIssue: "Severe Pier #3 cracks & vibration on Dham River Bridge during bus transits.",
-  },
-  {
-    id: "sec-2",
-    name: "Ward 4 — ZP School Enclave",
-    district: "Wardha",
-    density: "HIGH",
-    coordinates: [20.7389, 78.5954],
-    problemsCount: 88,
-    highPriorityCount: 19,
-    activeProjectsCount: 3,
-    challengesCount: 2,
-    primaryCategory: "Water & Sanitation",
-    recentIssue: "Yellow silt turbidity & chemical contamination in school drinking water pipeline.",
-  },
-  {
-    id: "sec-7",
-    name: "Central Bus Station & Market Yard",
-    district: "Wardha",
-    density: "MEDIUM",
-    coordinates: [20.7512, 78.611],
-    problemsCount: 45,
-    highPriorityCount: 8,
-    activeProjectsCount: 2,
-    challengesCount: 1,
-    primaryCategory: "Energy & Electrical Safety",
-    recentIssue: "Open 11kV distribution transformer fence broken near pedestrian walkway.",
-  },
-  {
-    id: "sec-1",
-    name: "Collectorate & Civil Lines",
-    district: "Wardha",
-    density: "LOW",
-    coordinates: [20.735, 78.588],
-    problemsCount: 16,
-    highPriorityCount: 2,
-    activeProjectsCount: 4,
-    challengesCount: 0,
-    primaryCategory: "Administrative Services",
-    recentIssue: "Streetlight timer synchronization in civil lines quadrant.",
-  },
-];
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[520px] bg-slate-100 dark:bg-slate-900 rounded-2xl flex flex-col items-center justify-center border border-slate-300 dark:border-slate-700">
+        <Loader2 className="w-9 h-9 text-gov-navy dark:text-sky-400 animate-spin mb-3" />
+        <span className="text-sm font-bold text-gov-navy dark:text-sky-400">Loading Free OpenGIS Map Engine...</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">Fetching OpenStreetMap Tiles & Jharkhand Civic Clusters</span>
+      </div>
+    ),
+  }
+);
 
 export default function ProblemMapPage() {
-  const [selectedSector, setSelectedSector] = useState<SectorData>(DEMO_SECTORS[0]);
+  const [selectedSector, setSelectedSector] = useState<JharkhandSector>(JHARKHAND_SECTORS[0]);
+  const [filterDistrict, setFilterDistrict] = useState("All Jharkhand");
   const [filterCategory, setFilterCategory] = useState("ALL");
   const [filterDensity, setFilterDensity] = useState("ALL");
 
-  const filteredSectors = DEMO_SECTORS.filter((s) => {
+  const filteredSectors = JHARKHAND_SECTORS.filter((s) => {
+    if (filterDistrict !== "All Jharkhand" && s.district !== filterDistrict) {
+      return false;
+    }
     if (filterCategory !== "ALL" && !s.primaryCategory.toLowerCase().includes(filterCategory.toLowerCase())) {
       return false;
     }
@@ -99,279 +65,386 @@ export default function ProblemMapPage() {
   });
 
   return (
-    <div className="space-y-6 py-2">
-      {/* Map Header & Filter Toolbar */}
-      <div className="gov-card p-6 bg-white border border-slate-200 gov-border-t-navy flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-6 py-2 max-w-[1440px] mx-auto">
+      {/* Header & Filter Toolbar */}
+      <div className="gov-card p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 gov-border-t-navy flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-xs uppercase font-mono font-bold text-gov-navy">
-            National Geospatial Civic Density Engine
+          <div className="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400 mb-1">
+            <Link href="/" className="hover:text-gov-navy dark:hover:text-sky-400 transition">
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="font-semibold text-gov-navy dark:text-sky-400">GIS Spatial Cluster Engine</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="font-bold text-gov-saffron">Jharkhand State</span>
+          </div>
+
+          <span className="text-xs uppercase font-mono font-bold text-gov-saffron tracking-wider">
+            Government of Jharkhand • Multimodal Civic Density Engine
           </span>
-          <h1 className="text-2xl font-bold text-gov-navy font-serif">
-            Interactive Problem Map & Hotspot Explorer
+          <h1 className="text-2xl sm:text-3xl font-bold text-gov-navy dark:text-white font-serif mt-0.5">
+            Interactive Problem Map & GIS Spatial Clusters
           </h1>
-          <p className="text-xs text-slate-600 mt-0.5">
-            Geographic clustering of citizen grievances, municipal infrastructure density, and active collaborative challenges.
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-3xl">
+            Real-time geographical clustering of citizen grievances, municipal infrastructure density, and active collaborative R&D challenges across all 24 districts of Jharkhand powered by open-source GIS.
           </p>
         </div>
 
-        {/* Filter Controls */}
+        {/* Filter Controls Bar */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <div className="flex items-center space-x-1 border border-slate-300 rounded-lg px-2.5 py-1.5 bg-slate-50">
-            <Filter className="w-3.5 h-3.5 text-slate-500" />
+          {/* District Selector */}
+          <div className="flex items-center space-x-1.5 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 bg-slate-50 dark:bg-slate-900 shadow-xs">
+            <Compass className="w-3.5 h-3.5 text-gov-saffron" />
             <select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="bg-transparent focus:outline-none text-slate-700 font-medium"
+              value={filterDistrict}
+              onChange={(e) => setFilterDistrict(e.target.value)}
+              className="bg-transparent focus:outline-none text-slate-700 dark:text-slate-200 font-semibold cursor-pointer"
             >
-              <option value="ALL">All Categories</option>
-              <option value="Infrastructure">Infrastructure</option>
-              <option value="Water">Water & Sanitation</option>
-              <option value="Energy">Energy</option>
+              {JHARKHAND_DISTRICTS.map((d) => (
+                <option key={d} value={d} className="dark:bg-slate-900">
+                  {d}
+                </option>
+              ))}
             </select>
           </div>
 
-          <div className="flex items-center space-x-1 border border-slate-300 rounded-lg px-2.5 py-1.5 bg-slate-50">
-            <Layers className="w-3.5 h-3.5 text-slate-500" />
+          {/* Category Filter */}
+          <div className="flex items-center space-x-1.5 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 bg-slate-50 dark:bg-slate-900 shadow-xs">
+            <Filter className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+            <select
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="bg-transparent focus:outline-none text-slate-700 dark:text-slate-200 font-medium cursor-pointer"
+            >
+              <option value="ALL" className="dark:bg-slate-900">All Categories</option>
+              <option value="Water" className="dark:bg-slate-900">Water & Sanitation</option>
+              <option value="Infrastructure" className="dark:bg-slate-900">Infrastructure & Bridges</option>
+              <option value="Environment" className="dark:bg-slate-900">Environment & Mining</option>
+              <option value="Health" className="dark:bg-slate-900">Public Health & Waste</option>
+              <option value="Agriculture" className="dark:bg-slate-900">Agriculture & Canals</option>
+            </select>
+          </div>
+
+          {/* Density Filter */}
+          <div className="flex items-center space-x-1.5 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 bg-slate-50 dark:bg-slate-900 shadow-xs">
+            <Layers className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
             <select
               value={filterDensity}
               onChange={(e) => setFilterDensity(e.target.value)}
-              className="bg-transparent focus:outline-none text-slate-700 font-medium"
+              className="bg-transparent focus:outline-none text-slate-700 dark:text-slate-200 font-medium cursor-pointer"
             >
-              <option value="ALL">All Densities</option>
-              <option value="HIGH">High Concentration</option>
-              <option value="MEDIUM">Medium Concentration</option>
-              <option value="LOW">Low Concentration</option>
+              <option value="ALL" className="dark:bg-slate-900">All Densities</option>
+              <option value="HIGH" className="dark:bg-slate-900">High Concentration</option>
+              <option value="MEDIUM" className="dark:bg-slate-900">Medium Concentration</option>
+              <option value="LOW" className="dark:bg-slate-900">Low Concentration</option>
             </select>
           </div>
         </div>
       </div>
 
+      {/* Jharkhand State GIS Metric Quick-Stats Bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="gov-card p-3.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-gov-navy dark:text-sky-400 flex items-center justify-center shrink-0">
+            <MapPin className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+              Grievances Mapped
+            </span>
+            <span className="text-lg font-black text-slate-900 dark:text-white font-mono">
+              {JHARKHAND_GIS_STATS.totalGrievances.toLocaleString()}
+            </span>
+          </div>
+        </div>
+
+        <div className="gov-card p-3.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+            <AlertTriangle className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+              High-Risk Clusters
+            </span>
+            <span className="text-lg font-black text-red-600 dark:text-red-400 font-mono">
+              {JHARKHAND_GIS_STATS.highPriorityClusters} Hotspots
+            </span>
+          </div>
+        </div>
+
+        <div className="gov-card p-3.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+              Avg Resolution Time
+            </span>
+            <span className="text-lg font-black text-emerald-600 dark:text-emerald-400 font-mono">
+              {JHARKHAND_GIS_STATS.averageResolutionDays} Days
+            </span>
+          </div>
+        </div>
+
+        <div className="gov-card p-3.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+            <Globe className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+              GIS Coverage
+            </span>
+            <span className="text-lg font-black text-purple-600 dark:text-purple-400 font-mono">
+              {JHARKHAND_GIS_STATS.coveragePercentage}
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Main Map + Side Panel Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Interactive Map Visualizer (2 Cols) */}
-        <div className="lg:col-span-2 gov-card p-6 bg-white border border-slate-200 flex flex-col justify-between space-y-6">
-          {/* Map Top Bar */}
-          <div className="flex items-center justify-between text-xs">
-            <div className="flex items-center space-x-2 font-mono text-slate-600">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-              <span>Live Hotspot Feeds • Wardha District (Demo Zone)</span>
-            </div>
-            {/* Density Legend */}
-            <div className="flex items-center space-x-3 text-[11px] font-semibold text-slate-600">
-              <span className="flex items-center space-x-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-600"></span>
-                <span>High Density</span>
-              </span>
-              <span className="flex items-center space-x-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                <span>Medium</span>
-              </span>
-              <span className="flex items-center space-x-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                <span>Low</span>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Interactive Free Leaflet Map Visualizer (8 Cols) */}
+        <div className="lg:col-span-8 space-y-4">
+          <div className="gov-card p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+              <div className="flex items-center space-x-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-gov-saffron animate-pulse"></span>
+                <h2 className="text-xs font-bold uppercase tracking-wider text-gov-navy dark:text-sky-400">
+                  Interactive GIS Hotspot Canvas • Jharkhand
+                </h2>
+              </div>
+              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                Click any hotspot marker to inspect on-ground telemetry
               </span>
             </div>
+
+            {/* Live Leaflet OpenStreetMap Component */}
+            <GISSpatialClusterMap
+              sectors={JHARKHAND_SECTORS}
+              selectedSector={selectedSector}
+              onSelectSector={(s) => setSelectedSector(s)}
+              height="500px"
+              filterCategory={filterCategory}
+              filterDensity={filterDensity}
+              filterDistrict={filterDistrict}
+            />
           </div>
 
-          {/* Graphical Map Grid Visualization */}
-          <div className="relative w-full h-[400px] rounded-xl bg-slate-100 border border-slate-300 overflow-hidden flex items-center justify-center p-4">
-            {/* Grid Pattern Background */}
-            <div
-              className="absolute inset-0 opacity-20 pointer-events-none"
-              style={{
-                backgroundImage:
-                  "linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px)",
-                backgroundSize: "40px 40px",
-              }}
-            />
+          {/* Quick Hotspot Directory Grid */}
+          <div className="gov-card p-5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+              <h3 className="text-xs font-bold text-gov-navy dark:text-sky-400 uppercase tracking-wide">
+                Active Spatial Hotspots in {filterDistrict} ({filteredSectors.length})
+              </h3>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                Sorted by AI Priority Score
+              </span>
+            </div>
 
-            {/* Geographical River SVG / Road Landmark Outline */}
-            <svg
-              className="absolute inset-0 w-full h-full text-slate-300 pointer-events-none"
-              viewBox="0 0 600 400"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 20 180 Q 200 240 380 160 T 580 220"
-                stroke="#93c5fd"
-                strokeWidth="16"
-                strokeLinecap="round"
-                fill="none"
-              />
-              <path
-                d="M 120 20 L 260 380"
-                stroke="#cbd5e1"
-                strokeWidth="6"
-                strokeDasharray="8 6"
-              />
-              <path
-                d="M 380 30 L 410 370"
-                stroke="#cbd5e1"
-                strokeWidth="6"
-                strokeDasharray="8 6"
-              />
-            </svg>
-
-            {/* Interactive Sector Hotspot Nodes */}
-            <div className="relative w-full h-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 max-h-[300px] overflow-y-auto pr-1">
               {filteredSectors.map((sector) => {
                 const isSelected = selectedSector.id === sector.id;
-
-                // Position calculation for visual representation
-                let topPos = "50%";
-                let leftPos = "50%";
-                if (sector.id === "sec-4") {
-                  topPos = "38%";
-                  leftPos = "48%";
-                } else if (sector.id === "sec-2") {
-                  topPos = "65%";
-                  leftPos = "28%";
-                } else if (sector.id === "sec-7") {
-                  topPos = "25%";
-                  leftPos = "72%";
-                } else {
-                  topPos = "78%";
-                  leftPos = "68%";
-                }
+                const isHigh = sector.density === "HIGH";
 
                 return (
-                  <div
+                  <button
                     key={sector.id}
+                    type="button"
                     onClick={() => setSelectedSector(sector)}
-                    style={{ top: topPos, left: leftPos }}
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all transform hover:scale-110 z-10 ${
-                      isSelected ? "scale-110 z-20" : ""
+                    className={`text-left p-3 rounded-xl border transition flex items-start justify-between gap-2 cursor-pointer ${
+                      isSelected
+                        ? "bg-sky-50 dark:bg-sky-950/40 border-sky-500 shadow-sm ring-1 ring-sky-400"
+                        : "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-slate-700 hover:border-gov-navy dark:hover:border-sky-400"
                     }`}
                   >
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-white shadow-lg border-2 ${
-                          sector.density === "HIGH"
-                            ? "bg-red-600 border-white ring-4 ring-red-200"
-                            : sector.density === "MEDIUM"
-                            ? "bg-amber-500 border-white ring-4 ring-amber-200"
-                            : "bg-emerald-600 border-white ring-4 ring-emerald-200"
-                        }`}
-                      >
-                        <MapPin className="w-5 h-5" />
+                    <div className="space-y-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-mono text-[10px] font-bold text-gov-saffron">
+                          {sector.district}
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span
+                          className={`text-[9px] font-extrabold px-1.5 py-0.2 rounded-full border ${
+                            isHigh
+                              ? "bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"
+                              : "bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+                          }`}
+                        >
+                          {sector.density} DENSITY
+                        </span>
                       </div>
-
-                      <span
-                        className={`mt-1.5 px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap shadow-sm border ${
-                          isSelected
-                            ? "bg-gov-navy text-white border-gov-navy"
-                            : "bg-white text-slate-800 border-slate-300"
-                        }`}
-                      >
-                        {sector.name.split("—")[0]} ({sector.problemsCount})
-                      </span>
+                      <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                        {sector.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        {sector.recentIssue}
+                      </p>
                     </div>
-                  </div>
+
+                    <div className="text-right shrink-0">
+                      <span className="text-xs font-black font-mono text-gov-navy dark:text-sky-400 block">
+                        {sector.priorityScore}
+                      </span>
+                      <span className="text-[9px] text-slate-400 block">Priority</span>
+                    </div>
+                  </button>
                 );
               })}
             </div>
           </div>
-
-          <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-200">
-            <span>Coordinates: 20.7453° N, 78.6022° E</span>
-            <span>Click any hotspot node to inspect the sector briefing panel.</span>
-          </div>
         </div>
 
-        {/* Section 14 Clean Information Panel (Sector Details) */}
-        <div className="gov-card p-6 bg-white border border-slate-200 gov-border-t-saffron flex flex-col justify-between space-y-6">
-          <div className="space-y-4">
-            <div className="pb-3 border-b border-slate-200">
-              <span className="text-[10px] uppercase font-mono font-bold text-gov-saffron">
-                Selected Sector Dossier
-              </span>
-              <h2 className="text-xl font-bold text-gov-navy font-serif mt-0.5">
-                {selectedSector.name}
-              </h2>
-              <p className="text-xs text-slate-500">
-                District: <strong>{selectedSector.district}</strong> • Density Level:{" "}
-                <span
-                  className={`font-bold ${
-                    selectedSector.density === "HIGH"
-                      ? "text-red-600"
-                      : selectedSector.density === "MEDIUM"
-                      ? "text-amber-600"
-                      : "text-emerald-600"
-                  }`}
-                >
-                  {selectedSector.density}
+        {/* Selected Sector Deep-Dive Dossier (4 Cols) */}
+        <div className="lg:col-span-4 space-y-4">
+          <div className="gov-card p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4 gov-border-t-navy">
+            {/* Header */}
+            <div className="flex items-start justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-3">
+              <div>
+                <span className="font-mono text-[10px] font-extrabold text-gov-saffron uppercase tracking-wide block">
+                  {selectedSector.publicProblemId}
                 </span>
-              </p>
+                <h3 className="text-base font-bold text-gov-navy dark:text-white mt-0.5">
+                  {selectedSector.name}
+                </h3>
+                <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
+                  <MapPin className="w-3.5 h-3.5 text-gov-saffron shrink-0" />
+                  <span>{selectedSector.district}, Jharkhand</span>
+                </span>
+              </div>
+
+              <span
+                className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${
+                  selectedSector.density === "HIGH"
+                    ? "bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"
+                    : "bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+                }`}
+              >
+                {selectedSector.density} DENSITY
+              </span>
             </div>
 
-            {/* 4 Standard Metrics from Section 14 */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-                <span className="text-[10px] text-slate-500 uppercase font-semibold block">
-                  Total Problems
+            {/* AI Priority & Impact Score */}
+            <div className="bg-slate-50 dark:bg-slate-900/70 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-semibold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-gov-saffron" />
+                  <span>AI Grievance Priority Score</span>
                 </span>
-                <p className="text-2xl font-extrabold text-gov-navy font-mono mt-0.5">
-                  {selectedSector.problemsCount}
-                </p>
+                <span className="font-mono font-black text-sm text-red-600 dark:text-red-400">
+                  {selectedSector.priorityScore} / 100
+                </span>
               </div>
-
-              <div className="p-3.5 rounded-lg bg-rose-50 border border-rose-200">
-                <span className="text-[10px] text-rose-700 uppercase font-semibold block">
-                  High Priority
-                </span>
-                <p className="text-2xl font-extrabold text-rose-700 font-mono mt-0.5">
-                  {selectedSector.highPriorityCount}
-                </p>
+              <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-amber-500 to-red-600 rounded-full"
+                  style={{ width: `${selectedSector.priorityScore}%` }}
+                />
               </div>
-
-              <div className="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200">
-                <span className="text-[10px] text-emerald-700 uppercase font-semibold block">
-                  Active Projects
-                </span>
-                <p className="text-2xl font-extrabold text-gov-emerald font-mono mt-0.5">
-                  {selectedSector.activeProjectsCount}
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-lg bg-orange-50 border border-orange-200">
-                <span className="text-[10px] text-gov-saffron uppercase font-semibold block">
-                  Challenges
-                </span>
-                <p className="text-2xl font-extrabold text-gov-saffron font-mono mt-0.5">
-                  {selectedSector.challengesCount}
-                </p>
+              <div className="flex justify-between text-[10px] text-slate-500 dark:text-slate-400 font-mono pt-0.5">
+                <span>Severity: {(selectedSector.severity * 100).toFixed(0)}%</span>
+                <span>Urgency: {(selectedSector.urgency * 100).toFixed(0)}%</span>
+                <span>Impact: ~{selectedSector.impactPopulation.toLocaleString()} citizens</span>
               </div>
             </div>
 
-            {/* Recent Critical Issue Spotlight */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
-              <span className="text-[10px] uppercase font-bold text-slate-500 block">
-                Primary Issue in this Quadrant:
-              </span>
-              <p className="font-bold text-slate-800">
-                {selectedSector.primaryCategory}
-              </p>
-              <p className="text-slate-600 leading-relaxed text-[11px]">
-                "{selectedSector.recentIssue}"
-              </p>
+            {/* Details Grid */}
+            <div className="space-y-2.5 text-xs">
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 block">
+                  Problem Description
+                </span>
+                <p className="text-slate-800 dark:text-slate-200 mt-1 leading-relaxed text-xs">
+                  {selectedSector.description}
+                </p>
+              </div>
+
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                    Jurisdictional Department
+                  </span>
+                  <span className="font-semibold text-gov-navy dark:text-sky-400">
+                    {selectedSector.primaryCategory}
+                  </span>
+                </div>
+                <p className="font-bold text-slate-900 dark:text-white">
+                  {selectedSector.departmentName}
+                </p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Officer: <strong>{selectedSector.assignedOfficer}</strong>
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                <div className="p-2.5 bg-slate-50 dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <span className="text-base font-bold font-mono text-gov-navy dark:text-sky-400 block">
+                    {selectedSector.problemsCount}
+                  </span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-tighter">
+                    Complaints
+                  </span>
+                </div>
+                <div className="p-2.5 bg-slate-50 dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <span className="text-base font-bold font-mono text-red-600 dark:text-red-400 block">
+                    {selectedSector.highPriorityCount}
+                  </span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-tighter">
+                    Critical
+                  </span>
+                </div>
+                <div className="p-2.5 bg-slate-50 dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <span className="text-base font-bold font-mono text-emerald-600 dark:text-emerald-400 block">
+                    {selectedSector.challengesCount}
+                  </span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-tighter">
+                    R&D Tasks
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+              <Link
+                href={`/citizen/report?lat=${selectedSector.coordinates[0]}&lng=${selectedSector.coordinates[1]}&address=${encodeURIComponent(
+                  selectedSector.address
+                )}`}
+                className="w-full py-2.5 px-4 rounded-lg bg-gov-saffron hover:bg-orange-600 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5"
+              >
+                <span>Lodge Grievance in this Sector</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+
+              <Link
+                href={`/track?id=${selectedSector.publicProblemId}`}
+                className="w-full py-2.5 px-4 rounded-lg bg-gov-navy dark:bg-slate-700 hover:bg-gov-navy-dark dark:hover:bg-slate-600 text-white font-bold text-xs transition flex items-center justify-center gap-1.5"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Track Sector Dossier #{selectedSector.publicProblemId}</span>
+              </Link>
             </div>
           </div>
 
-          {/* Explore Area CTA */}
-          <div className="pt-4 border-t border-slate-200 space-y-2">
+          {/* Academic & University Engineering Link Box */}
+          <div className="gov-card p-4 bg-gradient-to-br from-slate-50 to-emerald-50/40 dark:from-slate-800 dark:to-emerald-950/20 border border-slate-200 dark:border-slate-700 text-xs space-y-2">
+            <div className="flex items-center space-x-1.5 text-emerald-800 dark:text-emerald-300 font-bold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>State Academic R&D Consortium</span>
+            </div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300">
+              Hotspots with Priority &gt; 85 automatically invite collaborative problem-solving proposals from:
+            </p>
+            <ul className="list-disc list-inside space-y-0.5 text-[11px] text-slate-700 dark:text-slate-300 font-medium">
+              {JHARKHAND_GIS_STATS.participatingInstitutions.map((inst) => (
+                <li key={inst}>{inst}</li>
+              ))}
+            </ul>
             <Link
               href="/challenges"
-              className="w-full py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition flex items-center justify-center space-x-1.5"
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-gov-navy dark:text-sky-400 hover:underline pt-1"
             >
-              <span>Explore Sector Challenges</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            <Link
-              href="/citizen/report"
-              className="w-full py-2 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs transition flex items-center justify-center space-x-1"
-            >
-              <span>Report Grievance in this Area</span>
+              <span>Explore MyGov Societal Challenges</span>
+              <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
         </div>

@@ -331,10 +331,10 @@ export default function CitizenReportPage() {
 
     if (voiceLang === "hi") {
       sampleAudio =
-        "वर्धा और सेवाग्राम को जोड़ने वाले मुख्य पुल के पिलर नंबर 3 में गहरी दरारें आ गई हैं। नदी के पानी से नीचे की नींव कट रही है और स्कूल बसें निकलते समय पुल कांपता है।";
+        "राँची के हरमू नदी पुल और जल निकासी नहर में जहरीला कचरा और गाद भर गया है। पिलर नंबर 3 के पास पानी का कटाव हो रहा है और बारिश में पानी कॉलोनियों में भर जाता है।";
     } else {
       sampleAudio =
-        "The main bridge connecting Wardha and Sevagram has severe vertical cracks on pier number 3. Water scour has eroded the foundation. School buses shake heavily during crossing.";
+        "The main bridge and drainage canal along Harmu River corridor in Ranchi has severe silt accumulation and foundation scour on pier 3. Monsoon backflow floods low-lying residential sectors.";
     }
 
     setAudioTranscript(sampleAudio);
