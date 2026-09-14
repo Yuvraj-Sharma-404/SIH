@@ -1190,10 +1190,19 @@ export default function CitizenReportPage() {
             )}
 
             <div className="pt-2 border-t border-slate-100 dark:border-slate-700">
-              <div className="mb-1">
+              <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                   Location / Village / District Landmark <span className="text-red-500 font-bold">*</span>
                 </label>
+                <Link
+                  href="/geotag"
+                  target="_blank"
+                  className="text-[11px] text-gov-navy dark:text-sky-400 hover:text-gov-saffron dark:hover:text-sky-300 font-medium flex items-center gap-1 transition"
+                  title="Open Image Geotag Extractor tool in new tab"
+                >
+                  <Compass className="w-3 h-3 text-gov-saffron" />
+                  <span>Extract from Photo EXIF</span>
+                </Link>
               </div>
               <div className="flex space-x-1.5">
                 <input

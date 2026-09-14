@@ -53,11 +53,6 @@ const nextConfig = {
         destination: '/track?type=appeal',
         permanent: false,
       },
-      {
-        source: '/geotag',
-        destination: '/citizen/report',
-        permanent: false,
-      },
     ];
   },
 };
