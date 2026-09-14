@@ -17,9 +17,9 @@ export default function SmadhanXLogo({
   href = "/",
 }: SmadhanXLogoProps) {
   const iconSizes = {
-    sm: "w-7 h-7 sm:w-8 sm:h-8",
-    md: "w-9 h-9 xs:w-11 xs:h-11 sm:w-12 sm:h-12 md:w-14 md:h-14",
-    lg: "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16",
+    sm: "w-8 h-8 sm:w-10 sm:h-10",
+    md: "w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20",
+    lg: "w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24",
   };
 
   const titleSizes = {
@@ -36,14 +36,14 @@ export default function SmadhanXLogo({
 
   const logoContent = (
     <div className={`flex items-center gap-2.5 sm:gap-3.5 group ${className}`}>
-      {/* New Official SamadhanX Emblem Icon */}
+      {/* Official SamadhanX Emblem Icon without box */}
       <div
-        className={`${iconSizes[size]} relative flex-shrink-0 flex items-center justify-center p-0.5 rounded-xl bg-white border border-slate-200/80 shadow-xs transition-transform group-hover:scale-105 duration-200`}
+        className={`${iconSizes[size]} relative flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-105 duration-200`}
       >
         <img
           src="/Images/samadhanx-icon.png"
           alt="SamadhanX Emblem"
-          className="w-full h-full object-contain drop-shadow-xs"
+          className="w-full h-full object-contain"
         />
       </div>
 
