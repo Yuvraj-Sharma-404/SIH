@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -23,38 +23,8 @@ import {
   FileBadge,
 } from "lucide-react";
 import { UserRoleType, ROLE_CONFIGS } from "@/lib/auth/permissions";
+import { INDIA_STATES_AND_UTS, getDistrictsForState } from "@/lib/indiaLocations";
 
-const INDIAN_STATES = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  "Delhi (NCT)",
-];
 
 export default function UnifiedSignupPage() {
   const router = useRouter();
@@ -73,10 +43,20 @@ export default function UnifiedSignupPage() {
 
   // Role-Specific State
   // Citizen
-  const [state, setState] = useState("Maharashtra");
+  const [state, setState] = useState("Haryana");
   const [district, setDistrict] = useState("");
+  const [customDistrict, setCustomDistrict] = useState("");
   const [identityRef, setIdentityRef] = useState("");
   const [prefLang, setPrefLang] = useState("English");
+
+  // Dynamic districts based on selected state
+  const availableDistricts = useMemo(() => getDistrictsForState(state), [state]);
+
+  const handleStateChange = (newState: string) => {
+    setState(newState);
+    setDistrict("");
+    setCustomDistrict("");
+  };
 
   // University
   const [institution, setInstitution] = useState("");
@@ -188,7 +168,8 @@ export default function UnifiedSignupPage() {
       let primaryDesignation = null;
 
       if (role === "CITIZEN") {
-        roleData = { state, district, identityRef, prefLang };
+        const finalDistrict = district === "OTHER" ? customDistrict.trim() : district.trim();
+        roleData = { state, district: finalDistrict, identityRef, prefLang };
       } else if (role === "UNIVERSITY_MEMBER") {
         roleData = { institution, department, studentOrEmpId, academicDesignation };
         primaryOrg = institution;
@@ -899,10 +880,11 @@ export default function UnifiedSignupPage() {
                       </label>
                       <select
                         value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white"
+                        onChange={(e) => handleStateChange(e.target.value)}
+                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white font-medium text-slate-900"
                       >
-                        {INDIAN_STATES.map((st) => (
+                        <option value="" disabled>-- Select State / UT --</option>
+                        {INDIA_STATES_AND_UTS.map((st) => (
                           <option key={st} value={st}>
                             {st}
                           </option>
@@ -911,19 +893,49 @@ export default function UnifiedSignupPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        District / City
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center justify-between">
+                        <span>District / City <span className="text-red-500">*</span></span>
+                        {state && availableDistricts.length > 0 && (
+                          <span className="text-[11px] text-slate-500 font-normal lowercase">
+                            {availableDistricts.length} districts
+                          </span>
+                        )}
                       </label>
                       <div className="relative">
-                        <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                        <input
-                          type="text"
+                        <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none z-10" />
+                        <select
                           value={district}
-                          onChange={(e) => setDistrict(e.target.value)}
-                          placeholder="e.g. Pune / New Delhi"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
-                        />
+                          onChange={(e) => {
+                            setDistrict(e.target.value);
+                            if (e.target.value !== "OTHER") {
+                              setCustomDistrict("");
+                            }
+                          }}
+                          className="w-full pl-9 pr-8 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white font-medium text-slate-900 cursor-pointer"
+                        >
+                          <option value="">
+                            {state ? `-- Select District in ${state} --` : "-- Select State First --"}
+                          </option>
+                          {availableDistricts.map((d) => (
+                            <option key={d} value={d}>
+                              {d}
+                            </option>
+                          ))}
+                          <option value="OTHER">Other / Unlisted City or District</option>
+                        </select>
                       </div>
+                      {district === "OTHER" && (
+                        <div className="mt-2">
+                          <input
+                            type="text"
+                            value={customDistrict}
+                            onChange={(e) => setCustomDistrict(e.target.value)}
+                            placeholder="Enter your district, city or tehsil"
+                            className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                            autoFocus
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
 
