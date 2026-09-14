@@ -1,10 +1,26 @@
 import fs from "fs";
 import path from "path";
+import os from "os";
 import { randomUUID } from "crypto";
+import { put, del } from "@vercel/blob";
 
-export const STORAGE_DIR = path.join(process.cwd(), "storage", "uploads");
+// Detect if running in a read-only serverless environment (e.g., AWS Lambda, Vercel)
+const isServerless = Boolean(
+  process.env.VERCEL ||
+  process.env.AWS_LAMBDA_FUNCTION_NAME ||
+  (typeof process.cwd === "function" && process.cwd().startsWith("/var/task"))
+);
 
-// Ensure storage directory exists
+// Vercel Blob token is automatically provided by Vercel when Blob store is connected
+export const isBlobConfigured = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
+export const STORAGE_DIR = process.env.STORAGE_DIR
+  ? process.env.STORAGE_DIR
+  : isServerless
+  ? path.join(os.tmpdir(), "storage", "uploads")
+  : path.join(process.cwd(), "storage", "uploads");
+
+// Ensure storage directory exists for local/fallback storage
 if (!fs.existsSync(STORAGE_DIR)) {
   try {
     fs.mkdirSync(STORAGE_DIR, { recursive: true });
@@ -202,20 +218,46 @@ export async function saveUploadedFile(
     else ext = ".bin";
   }
 
-  // Ensure storage directory exists
+  const safeOriginalName = path.basename(originalFilename);
+  const randomFileName = `${randomUUID()}${ext}`;
+
+  // If Vercel Blob token is configured, store directly in Vercel Blob CDN
+  if (isBlobConfigured) {
+    try {
+      const pathname = `uploads/${randomFileName}`;
+      const blob = await put(pathname, buffer, {
+        access: "public",
+        contentType: clientMimeType || "application/octet-stream",
+      });
+
+      return {
+        storageKey: blob.url,
+        originalName: safeOriginalName,
+        fileSize: buffer.length,
+        mimeType: clientMimeType || "application/octet-stream",
+        category: validation.category,
+        fileUrl: blob.url,
+        storedPath: blob.url,
+      };
+    } catch (blobErr) {
+      console.error("[Storage] Vercel Blob upload failed, falling back to disk/tmp storage:", blobErr);
+      // Fall through to disk storage if blob upload throws
+    }
+  }
+
+  // Fallback: Local or /tmp storage
   if (!fs.existsSync(STORAGE_DIR)) {
     await fs.promises.mkdir(STORAGE_DIR, { recursive: true });
   }
 
-  // Generate safe cryptographically random filename
-  const storageKey = `${randomUUID()}${ext}`;
+  const storageKey = randomFileName;
   const storedPath = path.join(STORAGE_DIR, storageKey);
 
   await fs.promises.writeFile(storedPath, buffer);
 
   return {
     storageKey,
-    originalName: path.basename(originalFilename),
+    originalName: safeOriginalName,
     fileSize: buffer.length,
     mimeType: clientMimeType || "application/octet-stream",
     category: validation.category,
@@ -224,9 +266,24 @@ export async function saveUploadedFile(
   };
 }
 
-export async function deleteUploadedFile(storageKey: string): Promise<boolean> {
-  // Prevent directory traversal
-  const safeKey = path.basename(storageKey);
+export async function deleteUploadedFile(storageKeyOrUrl: string): Promise<boolean> {
+  // If it's a Vercel Blob URL or pathname
+  if (
+    isBlobConfigured &&
+    (storageKeyOrUrl.startsWith("http://") ||
+      storageKeyOrUrl.startsWith("https://") ||
+      storageKeyOrUrl.startsWith("uploads/"))
+  ) {
+    try {
+      await del(storageKeyOrUrl);
+      return true;
+    } catch (err) {
+      console.error(`[Storage] Failed to delete blob ${storageKeyOrUrl}:`, err);
+    }
+  }
+
+  // Prevent directory traversal for local files
+  const safeKey = path.basename(storageKeyOrUrl);
   const filePath = path.join(STORAGE_DIR, safeKey);
 
   try {
@@ -235,7 +292,7 @@ export async function deleteUploadedFile(storageKey: string): Promise<boolean> {
       return true;
     }
   } catch (err) {
-    console.error(`[Storage] Failed to delete file ${storageKey}:`, err);
+    console.error(`[Storage] Failed to delete file ${storageKeyOrUrl}:`, err);
   }
   return false;
 }
@@ -247,5 +304,12 @@ export function getUploadedFilePath(storageKey: string): string | null {
   if (fs.existsSync(filePath)) {
     return filePath;
   }
+
+  // Fallback check in local cwd storage
+  const fallbackPath = path.join(process.cwd(), "storage", "uploads", safeKey);
+  if (fs.existsSync(fallbackPath)) {
+    return fallbackPath;
+  }
+
   return null;
 }

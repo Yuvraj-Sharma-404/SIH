@@ -40,7 +40,7 @@ export default function SmadhanXFooter() {
   }, []);
 
   return (
-    <footer className="bg-[#001c5a] text-white text-xs border-t-4 border-gov-saffron mt-auto">
+    <footer className="bg-[#001c5a] dark:bg-[#070d1d] text-white text-xs border-t-4 border-gov-saffron mt-auto transition-colors">
       {/* 1. Top Section - Social Media & Student Team Attribution */}
       <div className="border-b border-white/10 py-5 sm:py-6 px-3 sm:px-6">
         <div className="max-w-7xl mx-auto text-center space-y-3 sm:space-y-4">
@@ -94,7 +94,7 @@ export default function SmadhanXFooter() {
 
 
       {/* 3. Bottom Section - Policies, Statistics & Project Attribution */}
-      <div className="bg-[#000d2b] py-3.5 px-3 sm:px-6 border-t border-white/10">
+      <div className="bg-[#000d2b] dark:bg-[#030712] py-3.5 px-3 sm:px-6 border-t border-white/10 transition-colors">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-300 gap-3 text-center">
           {/* Policy Links */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">

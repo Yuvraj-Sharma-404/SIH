@@ -9,13 +9,17 @@ import {
   X,
   User,
   LogOut,
+  Sun,
+  Moon,
 } from "lucide-react";
 import SmadhanXQrModal from "./SmadhanXQrModal";
 import UserProfileModal, { UserProfileData } from "./UserProfileModal";
 import SmadhanXLogo from "./SmadhanXLogo";
+import { useDarkMode } from "./DarkModeProvider";
 
 export default function SmadhanXHeader() {
   const pathname = usePathname();
+  const { theme, toggle: toggleTheme } = useDarkMode();
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -153,9 +157,9 @@ export default function SmadhanXHeader() {
       </div>
 
       {/* 1. Main Scenic Top Banner with SmadhanX Branding & Integrated Quick Links */}
-      <div className="relative border-b border-slate-200/80 bg-[url('/Images/header-bg.jpg')] bg-cover bg-center md:bg-[center_45%] shadow-xs overflow-hidden">
+      <div className="relative border-b border-slate-200/80 dark:border-slate-800 bg-[url('/Images/header-bg.jpg')] bg-cover bg-center md:bg-[center_45%] shadow-xs overflow-hidden">
         {/* Soft translucent overlay ensuring crisp legibility for text while highlighting India's iconic landmarks */}
-        <div className="bg-gradient-to-r from-white/95 via-white/25 to-white/60 backdrop-blur-[0.5px] py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-white/95 via-white/40 to-white/70 dark:from-slate-950/95 dark:via-slate-950/80 dark:to-slate-900/90 backdrop-blur-[0.5px] py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8 transition-colors">
           <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-4 min-h-[100px] sm:min-h-[112px]">
             {/* Left: SmadhanX Unique Logo & Tagline */}
             <div className="flex items-center notranslate" translate="no">
@@ -163,40 +167,40 @@ export default function SmadhanXHeader() {
             </div>
 
             {/* Right: Integrated Quick Links & Accessibility Controls */}
-            <div className="hidden lg:flex items-center space-x-3 text-[11.5px] font-semibold text-slate-800 pb-1">
-              <Link href="/" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
+            <div className="hidden lg:flex items-center space-x-3 text-[11.5px] font-semibold text-slate-800 dark:text-slate-200 pb-1">
+              <Link href="/" className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition">
                 <img src="/Images/ico_home.png" alt="Home" className="w-3.5 h-3.5 object-contain" />
                 <span>Home</span>
               </Link>
               <button
                 type="button"
                 onClick={() => setIsQrOpen(true)}
-                className="flex items-center space-x-1.5 hover:text-gov-navy transition"
+                className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition"
               >
                 <img src="/Images/dwnld.png" alt="Download" className="w-3.5 h-3.5 object-contain" />
                 <span>Download</span>
               </button>
-              <Link href="/contact" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
+              <Link href="/contact" className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition">
                 <img src="/Images/ico_contact.png" alt="Contact" className="w-3.5 h-3.5 object-contain" />
                 <span>Contact Us</span>
               </Link>
-              <Link href="/about" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
+              <Link href="/about" className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition">
                 <img src="/Images/ico_about.png" alt="About" className="w-3.5 h-3.5 object-contain" />
                 <span>About Us</span>
               </Link>
-              <Link href="/faq" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
+              <Link href="/faq" className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition">
                 <img src="/Images/ico_help.png" alt="Help" className="w-3.5 h-3.5 object-contain" />
                 <span>FAQs/Help</span>
               </Link>
-              <Link href="/process-flow" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
+              <Link href="/process-flow" className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition">
                 <img src="/Images/sitemap.png" alt="Process Flow" className="w-3.5 h-3.5 object-contain" />
                 <span>Site Map</span>
               </Link>
 
-              <span className="text-slate-400">|</span>
+              <span className="text-slate-400 dark:text-slate-600">|</span>
 
               {/* Font Resizing Controls */}
-              <div className="flex items-center space-x-1 text-[10px] font-bold text-slate-700">
+              <div className="flex items-center space-x-1 text-[10px] font-bold text-slate-700 dark:text-slate-300">
                 <span>Text:</span>
                 <button
                   type="button"
@@ -204,7 +208,7 @@ export default function SmadhanXHeader() {
                   className={`px-1.5 py-0.5 rounded border text-[10px] font-bold transition ${
                     fontSize === "normal"
                       ? "bg-[#001c5a] text-white border-[#001c5a]"
-                      : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
+                      : "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                   }`}
                   title="Normal Font Size"
                 >
@@ -216,24 +220,47 @@ export default function SmadhanXHeader() {
                   className={`px-1.5 py-0.5 rounded border text-[10px] font-bold transition ${
                     fontSize === "large"
                       ? "bg-[#001c5a] text-white border-[#001c5a]"
-                      : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
+                      : "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                   }`}
                   title="Enlarge Font Size"
                 >
                   A+
                 </button>
               </div>
+
+              <span className="text-slate-400 dark:text-slate-600">|</span>
+
+              {/* Dark Mode Toggle Button */}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="px-2 py-0.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-amber-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1 text-[10px] font-bold shadow-xs cursor-pointer"
+                title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                aria-label="Toggle dark mode"
+              >
+                {theme === "dark" ? (
+                  <>
+                    <Sun className="w-3 h-3 text-amber-400" />
+                    <span>Light</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-3 h-3 text-slate-700" />
+                    <span>Dark</span>
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Mobile Controls on screens < lg */}
-            <div className="lg:hidden flex items-center justify-between pt-2 border-t border-slate-200/60 md:border-0 md:pt-0">
-              <div className="flex items-center space-x-2 text-[10px] font-bold text-slate-700">
+            <div className="lg:hidden flex items-center justify-between pt-2 border-t border-slate-200/60 dark:border-slate-800 md:border-0 md:pt-0">
+              <div className="flex items-center space-x-2 text-[10px] font-bold text-slate-700 dark:text-slate-300">
                 <span>Text:</span>
                 <button
                   type="button"
                   onClick={() => handleFontSizeChange("normal")}
                   className={`px-1.5 py-0.5 rounded border ${
-                    fontSize === "normal" ? "bg-[#001c5a] text-white border-[#001c5a]" : "bg-white border-slate-300"
+                    fontSize === "normal" ? "bg-[#001c5a] text-white border-[#001c5a]" : "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 dark:text-slate-200"
                   }`}
                 >
                   A
@@ -242,16 +269,30 @@ export default function SmadhanXHeader() {
                   type="button"
                   onClick={() => handleFontSizeChange("large")}
                   className={`px-1.5 py-0.5 rounded border ${
-                    fontSize === "large" ? "bg-[#001c5a] text-white border-[#001c5a]" : "bg-white border-slate-300"
+                    fontSize === "large" ? "bg-[#001c5a] text-white border-[#001c5a]" : "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 dark:text-slate-200"
                   }`}
                 >
                   A+
+                </button>
+
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className="px-2 py-0.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-amber-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1 text-[10px] font-bold cursor-pointer ml-1"
+                  title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                  aria-label="Toggle dark mode"
+                >
+                  {theme === "dark" ? (
+                    <Sun className="w-3 h-3 text-amber-400" />
+                  ) : (
+                    <Moon className="w-3 h-3 text-slate-700" />
+                  )}
                 </button>
               </div>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-1.5 rounded-lg bg-[#001c5a] text-white hover:bg-[#001c5a]/90 transition shadow-sm"
+                className="p-1.5 rounded-lg bg-[#001c5a] dark:bg-slate-800 text-white hover:bg-[#001c5a]/90 dark:hover:bg-slate-700 transition shadow-sm"
                 aria-label="Toggle navigation menu"
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -305,16 +346,16 @@ export default function SmadhanXHeader() {
                   <span>View Status</span>
                   <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute left-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[200px] py-1 animate-fadeIn z-50">
+                <div className="absolute left-0 top-full hidden group-hover:block bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 shadow-xl rounded-b-xl border border-slate-200 dark:border-slate-700 min-w-[200px] py-1 animate-fadeIn z-50">
                   <Link
                     href="/track"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Grievance Status
                   </Link>
                   <Link
                     href="/track?type=appeal"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Appeal Status
                   </Link>
@@ -333,10 +374,10 @@ export default function SmadhanXHeader() {
                   <span>Redress Process</span>
                   <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute left-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[220px] py-1 animate-fadeIn z-50">
+                <div className="absolute left-0 top-full hidden group-hover:block bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 shadow-xl rounded-b-xl border border-slate-200 dark:border-slate-700 min-w-[220px] py-1 animate-fadeIn z-50">
                   <Link
                     href="/process-flow"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Redress Process Flow
                   </Link>
@@ -353,28 +394,28 @@ export default function SmadhanXHeader() {
                   <span>Grievance</span>
                   <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute left-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[230px] py-1 animate-fadeIn z-50">
+                <div className="absolute left-0 top-full hidden group-hover:block bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 shadow-xl rounded-b-xl border border-slate-200 dark:border-slate-700 min-w-[230px] py-1 animate-fadeIn z-50">
                   <Link
                     href="/citizen/report"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Lodge Public Grievance
                   </Link>
                   <Link
                     href="/geotag"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition text-gov-saffron font-bold"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition text-gov-saffron font-bold"
                   >
                     Image Geotag Extractor
                   </Link>
                   <Link
                     href="/reminder"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Reminder Clarification
                   </Link>
                   <Link
                     href="/track?tab=feedback"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Rate Grievance
                   </Link>
@@ -390,46 +431,46 @@ export default function SmadhanXHeader() {
                   <span>Grand Challenges</span>
                   <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-70 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute left-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 min-w-[240px] py-1 animate-fadeIn z-50">
+                <div className="absolute left-0 top-full hidden group-hover:block bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 shadow-xl rounded-b-xl border border-slate-200 dark:border-slate-700 min-w-[240px] py-1 animate-fadeIn z-50">
                   <Link
                     href="/university/challenges"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     University R&D & Proposals
                   </Link>
                   <Link
                     href="/industry/explore"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Corporate CSR Co-Funding
                   </Link>
                   <Link
                     href="/gov/dashboard"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Nodal Officer Verification
                   </Link>
                   <Link
                     href="/map"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     GIS Spatial Cluster Map
                   </Link>
                   <Link
                     href="/geotag"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition text-amber-600 font-bold"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition text-amber-600 font-bold"
                   >
                     Image Geotag Extractor
                   </Link>
                   <Link
                     href="/impact"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Resolution & SLA Metrics
                   </Link>
                   <Link
                     href="/kiosk"
-                    className="block px-4 py-2 hover:bg-slate-100 text-xs font-semibold text-slate-800 hover:text-gov-navy transition"
+                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     Offline Kiosk Hardware Mode
                   </Link>
@@ -467,13 +508,13 @@ export default function SmadhanXHeader() {
                   <span className="font-bold">{currentLang}</span>
                   <ChevronDown className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute right-0 top-full hidden group-hover:block bg-white text-slate-800 shadow-xl rounded-b-xl border border-slate-200 w-44 py-1.5 animate-fadeIn z-50">
+                <div className="absolute right-0 top-full hidden group-hover:block bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 shadow-xl rounded-b-xl border border-slate-200 dark:border-slate-700 w-44 py-1.5 animate-fadeIn z-50">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
                       type="button"
                       onClick={() => handleLanguageChange(lang.code, lang.label)}
-                      className={`w-full text-left px-3.5 py-2 text-xs hover:bg-slate-100 transition flex items-center justify-between ${currentLang === lang.label ? "font-bold text-gov-navy bg-slate-50" : "text-slate-700"
+                      className={`w-full text-left px-3.5 py-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between ${currentLang === lang.label ? "font-bold text-gov-navy dark:text-sky-400 bg-slate-50 dark:bg-slate-800" : "text-slate-700 dark:text-slate-200"
                         }`}
                     >
                       <span>{lang.label}</span>

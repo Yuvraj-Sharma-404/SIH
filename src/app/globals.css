@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ──────────────────────────────────────────
+   Light Mode CSS Variables (default)
+────────────────────────────────────────── */
 :root {
   --background: #f4f6f9;
   --foreground: #0f172a;
@@ -16,6 +19,18 @@
   --gov-emerald-light: #f0fdf4;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
+}
+
+/* ──────────────────────────────────────────
+   Dark Mode CSS Variable Overrides
+────────────────────────────────────────── */
+.dark {
+  --background: #0d1117;
+  --foreground: #e2e8f0;
+  --gov-navy: #3b82f6;
+  --gov-navy-dark: #2563eb;
+  --card-bg: #161b22;
+  --card-border: #30363d;
 }
 
 html {
@@ -31,9 +46,17 @@ body {
   overflow-x: hidden;
 }
 
+/* ──────────────────────────────────────────
+   Background Pattern
+────────────────────────────────────────── */
 .pattern-honeycomb {
   background-color: #faf9f6;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='76' viewBox='0 0 44 76'%3E%3Cpath d='M22 0l22 12.7v25.4L22 50.8 0 38.1V12.7L22 0zm0 76.2l22-12.7V38.1L22 25.4 0 38.1v25.4L22 76.2z' fill='none' stroke='%23e2e8f0' stroke-width='1.2' stroke-opacity='0.6'/%3E%3C/svg%3E");
+}
+
+.dark .pattern-honeycomb {
+  background-color: #0d1117;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='76' viewBox='0 0 44 76'%3E%3Cpath d='M22 0l22 12.7v25.4L22 50.8 0 38.1V12.7L22 0zm0 76.2l22-12.7V38.1L22 25.4 0 38.1v25.4L22 76.2z' fill='none' stroke='%2330363d' stroke-width='1.2' stroke-opacity='0.5'/%3E%3C/svg%3E");
 }
 
 .font-devanagari {
@@ -48,12 +71,18 @@ code, pre {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Indian Government Official UI Card Styles */
+/* ──────────────────────────────────────────
+   Card Styles
+────────────────────────────────────────── */
 .gov-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.dark .gov-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .gov-card-hover {
@@ -65,20 +94,33 @@ code, pre {
   box-shadow: 0 8px 16px -2px rgba(0, 28, 90, 0.08), 0 4px 6px -2px rgba(0, 28, 90, 0.04);
 }
 
-/* Government Accent Borders */
+.dark .gov-card-hover:hover {
+  border-color: #475569;
+  box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.35), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+}
+
+/* ──────────────────────────────────────────
+   Government Accent Borders
+────────────────────────────────────────── */
 .gov-border-t-navy {
-  border-top: 4px solid var(--gov-navy);
+  border-top: 4px solid #001c5a;
+}
+
+.dark .gov-border-t-navy {
+  border-top: 4px solid #3b82f6;
 }
 
 .gov-border-t-saffron {
-  border-top: 4px solid var(--gov-saffron);
+  border-top: 4px solid #e65100;
 }
 
 .gov-border-t-emerald {
-  border-top: 4px solid var(--gov-emerald);
+  border-top: 4px solid #059669;
 }
 
-/* CPGRAMS Scraped Action Box Theme Colors */
+/* ──────────────────────────────────────────
+   CPGRAMS Action Box Colors
+────────────────────────────────────────── */
 .cpgrams-box-status {
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
 }
@@ -91,7 +133,9 @@ code, pre {
   background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
 }
 
-/* CPGRAMS What's New Section styling */
+/* ──────────────────────────────────────────
+   What's New Badge
+────────────────────────────────────────── */
 .whatsNew-badge {
   background: #e2e8f0;
   padding: 6px 12px;
@@ -104,11 +148,24 @@ code, pre {
   border-radius: 6px;
 }
 
-/* Accessible Status Badges */
+.dark .whatsNew-badge {
+  background: #30363d;
+  color: #e2e8f0;
+}
+
+/* ──────────────────────────────────────────
+   Status Badges
+────────────────────────────────────────── */
 .badge-submitted {
   background-color: #f1f5f9;
   color: #475569;
   border: 1px solid #cbd5e1;
+}
+
+.dark .badge-submitted {
+  background-color: #1e2733;
+  color: #94a3b8;
+  border: 1px solid #334155;
 }
 
 .badge-in-progress {
@@ -117,10 +174,22 @@ code, pre {
   border: 1px solid #bfdbfe;
 }
 
+.dark .badge-in-progress {
+  background-color: #1e2d47;
+  color: #60a5fa;
+  border: 1px solid #1d4ed8;
+}
+
 .badge-resolved {
   background-color: #f0fdf4;
   color: #15803d;
   border: 1px solid #bbf7d0;
+}
+
+.dark .badge-resolved {
+  background-color: #14290f;
+  color: #4ade80;
+  border: 1px solid #166534;
 }
 
 .badge-priority-high {
@@ -129,7 +198,15 @@ code, pre {
   border: 1px solid #fecdd3;
 }
 
-/* Custom Clean Scrollbars */
+.dark .badge-priority-high {
+  background-color: #2d0f14;
+  color: #fb7185;
+  border: 1px solid #9f1239;
+}
+
+/* ──────────────────────────────────────────
+   Scrollbar
+────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -139,15 +216,30 @@ code, pre {
   background: #f1f5f9;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #374151;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* ──────────────────────────────────────────
+   Animations
+────────────────────────────────────────── */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -163,7 +255,9 @@ code, pre {
   animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Google Translate Clean Styling & Banner Suppression */
+/* ──────────────────────────────────────────
+   Google Translate Clean Styling & Banner Suppression
+────────────────────────────────────────── */
 .goog-te-banner-frame.skiptranslate,
 .goog-te-banner-frame,
 iframe.goog-te-banner-frame {
@@ -199,3 +293,4 @@ body {
 .skiptranslate > iframe {
   display: none !important;
 }
+
