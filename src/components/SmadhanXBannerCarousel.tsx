@@ -35,7 +35,7 @@ const banners: BannerSlide[] = [
   {
     id: 3,
     src: "/Images/bannerHome/baner-cpgrams_3.jpg",
-    alt: "Transparent 8-Stage Grievance Tracking Lifecycle",
+    alt: "Transparent 9-Stage Grievance Tracking Lifecycle",
     href: "/track",
   },
   {

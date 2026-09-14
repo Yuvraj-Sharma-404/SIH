@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} min-h-screen flex flex-col bg-[#f4f6f9] text-slate-900 selection:bg-orange-100 selection:text-orange-900`}
+        className={`${inter.className} min-h-screen flex flex-col pattern-honeycomb text-slate-900 selection:bg-orange-100 selection:text-orange-900`}
         suppressHydrationWarning
       >
         <GoogleTranslate />

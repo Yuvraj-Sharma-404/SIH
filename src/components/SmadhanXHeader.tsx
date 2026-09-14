@@ -145,100 +145,124 @@ export default function SmadhanXHeader() {
 
   return (
     <>
-      {/* Indian National Tricolor Ribbon */}
-      <div className="h-1.5 w-full flex sticky top-0 z-50 shadow-xs">
-        <div className="flex-1 bg-[#FF9933]"></div>
-        <div className="flex-1 bg-white"></div>
-        <div className="flex-1 bg-[#138808]"></div>
+      {/* Indian National Top Accent Bands (Left Saffron, Right Green) */}
+      <div className="h-2 sm:h-2.5 w-full flex justify-between pointer-events-none relative z-30">
+        <div className="w-[30%] max-w-sm h-full bg-[#FF9933] shadow-xs"></div>
+        <div className="flex-1"></div>
+        <div className="w-[30%] max-w-sm h-full bg-[#138808] shadow-xs"></div>
       </div>
 
-      {/* 1. Main Header with SmadhanX Unique Symbol and Branding */}
-      <div className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 shadow-sm">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
-          {/* SmadhanX Unique Logo and Name at left-most corner */}
-          <SmadhanXLogo size="md" href="/" />
+      {/* 1. Main Scenic Top Banner with SmadhanX Branding & Integrated Quick Links */}
+      <div className="relative border-b border-slate-200/80 bg-[url('/Images/header-bg.jpg')] bg-cover bg-center md:bg-[center_45%] shadow-xs overflow-hidden">
+        {/* Soft translucent overlay ensuring crisp legibility for text while highlighting India's iconic landmarks */}
+        <div className="bg-gradient-to-r from-white/95 via-white/25 to-white/60 backdrop-blur-[0.5px] py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-4 min-h-[100px] sm:min-h-[112px]">
+            {/* Left: SmadhanX Unique Logo & Tagline */}
+            <div className="flex items-center notranslate" translate="no">
+              <SmadhanXLogo size="md" href="/" />
+            </div>
 
-          {/* Right Header: Mobile Menu Toggle Button */}
-          <div className="xl:hidden flex items-center">
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg bg-gov-navy text-white hover:bg-gov-navy/90 transition shadow-sm"
-              aria-label="Toggle navigation menu"
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Topbar - Quick Links & Accessibility */}
-      <div className="bg-[#f0f4f8] border-b border-slate-300 text-[11px] text-slate-700 py-1.5 px-3 sm:px-6">
-        <div className="max-w-[1440px] mx-auto flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-1.5 text-center">
-          {/* Quick Action Links, Persona Switcher & Accessibility */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-end space-x-3 text-[11px]">
-            {/* Quick Links with Scraped Icons */}
-            <div className="hidden lg:flex items-center space-x-3 font-semibold text-slate-700">
-              <Link href="/" className="flex items-center space-x-1 hover:text-gov-navy transition">
+            {/* Right: Integrated Quick Links & Accessibility Controls */}
+            <div className="hidden lg:flex items-center space-x-3 text-[11.5px] font-semibold text-slate-800 pb-1">
+              <Link href="/" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
                 <img src="/Images/ico_home.png" alt="Home" className="w-3.5 h-3.5 object-contain" />
                 <span>Home</span>
               </Link>
               <button
                 type="button"
                 onClick={() => setIsQrOpen(true)}
-                className="flex items-center space-x-1 hover:text-gov-navy transition"
+                className="flex items-center space-x-1.5 hover:text-gov-navy transition"
               >
                 <img src="/Images/dwnld.png" alt="Download" className="w-3.5 h-3.5 object-contain" />
                 <span>Download</span>
               </button>
-              <Link href="/contact" className="flex items-center space-x-1 hover:text-gov-navy transition">
+              <Link href="/contact" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
                 <img src="/Images/ico_contact.png" alt="Contact" className="w-3.5 h-3.5 object-contain" />
                 <span>Contact Us</span>
               </Link>
-              <Link href="/about" className="flex items-center space-x-1 hover:text-gov-navy transition">
+              <Link href="/about" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
                 <img src="/Images/ico_about.png" alt="About" className="w-3.5 h-3.5 object-contain" />
                 <span>About Us</span>
               </Link>
-              <Link href="/faq" className="flex items-center space-x-1 hover:text-gov-navy transition">
+              <Link href="/faq" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
                 <img src="/Images/ico_help.png" alt="Help" className="w-3.5 h-3.5 object-contain" />
                 <span>FAQs/Help</span>
               </Link>
-              <Link href="/process-flow" className="flex items-center space-x-1 hover:text-gov-navy transition">
+              <Link href="/process-flow" className="flex items-center space-x-1.5 hover:text-gov-navy transition">
                 <img src="/Images/sitemap.png" alt="Process Flow" className="w-3.5 h-3.5 object-contain" />
                 <span>Site Map</span>
               </Link>
+
+              <span className="text-slate-400">|</span>
+
+              {/* Font Resizing Controls */}
+              <div className="flex items-center space-x-1 text-[10px] font-bold text-slate-700">
+                <span>Text:</span>
+                <button
+                  type="button"
+                  onClick={() => handleFontSizeChange("normal")}
+                  className={`px-1.5 py-0.5 rounded border text-[10px] font-bold transition ${
+                    fontSize === "normal"
+                      ? "bg-[#001c5a] text-white border-[#001c5a]"
+                      : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
+                  }`}
+                  title="Normal Font Size"
+                >
+                  A
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleFontSizeChange("large")}
+                  className={`px-1.5 py-0.5 rounded border text-[10px] font-bold transition ${
+                    fontSize === "large"
+                      ? "bg-[#001c5a] text-white border-[#001c5a]"
+                      : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
+                  }`}
+                  title="Enlarge Font Size"
+                >
+                  A+
+                </button>
+              </div>
             </div>
 
-            <span className="hidden lg:inline text-slate-300">|</span>
-
-            {/* Font Resizing Controls */}
-            <div className="hidden sm:flex items-center space-x-1 text-[10px] font-bold text-slate-600">
-              <span>Text:</span>
+            {/* Mobile Controls on screens < lg */}
+            <div className="lg:hidden flex items-center justify-between pt-2 border-t border-slate-200/60 md:border-0 md:pt-0">
+              <div className="flex items-center space-x-2 text-[10px] font-bold text-slate-700">
+                <span>Text:</span>
+                <button
+                  type="button"
+                  onClick={() => handleFontSizeChange("normal")}
+                  className={`px-1.5 py-0.5 rounded border ${
+                    fontSize === "normal" ? "bg-[#001c5a] text-white border-[#001c5a]" : "bg-white border-slate-300"
+                  }`}
+                >
+                  A
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleFontSizeChange("large")}
+                  className={`px-1.5 py-0.5 rounded border ${
+                    fontSize === "large" ? "bg-[#001c5a] text-white border-[#001c5a]" : "bg-white border-slate-300"
+                  }`}
+                >
+                  A+
+                </button>
+              </div>
               <button
                 type="button"
-                onClick={() => handleFontSizeChange("normal")}
-                className={`px-1.5 py-0.5 rounded border ${fontSize === "normal" ? "bg-gov-navy text-white border-gov-navy" : "bg-white border-slate-300 hover:bg-slate-100"
-                  }`}
-                title="Normal Font Size"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-1.5 rounded-lg bg-[#001c5a] text-white hover:bg-[#001c5a]/90 transition shadow-sm"
+                aria-label="Toggle navigation menu"
               >
-                A
-              </button>
-              <button
-                type="button"
-                onClick={() => handleFontSizeChange("large")}
-                className={`px-1.5 py-0.5 rounded border ${fontSize === "large" ? "bg-gov-navy text-white border-gov-navy" : "bg-white border-slate-300 hover:bg-slate-100"
-                  }`}
-                title="Enlarge Font Size"
-              >
-                A+
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. Main Dark Navbar with Sticky Top */}
-      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-1.5 z-40">
+      {/* 2. Main Dark Navbar with Sticky Top */}
+      <nav className="bg-[#001c5a] text-white text-xs font-semibold shadow-md sticky top-0 z-40">
 
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile Sticky Bar on screens < xl */}
