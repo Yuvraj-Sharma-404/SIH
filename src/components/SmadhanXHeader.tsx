@@ -392,12 +392,6 @@ export default function SmadhanXHeader() {
                     Lodge Public Grievance
                   </Link>
                   <Link
-                    href="/geotag"
-                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition text-gov-saffron font-bold"
-                  >
-                    Image Geotag Extractor
-                  </Link>
-                  <Link
                     href="/reminder"
                     className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
@@ -445,12 +439,6 @@ export default function SmadhanXHeader() {
                     className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition"
                   >
                     GIS Spatial Cluster Map
-                  </Link>
-                  <Link
-                    href="/geotag"
-                    className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:text-gov-navy dark:hover:text-sky-400 transition text-amber-600 font-bold"
-                  >
-                    Image Geotag Extractor
                   </Link>
                   <Link
                     href="/impact"
@@ -579,13 +567,6 @@ export default function SmadhanXHeader() {
                 className="block px-3 py-2 rounded hover:bg-white/10 transition text-amber-300 font-bold"
               >
                 Lodge Public Grievance
-              </Link>
-              <Link
-                href="/geotag"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded hover:bg-white/10 transition text-gov-saffron font-bold"
-              >
-                Image Geotag Extractor
               </Link>
               <Link
                 href="/track"
