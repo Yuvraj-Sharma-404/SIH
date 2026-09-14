@@ -880,13 +880,8 @@ export default function UnifiedSignupPage() {
                       </label>
                       <select
                         value={state}
-<<<<<<< HEAD
                         onChange={(e) => handleStateChange(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white font-medium text-slate-900"
-=======
-                        onChange={(e) => setState(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white"
->>>>>>> 492a085a90b78e099ec07fd191a68036f06748f5
+                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white font-medium"
                       >
                         <option value="" disabled>-- Select State / UT --</option>
                         {INDIA_STATES_AND_UTS.map((st) => (
@@ -898,31 +893,25 @@ export default function UnifiedSignupPage() {
                     </div>
 
                     <div>
-<<<<<<< HEAD
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center justify-between">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
                         <span>District / City <span className="text-red-500">*</span></span>
                         {state && availableDistricts.length > 0 && (
-                          <span className="text-[11px] text-slate-500 font-normal lowercase">
+                          <span className="text-[11px] text-slate-500 dark:text-slate-400 font-normal lowercase">
                             {availableDistricts.length} districts
                           </span>
                         )}
-=======
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        District / City
->>>>>>> 492a085a90b78e099ec07fd191a68036f06748f5
                       </label>
                       <div className="relative">
                         <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none z-10" />
                         <select
                           value={district}
-<<<<<<< HEAD
                           onChange={(e) => {
                             setDistrict(e.target.value);
                             if (e.target.value !== "OTHER") {
                               setCustomDistrict("");
                             }
                           }}
-                          className="w-full pl-9 pr-8 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white font-medium text-slate-900 cursor-pointer"
+                          className="w-full pl-9 pr-8 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white font-medium cursor-pointer"
                         >
                           <option value="">
                             {state ? `-- Select District in ${state} --` : "-- Select State First --"}
@@ -934,12 +923,6 @@ export default function UnifiedSignupPage() {
                           ))}
                           <option value="OTHER">Other / Unlisted City or District</option>
                         </select>
-=======
-                          onChange={(e) => setDistrict(e.target.value)}
-                          placeholder="e.g. Pune / New Delhi"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
-                        />
->>>>>>> 492a085a90b78e099ec07fd191a68036f06748f5
                       </div>
                       {district === "OTHER" && (
                         <div className="mt-2">
@@ -948,7 +931,7 @@ export default function UnifiedSignupPage() {
                             value={customDistrict}
                             onChange={(e) => setCustomDistrict(e.target.value)}
                             placeholder="Enter your district, city or tehsil"
-                            className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                            className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                             autoFocus
                           />
                         </div>

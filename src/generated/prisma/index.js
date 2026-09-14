@@ -381,7 +381,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\hi\\Documents\\GitHub\\SIH\\src\\generated\\prisma",
+      "value": "C:\\Users\\Admin\\Desktop\\cooding 1\\SIH\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -395,12 +395,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\hi\\Documents\\GitHub\\SIH\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Admin\\Desktop\\cooding 1\\SIH\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "5.22.0",
@@ -409,6 +408,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
