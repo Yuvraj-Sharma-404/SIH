@@ -316,33 +316,33 @@ export default function UnifiedSignupPage() {
     <div className="py-2 sm:py-6">
       {/* Top Indian Government Portal Breadcrumbs & Banner */}
       <div className="max-w-4xl mx-auto mb-4 sm:mb-6">
-        <div className="flex items-center space-x-2 text-xs text-slate-500 mb-2">
-          <Link href="/" className="hover:text-gov-navy transition">
+        <div className="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
+          <Link href="/" className="hover:text-gov-navy dark:hover:text-sky-400 transition">
             Home
           </Link>
           <span>/</span>
-          <span className="text-slate-800 font-semibold">User Registration</span>
+          <span className="text-slate-800 dark:text-slate-200 font-semibold">User Registration</span>
         </div>
 
         {/* Official Header Banner */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-white dark:bg-slate-800/95 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden transition-colors">
           <div className="h-1.5 bg-gradient-to-r from-[#FF9933] via-white to-[#138808]" />
           <div className="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center space-x-3.5">
-              <div className="w-12 h-12 rounded-xl bg-gov-navy text-white flex items-center justify-center font-black text-xl shadow-sm">
+              <div className="w-12 h-12 rounded-xl bg-gov-navy dark:bg-sky-600 text-white flex items-center justify-center font-black text-xl shadow-sm">
                 SX
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                   SmadhanX Unified Registration
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-600">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                   National Centralized Single-Window Onboarding for Public Service Redressal
                 </p>
               </div>
             </div>
             <div className="text-right hidden sm:block">
-              <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>SSL Encrypted 256-Bit</span>
               </span>
@@ -350,12 +350,12 @@ export default function UnifiedSignupPage() {
           </div>
 
           {/* Stepper Progress Bar */}
-          <div className="px-4 sm:px-6 py-3 bg-slate-50 border-t border-slate-200">
+          <div className="px-4 sm:px-6 py-3 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-700">
             <div className="grid grid-cols-4 gap-2 text-center text-xs">
               <div
                 className={`flex items-center justify-center space-x-1.5 pb-1 border-b-2 font-semibold transition ${
                   currentStep >= 1
-                    ? "border-gov-saffron text-gov-navy"
+                    ? "border-gov-saffron text-gov-navy dark:text-sky-400"
                     : "border-transparent text-slate-400"
                 }`}
               >
@@ -376,8 +376,8 @@ export default function UnifiedSignupPage() {
               <div
                 className={`flex items-center justify-center space-x-1.5 pb-1 border-b-2 font-semibold transition ${
                   currentStep >= 2
-                    ? "border-gov-saffron text-gov-navy"
-                    : "border-transparent text-slate-400"
+                    ? "border-gov-saffron text-gov-navy dark:text-amber-400"
+                    : "border-transparent text-slate-400 dark:text-slate-500"
                 }`}
               >
                 <span
@@ -386,7 +386,7 @@ export default function UnifiedSignupPage() {
                       ? "bg-emerald-600 text-white"
                       : currentStep === 2
                       ? "bg-gov-saffron text-white"
-                      : "bg-slate-200 text-slate-600"
+                      : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
                   {currentStep > 2 ? "✓" : "2"}
@@ -397,8 +397,8 @@ export default function UnifiedSignupPage() {
               <div
                 className={`flex items-center justify-center space-x-1.5 pb-1 border-b-2 font-semibold transition ${
                   currentStep >= 3
-                    ? "border-gov-saffron text-gov-navy"
-                    : "border-transparent text-slate-400"
+                    ? "border-gov-saffron text-gov-navy dark:text-amber-400"
+                    : "border-transparent text-slate-400 dark:text-slate-500"
                 }`}
               >
                 <span
@@ -407,7 +407,7 @@ export default function UnifiedSignupPage() {
                       ? "bg-emerald-600 text-white"
                       : currentStep === 3
                       ? "bg-gov-saffron text-white"
-                      : "bg-slate-200 text-slate-600"
+                      : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
                   {currentStep > 3 ? "✓" : "3"}
@@ -418,15 +418,15 @@ export default function UnifiedSignupPage() {
               <div
                 className={`flex items-center justify-center space-x-1.5 pb-1 border-b-2 font-semibold transition ${
                   currentStep >= 4
-                    ? "border-gov-saffron text-gov-navy"
-                    : "border-transparent text-slate-400"
+                    ? "border-gov-saffron text-gov-navy dark:text-amber-400"
+                    : "border-transparent text-slate-400 dark:text-slate-500"
                 }`}
               >
                 <span
                   className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
                     currentStep === 4
                       ? "bg-gov-saffron text-white"
-                      : "bg-slate-200 text-slate-600"
+                      : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
                   4
@@ -439,11 +439,11 @@ export default function UnifiedSignupPage() {
       </div>
 
       {/* Main Registration Container */}
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-8">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800/95 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 sm:p-8 transition-colors">
         {/* Error Alert */}
         {error && (
-          <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-start space-x-3 text-red-800 text-sm">
-            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 flex items-start space-x-3 text-red-800 dark:text-red-300 text-sm">
+            <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold">Notice: </span>
               {error}
@@ -453,8 +453,8 @@ export default function UnifiedSignupPage() {
 
         {/* Success Alert */}
         {successMsg && currentStep === 4 && (
-          <div className="mb-6 p-4 rounded-lg bg-emerald-50 border border-emerald-200 flex items-start space-x-3 text-emerald-800 text-sm">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-start space-x-3 text-emerald-800 dark:text-emerald-300 text-sm">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
             <div>{successMsg}</div>
           </div>
         )}
@@ -463,11 +463,11 @@ export default function UnifiedSignupPage() {
         {currentStep === 1 && (
           <div>
             <div className="text-center max-w-xl mx-auto mb-8">
-              <span className="inline-block px-3 py-1 bg-amber-100 text-amber-900 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
+              <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-950/50 text-amber-900 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-amber-300 dark:border-amber-700/50">
                 Step 1 of 4
               </span>
-              <h2 className="text-2xl font-bold text-slate-900">How will you use SmadhanX?</h2>
-              <p className="text-sm text-slate-600 mt-1">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">How will you use SmadhanX?</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
                 Select the primary stakeholder account suited to your function. All 4 categories
                 share unified governance and verified audit records.
               </p>
@@ -479,19 +479,19 @@ export default function UnifiedSignupPage() {
                 onClick={() => setRole("CITIZEN")}
                 className={`relative p-5 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
                   role === "CITIZEN"
-                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20"
-                    : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20 dark:border-sky-500 dark:bg-sky-950/40 dark:ring-sky-500/30"
+                    : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/40"
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-blue-100 text-gov-navy flex items-center justify-center font-bold">
+                  <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-gov-navy dark:text-blue-300 flex items-center justify-center font-bold">
                     <User className="w-6 h-6" />
                   </div>
                   <span
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       role === "CITIZEN"
-                        ? "border-gov-navy bg-gov-navy text-white"
-                        : "border-slate-300 bg-white"
+                        ? "border-gov-navy bg-gov-navy text-white dark:border-sky-400 dark:bg-sky-500"
+                        : "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
                     }`}
                   >
                     {role === "CITIZEN" && <div className="w-2 h-2 rounded-full bg-white" />}
@@ -499,19 +499,19 @@ export default function UnifiedSignupPage() {
                 </div>
                 <div className="mt-4">
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-bold text-slate-900 text-lg">Citizen</h3>
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg">Citizen</h3>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300">
                       Public User
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2">
                     Submit and track grievances, participate in civic initiatives, monitor local
                     resolution SLAs, and confirm community work.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-200/60 text-xs text-slate-500 font-medium flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center justify-between">
                   <span>Access: Public Redressal & Tracking</span>
-                  <span className="text-gov-navy font-semibold">Instant Access</span>
+                  <span className="text-gov-navy dark:text-sky-400 font-semibold">Instant Access</span>
                 </div>
               </div>
 
@@ -520,19 +520,19 @@ export default function UnifiedSignupPage() {
                 onClick={() => setRole("UNIVERSITY_MEMBER")}
                 className={`relative p-5 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
                   role === "UNIVERSITY_MEMBER"
-                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20"
-                    : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20 dark:border-sky-500 dark:bg-sky-950/40 dark:ring-sky-500/30"
+                    : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/40"
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
+                  <div className="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold">
                     <GraduationCap className="w-6 h-6" />
                   </div>
                   <span
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       role === "UNIVERSITY_MEMBER"
-                        ? "border-gov-navy bg-gov-navy text-white"
-                        : "border-slate-300 bg-white"
+                        ? "border-gov-navy bg-gov-navy text-white dark:border-sky-400 dark:bg-sky-500"
+                        : "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
                     }`}
                   >
                     {role === "UNIVERSITY_MEMBER" && (
@@ -542,19 +542,19 @@ export default function UnifiedSignupPage() {
                 </div>
                 <div className="mt-4">
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-bold text-slate-900 text-lg">Student / University</h3>
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg">Student / University</h3>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300">
                       Academic R&D
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2">
                     Solve societal grand challenges, submit innovative engineering proposals, build
                     pilot prototypes, and secure academic grants.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-200/60 text-xs text-slate-500 font-medium flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center justify-between">
                   <span>Access: R&D Proposals & Grand Challenges</span>
-                  <span className="text-indigo-700 font-semibold">Academic Verification</span>
+                  <span className="text-indigo-700 dark:text-indigo-400 font-semibold">Academic Verification</span>
                 </div>
               </div>
 
@@ -563,19 +563,19 @@ export default function UnifiedSignupPage() {
                 onClick={() => setRole("GOVERNMENT_OFFICIAL")}
                 className={`relative p-5 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
                   role === "GOVERNMENT_OFFICIAL"
-                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20"
-                    : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20 dark:border-sky-500 dark:bg-sky-950/40 dark:ring-sky-500/30"
+                    : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/40"
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+                  <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold">
                     <Landmark className="w-6 h-6" />
                   </div>
                   <span
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       role === "GOVERNMENT_OFFICIAL"
-                        ? "border-gov-navy bg-gov-navy text-white"
-                        : "border-slate-300 bg-white"
+                        ? "border-gov-navy bg-gov-navy text-white dark:border-sky-400 dark:bg-sky-500"
+                        : "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
                     }`}
                   >
                     {role === "GOVERNMENT_OFFICIAL" && (
@@ -585,19 +585,19 @@ export default function UnifiedSignupPage() {
                 </div>
                 <div className="mt-4">
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-bold text-slate-900 text-lg">Government Official</h3>
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg">Government Official</h3>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">
                       Nodal Authority
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2">
                     Access department triage consoles, review AI priority classifications, dispatch
                     field officers, and monitor statutory resolution SLAs.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-200/60 text-xs text-amber-700 font-semibold flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-xs text-amber-700 dark:text-amber-400 font-semibold flex items-center justify-between">
                   <span>Access: Official Grievance Portals</span>
-                  <span className="bg-amber-100 px-2 py-0.5 rounded text-[11px]">
+                  <span className="bg-amber-100 dark:bg-amber-900/50 text-amber-900 dark:text-amber-200 px-2 py-0.5 rounded text-[11px]">
                     Requires Clearance
                   </span>
                 </div>
@@ -608,19 +608,19 @@ export default function UnifiedSignupPage() {
                 onClick={() => setRole("INDUSTRY_PARTNER")}
                 className={`relative p-5 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
                   role === "INDUSTRY_PARTNER"
-                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20"
-                    : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                    ? "border-gov-navy bg-blue-50/50 shadow-md ring-2 ring-gov-navy/20 dark:border-sky-500 dark:bg-sky-950/40 dark:ring-sky-500/30"
+                    : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/40"
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
                     <Building2 className="w-6 h-6" />
                   </div>
                   <span
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       role === "INDUSTRY_PARTNER"
-                        ? "border-gov-navy bg-gov-navy text-white"
-                        : "border-slate-300 bg-white"
+                        ? "border-gov-navy bg-gov-navy text-white dark:border-sky-400 dark:bg-sky-500"
+                        : "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700"
                     }`}
                   >
                     {role === "INDUSTRY_PARTNER" && (
@@ -630,27 +630,27 @@ export default function UnifiedSignupPage() {
                 </div>
                 <div className="mt-4">
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-bold text-slate-900 text-lg">Industry / Organization</h3>
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg">Industry / Organization</h3>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
                       CSR & Innovation
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-2">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2">
                     Fund high-impact civic innovations, deploy corporate CSR grants, co-develop
                     hardware deployments, and track real-world impact metrics.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-200/60 text-xs text-slate-500 font-medium flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center justify-between">
                   <span>Access: CSR Pledging & Co-Funding</span>
-                  <span className="text-emerald-700 font-semibold">Corporate Verification</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">Corporate Verification</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-6 border-t border-slate-200">
-              <div className="text-xs text-slate-500">
+            <div className="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400">
                 Already have an account?{" "}
-                <Link href="/login" className="text-gov-navy font-bold hover:underline">
+                <Link href="/login" className="text-gov-navy dark:text-sky-400 font-bold hover:underline">
                   Sign In here
                 </Link>
               </div>
@@ -658,7 +658,7 @@ export default function UnifiedSignupPage() {
               <button
                 type="button"
                 onClick={handleNextFromRole}
-                className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-[#002b80] text-white font-bold transition shadow-sm"
+                className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-lg bg-gov-navy dark:bg-sky-600 hover:bg-[#002b80] dark:hover:bg-sky-500 text-white font-bold transition shadow-sm"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-4 h-4" />
@@ -670,19 +670,19 @@ export default function UnifiedSignupPage() {
         {/* STEP 2: COMMON BASIC INFORMATION */}
         {currentStep === 2 && (
           <form onSubmit={handleNextFromCommon}>
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200">
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200 dark:border-slate-700">
               <div>
-                <span className="inline-block px-3 py-1 bg-amber-100 text-amber-900 rounded-full text-xs font-bold uppercase tracking-wider mb-1">
+                <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-950/50 text-amber-900 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-1 border border-amber-300 dark:border-amber-700/50">
                   Step 2 of 4
                 </span>
-                <h2 className="text-xl font-bold text-slate-900">Personal & Account Information</h2>
-                <p className="text-xs sm:text-sm text-slate-600">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Personal & Account Information</h2>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                   Enter your core contact and secure login credentials.
                 </p>
               </div>
               <div className="text-right">
-                <span className="text-xs text-slate-500 block">Selected Role</span>
-                <span className="inline-flex items-center space-x-1 text-xs font-bold px-2.5 py-1 rounded bg-slate-100 text-gov-navy border border-slate-200">
+                <span className="text-xs text-slate-500 dark:text-slate-400 block">Selected Role</span>
+                <span className="inline-flex items-center space-x-1 text-xs font-bold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-700 text-gov-navy dark:text-sky-300 border border-slate-200 dark:border-slate-600">
                   <span>{ROLE_CONFIGS[role].title}</span>
                 </span>
               </div>
@@ -690,7 +690,7 @@ export default function UnifiedSignupPage() {
 
             <div className="space-y-4 mb-8">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Full Name (as in Official ID) <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -701,14 +701,14 @@ export default function UnifiedSignupPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Rajesh Kumar Sharma"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                     Email Address <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -723,22 +723,22 @@ export default function UnifiedSignupPage() {
                           ? "name@gov.in or name@nic.in"
                           : "name@example.com"
                       }
-                      className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                     />
                   </div>
                   {role === "GOVERNMENT_OFFICIAL" && (
-                    <span className="text-[11px] text-amber-700 mt-1 block">
+                    <span className="text-[11px] text-amber-700 dark:text-amber-400 mt-1 block">
                       Recommended: Use your official .gov.in or .nic.in domain for faster clearance.
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                     Mobile Number (for SMS Alerts) <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-2.5 text-xs font-bold text-slate-500">
+                    <span className="absolute left-3 top-2.5 text-xs font-bold text-slate-500 dark:text-slate-400">
                       +91
                     </span>
                     <input
@@ -748,7 +748,7 @@ export default function UnifiedSignupPage() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                       placeholder="9876543210"
-                      className="w-full pl-12 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                      className="w-full pl-12 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                     />
                   </div>
                 </div>
@@ -756,7 +756,7 @@ export default function UnifiedSignupPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                     Account Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -767,12 +767,12 @@ export default function UnifiedSignupPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Minimum 8 characters"
-                      className="w-full pl-9 pr-10 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                      className="w-full pl-9 pr-10 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                      className="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -781,7 +781,7 @@ export default function UnifiedSignupPage() {
                   {/* Password Strength Meter */}
                   {password && (
                     <div className="mt-2">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 mb-1">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 dark:text-slate-400 mb-1">
                         <span>Strength:</span>
                         <span className="font-bold">
                           {passwordStrength <= 1
@@ -793,7 +793,7 @@ export default function UnifiedSignupPage() {
                             : "Very Secure"}
                         </span>
                       </div>
-                      <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden flex gap-1">
+                      <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex gap-1">
                         <div
                           className={`h-full flex-1 rounded-full ${
                             passwordStrength >= 1 ? "bg-red-500" : "bg-transparent"
@@ -820,7 +820,7 @@ export default function UnifiedSignupPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                     Confirm Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -831,11 +831,11 @@ export default function UnifiedSignupPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Repeat password"
-                      className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                     />
                   </div>
                   {confirmPassword && password !== confirmPassword && (
-                    <span className="text-[11px] text-red-600 mt-1 block">
+                    <span className="text-[11px] text-red-600 dark:text-red-400 mt-1 block">
                       Passwords do not match.
                     </span>
                   )}
@@ -843,11 +843,11 @@ export default function UnifiedSignupPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+            <div className="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-700">
               <button
                 type="button"
                 onClick={() => setCurrentStep(1)}
-                className="inline-flex items-center space-x-1.5 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition"
+                className="inline-flex items-center space-x-1.5 px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Change Role</span>
@@ -855,7 +855,7 @@ export default function UnifiedSignupPage() {
 
               <button
                 type="submit"
-                className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-[#002b80] text-white font-bold transition shadow-sm"
+                className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-lg bg-gov-navy dark:bg-sky-600 hover:bg-[#002b80] dark:hover:bg-sky-500 text-white font-bold transition shadow-sm"
               >
                 <span>Continue to Role Details</span>
                 <ArrowRight className="w-4 h-4" />
@@ -867,22 +867,22 @@ export default function UnifiedSignupPage() {
         {/* STEP 3: ROLE-SPECIFIC DETAILS */}
         {currentStep === 3 && (
           <form onSubmit={handleInitiateRegistration}>
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200">
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200 dark:border-slate-700">
               <div>
-                <span className="inline-block px-3 py-1 bg-amber-100 text-amber-900 rounded-full text-xs font-bold uppercase tracking-wider mb-1">
+                <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-950/50 text-amber-900 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-1 border border-amber-300 dark:border-amber-700/50">
                   Step 3 of 4
                 </span>
-                <h2 className="text-xl font-bold text-slate-900">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   {role === "CITIZEN" && "Citizen Profile & Jurisdiction"}
                   {role === "UNIVERSITY_MEMBER" && "University & Academic Credentials"}
                   {role === "GOVERNMENT_OFFICIAL" && "Official Departmental Clearance Details"}
                   {role === "INDUSTRY_PARTNER" && "Organization & Corporate Details"}
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                   Specific metadata required for your designated role tier.
                 </p>
               </div>
-              <span className="text-xs font-bold px-2.5 py-1 rounded bg-blue-50 text-gov-navy border border-blue-200">
+              <span className="text-xs font-bold px-2.5 py-1 rounded bg-blue-50 dark:bg-slate-700 text-gov-navy dark:text-sky-300 border border-blue-200 dark:border-slate-600">
                 {ROLE_CONFIGS[role].title}
               </span>
             </div>
@@ -894,13 +894,13 @@ export default function UnifiedSignupPage() {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         State / Union Territory <span className="text-red-500">*</span>
                       </label>
                       <select
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white"
+                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white"
                       >
                         {INDIAN_STATES.map((st) => (
                           <option key={st} value={st}>
@@ -911,7 +911,7 @@ export default function UnifiedSignupPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         District / City
                       </label>
                       <div className="relative">
@@ -921,7 +921,7 @@ export default function UnifiedSignupPage() {
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
                           placeholder="e.g. Pune / New Delhi"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                         />
                       </div>
                     </div>
@@ -929,7 +929,7 @@ export default function UnifiedSignupPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Aadhaar / Voter ID (Optional Reference)
                       </label>
                       <input
@@ -937,21 +937,21 @@ export default function UnifiedSignupPage() {
                         value={identityRef}
                         onChange={(e) => setIdentityRef(e.target.value)}
                         placeholder="XXXX-XXXX-1234 (Encrypted & Masked)"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
-                      <span className="text-[11px] text-slate-500 mt-1 block">
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
                         Optional. Accelerates identity verification for priority civic grievances.
                       </span>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Preferred Language for Status Updates
                       </label>
                       <select
                         value={prefLang}
                         onChange={(e) => setPrefLang(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white"
+                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white"
                       >
                         <option value="English">English</option>
                         <option value="Hindi">हिन्दी (Hindi)</option>
@@ -971,7 +971,7 @@ export default function UnifiedSignupPage() {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         University / Institution Name <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -982,13 +982,13 @@ export default function UnifiedSignupPage() {
                           value={institution}
                           onChange={(e) => setInstitution(e.target.value)}
                           placeholder="e.g. IIT Bombay / Govt. College of Engineering"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Department / Branch <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -997,14 +997,14 @@ export default function UnifiedSignupPage() {
                         value={department}
                         onChange={(e) => setDepartment(e.target.value)}
                         placeholder="e.g. Civil Engineering / AI & IoT Labs"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Student ID / Faculty Registration Number <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -1015,19 +1015,19 @@ export default function UnifiedSignupPage() {
                           value={studentOrEmpId}
                           onChange={(e) => setStudentOrEmpId(e.target.value)}
                           placeholder="e.g. 2024-BTECH-CV-104"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Academic Status
                       </label>
                       <select
                         value={academicDesignation}
                         onChange={(e) => setAcademicDesignation(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white"
+                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white"
                       >
                         <option value="Student / Researcher">Undergraduate / Graduate Student</option>
                         <option value="PhD Scholar">PhD Research Scholar</option>
@@ -1042,8 +1042,8 @@ export default function UnifiedSignupPage() {
               {/* 3. GOVERNMENT OFFICIAL ROLE FIELDS */}
               {role === "GOVERNMENT_OFFICIAL" && (
                 <>
-                  <div className="p-3.5 rounded-lg bg-amber-50 border border-amber-300 flex items-start space-x-3 text-amber-900 text-xs">
-                    <ShieldCheck className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
+                  <div className="p-3.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700/60 flex items-start space-x-3 text-amber-900 dark:text-amber-200 text-xs">
+                    <ShieldCheck className="w-5 h-5 text-amber-700 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-bold">Official Statutory Clearance Notice: </span>
                       Government accounts have access to citizen data and nodal enforcement
@@ -1054,7 +1054,7 @@ export default function UnifiedSignupPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Department / Ministry <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1063,12 +1063,12 @@ export default function UnifiedSignupPage() {
                         value={govMinistry}
                         onChange={(e) => setGovMinistry(e.target.value)}
                         placeholder="e.g. Public Works Department (PWD) / Jal Shakti"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Government Employee ID / SPARROW ID <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -1079,7 +1079,7 @@ export default function UnifiedSignupPage() {
                           value={govEmpId}
                           onChange={(e) => setGovEmpId(e.target.value)}
                           placeholder="e.g. GOV-MH-PWD-4092"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                         />
                       </div>
                     </div>
@@ -1087,7 +1087,7 @@ export default function UnifiedSignupPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Official Designation <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1096,12 +1096,12 @@ export default function UnifiedSignupPage() {
                         value={govDesignation}
                         onChange={(e) => setGovDesignation(e.target.value)}
                         placeholder="e.g. Executive Engineer / Nodal PG Officer"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Office Jurisdiction / District <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1110,7 +1110,7 @@ export default function UnifiedSignupPage() {
                         value={govOfficeDistrict}
                         onChange={(e) => setGovOfficeDistrict(e.target.value)}
                         placeholder="e.g. Pune Central Division"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
                     </div>
                   </div>
@@ -1122,7 +1122,7 @@ export default function UnifiedSignupPage() {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Company / Organization Name <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -1133,13 +1133,13 @@ export default function UnifiedSignupPage() {
                           value={companyName}
                           onChange={(e) => setCompanyName(e.target.value)}
                           placeholder="e.g. Tata Sustainability / L&T Infrastructure"
-                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                          className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         CIN / NGO Darpan / Reg ID <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1148,20 +1148,20 @@ export default function UnifiedSignupPage() {
                         value={cinNumber}
                         onChange={(e) => setCinNumber(e.target.value)}
                         placeholder="e.g. U72900MH2018PTC123456"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Domain / Sector Focus
                       </label>
                       <select
                         value={industrySector}
                         onChange={(e) => setIndustrySector(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy bg-white"
+                        className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500 bg-white"
                       >
                         <option value="Smart Infrastructure & Civil">Smart Infrastructure & Civil</option>
                         <option value="Water & Sanitation (Jal Jeevan)">Water & Sanitation (Jal Jeevan)</option>
@@ -1172,7 +1172,7 @@ export default function UnifiedSignupPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                         Authorized Officer Designation <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -1181,7 +1181,7 @@ export default function UnifiedSignupPage() {
                         value={corporateDesignation}
                         onChange={(e) => setCorporateDesignation(e.target.value)}
                         placeholder="e.g. Head of CSR / VP Corporate Strategy"
-                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-gov-navy dark:focus:ring-sky-500"
                       />
                     </div>
                   </div>
@@ -1189,11 +1189,11 @@ export default function UnifiedSignupPage() {
               )}
             </div>
 
-            <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+            <div className="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-700">
               <button
                 type="button"
                 onClick={() => setCurrentStep(2)}
-                className="inline-flex items-center space-x-1.5 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition"
+                className="inline-flex items-center space-x-1.5 px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back</span>
@@ -1224,33 +1224,33 @@ export default function UnifiedSignupPage() {
         {currentStep === 4 && (
           <form onSubmit={handleVerifyOtp}>
             <div className="text-center max-w-md mx-auto mb-6">
-              <div className="w-12 h-12 rounded-full bg-orange-100 text-gov-saffron flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-950/60 text-gov-saffron flex items-center justify-center mx-auto mb-3">
                 <Mail className="w-6 h-6" />
               </div>
-              <span className="inline-block px-3 py-1 bg-amber-100 text-amber-900 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
+              <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-950/50 text-amber-900 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-amber-300 dark:border-amber-700/50">
                 Step 4 of 4
               </span>
-              <h2 className="text-2xl font-bold text-slate-900">Verify Your Identity</h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Verify Your Identity</h2>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
                 A 6-digit verification code has been dispatched to{" "}
-                <span className="font-bold text-slate-900">{email}</span>
+                <span className="font-bold text-slate-900 dark:text-white">{email}</span>
               </p>
             </div>
 
             <div className="max-w-md mx-auto space-y-5">
               {/* Real Email Dispatch Notice */}
-              <div className="p-4 bg-blue-50/90 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-start gap-3">
-                <Mail className="w-5 h-5 text-gov-navy shrink-0 mt-0.5" />
+              <div className="p-4 bg-blue-50/90 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-xl text-xs text-blue-900 dark:text-blue-200 flex items-start gap-3">
+                <Mail className="w-5 h-5 text-gov-navy dark:text-sky-400 shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <p className="font-semibold text-slate-900">Verification Email Dispatched</p>
-                  <p className="text-slate-600 leading-relaxed">
-                    A secure 6-digit OTP has been sent to <strong className="text-gov-navy">{email}</strong>. Please check your inbox or spam folder. The code remains valid for 10 minutes.
+                  <p className="font-semibold text-slate-900 dark:text-white">Verification Email Dispatched</p>
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                    A secure 6-digit OTP has been sent to <strong className="text-gov-navy dark:text-sky-300">{email}</strong>. Please check your inbox or spam folder. The code remains valid for 10 minutes.
                   </p>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 text-center mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 text-center mb-2">
                   Enter 6-Digit Verification Code
                 </label>
                 <input
@@ -1260,16 +1260,16 @@ export default function UnifiedSignupPage() {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                   placeholder="• • • • • •"
-                  className="w-full text-center tracking-[1em] text-2xl font-mono py-3 rounded-lg border-2 border-slate-300 focus:border-gov-navy focus:outline-none focus:ring-2 focus:ring-gov-navy/20"
+                  className="w-full text-center tracking-[1em] text-2xl font-mono py-3 rounded-lg border-2 border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white focus:border-gov-navy dark:focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-gov-navy/20 dark:focus:ring-sky-500/20"
                 />
               </div>
 
               {/* Resend OTP & Countdown Timer */}
-              <div className="flex items-center justify-between text-xs text-slate-500">
+              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                 <span>Didn't receive the code?</span>
                 {timer > 0 ? (
-                  <span className="text-slate-600 font-medium">
-                    Resend available in <strong className="text-slate-900">{timer}s</strong>
+                  <span className="text-slate-600 dark:text-slate-300 font-medium">
+                    Resend available in <strong className="text-slate-900 dark:text-white">{timer}s</strong>
                   </span>
                 ) : (
                   <button
@@ -1283,15 +1283,15 @@ export default function UnifiedSignupPage() {
               </div>
 
               {/* Terms Checkbox */}
-              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs">
+              <div className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-700 text-xs">
                 <label className="flex items-start space-x-2.5 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={termsAccepted}
                     onChange={(e) => setTermsAccepted(e.target.checked)}
-                    className="mt-0.5 rounded border-slate-300 text-gov-navy focus:ring-gov-navy"
+                    className="mt-0.5 rounded border-slate-300 dark:border-slate-600 text-gov-navy focus:ring-gov-navy"
                   />
-                  <span className="text-slate-600 leading-relaxed">
+                  <span className="text-slate-600 dark:text-slate-300 leading-relaxed">
                     I solemnly declare that the credentials provided are accurate. I understand
                     that official misuse is punishable under the Information Technology Act and
                     Central Redressal Guidelines.
@@ -1301,7 +1301,7 @@ export default function UnifiedSignupPage() {
 
               {/* In-Step Error Alert */}
               {error && (
-                <div className="p-3 rounded-lg bg-red-50 border border-red-200 flex items-start space-x-2 text-red-700 text-xs">
+                <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 flex items-start space-x-2 text-red-700 dark:text-red-300 text-xs">
                   <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <span>{error}</span>
                 </div>
@@ -1311,7 +1311,7 @@ export default function UnifiedSignupPage() {
               <button
                 type="submit"
                 disabled={loading || otp.length < 6 || !termsAccepted}
-                className="w-full py-3 rounded-lg bg-gov-navy hover:bg-[#002b80] text-white font-bold text-sm transition shadow-sm disabled:opacity-50 flex items-center justify-center space-x-2"
+                className="w-full py-3 rounded-lg bg-gov-navy dark:bg-sky-600 hover:bg-[#002b80] dark:hover:bg-sky-500 text-white font-bold text-sm transition shadow-sm disabled:opacity-50 flex items-center justify-center space-x-2"
               >
                 {loading ? (
                   <>
@@ -1330,7 +1330,7 @@ export default function UnifiedSignupPage() {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(3)}
-                  className="text-xs text-slate-500 hover:text-slate-800 transition"
+                  className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition"
                 >
                   ← Correct Registration Details
                 </button>

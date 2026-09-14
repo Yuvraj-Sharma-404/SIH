@@ -205,6 +205,33 @@ code, pre {
 }
 
 /* ──────────────────────────────────────────
+   Universal Form Inputs Dark Mode Defaults
+────────────────────────────────────────── */
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="file"]),
+.dark select,
+.dark textarea {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Fix browser autofill text and background colors in dark mode */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark textarea:-webkit-autofill,
+.dark select:-webkit-autofill {
+  -webkit-text-fill-color: #f8fafc !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ──────────────────────────────────────────
    Scrollbar
 ────────────────────────────────────────── */
 ::-webkit-scrollbar {

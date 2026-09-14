@@ -888,14 +888,14 @@ export default function CitizenReportPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6 py-2">
       {/* Header */}
-      <div className="gov-card p-6 bg-white border border-slate-200 gov-border-t-saffron space-y-2">
+      <div className="gov-card p-6 bg-white dark:bg-slate-800/95 border border-slate-200 dark:border-slate-700 gov-border-t-saffron space-y-2 transition-colors">
         <span className="text-xs uppercase font-mono font-bold text-gov-saffron">
           Citizen Public Grievance Portal
         </span>
-        <h1 className="text-2xl font-bold text-gov-navy font-serif">
+        <h1 className="text-2xl font-bold text-gov-navy dark:text-white font-serif">
           Lodge a Societal Problem or Complaint
         </h1>
-        <p className="text-xs text-slate-600">
+        <p className="text-xs text-slate-600 dark:text-slate-300">
           Submissions are acknowledged under SmadhanX standards, auto-prioritized by our AI engine, and published as collaborative challenges if departmental R&D is required.
         </p>
       </div>
@@ -904,12 +904,12 @@ export default function CitizenReportPage() {
         <form onSubmit={handleInitiateSubmit} noValidate className="space-y-6">
           {/* Validation Error Banner */}
           {validationErrorBanner && (
-            <div className="p-4 rounded-xl bg-red-50 border border-red-300 text-red-900 space-y-1.5 text-xs animate-in fade-in duration-200">
-              <div className="flex items-center space-x-2 font-bold text-red-800">
-                <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0" />
+            <div className="p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-300 dark:border-red-800 text-red-900 dark:text-red-200 space-y-1.5 text-xs animate-in fade-in duration-200">
+              <div className="flex items-center space-x-2 font-bold text-red-800 dark:text-red-300">
+                <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0" />
                 <span>{validationErrorBanner}</span>
               </div>
-              <ul className="list-disc list-inside text-[11px] text-red-700 pl-6 space-y-0.5">
+              <ul className="list-disc list-inside text-[11px] text-red-700 dark:text-red-300 pl-6 space-y-0.5">
                 {Object.values(errors).map((err, idx) => (
                   <li key={idx}>{err}</li>
                 ))}
@@ -918,20 +918,20 @@ export default function CitizenReportPage() {
           )}
 
           {/* Multimodal Voice Input Assistant */}
-          <div className="gov-card p-5 bg-white border border-slate-200 space-y-3">
+          <div className="gov-card p-5 bg-white dark:bg-slate-800/95 border border-slate-200 dark:border-slate-700 space-y-3 transition-colors">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
+                <p className="text-xs font-bold text-slate-800 dark:text-white flex items-center space-x-1.5">
                   <Mic className="w-4 h-4 text-gov-saffron" />
                   <span>Assisted Voice Input (बोलकर शिकायत दर्ज करें)</span>
                 </p>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
                   Select your preferred language and speak clearly. Real-time audio is transcribed directly into your complaint.
                 </p>
               </div>
 
               <div className="flex items-center space-x-2">
-                <div className="flex items-center border border-slate-200 rounded-lg p-0.5 bg-slate-50 text-[11px]">
+                <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg p-0.5 bg-slate-50 dark:bg-slate-900 text-[11px]">
                   <button
                     type="button"
                     onClick={() => {
@@ -941,7 +941,7 @@ export default function CitizenReportPage() {
                       }
                     }}
                     className={`px-3 py-1 rounded font-medium transition ${
-                      voiceLang === "en" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                      voiceLang === "en" ? "bg-gov-navy dark:bg-sky-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     }`}
                   >
                     English
@@ -955,7 +955,7 @@ export default function CitizenReportPage() {
                       }
                     }}
                     className={`px-3 py-1 rounded font-medium transition font-devanagari ${
-                      voiceLang === "hi" ? "bg-gov-navy text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                      voiceLang === "hi" ? "bg-gov-navy dark:bg-sky-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     }`}
                   >
                     हिंदी
@@ -968,7 +968,7 @@ export default function CitizenReportPage() {
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 shadow-sm whitespace-nowrap ${
                     isRecording
                       ? "bg-red-600 text-white animate-pulse shadow-red-200 ring-2 ring-red-400"
-                      : "bg-orange-50 text-gov-saffron border border-orange-200 hover:bg-orange-100"
+                      : "bg-orange-50 dark:bg-amber-950/40 text-gov-saffron border border-orange-200 dark:border-amber-800/60 hover:bg-orange-100 dark:hover:bg-amber-900/40"
                   }`}
                 >
                   {isRecording ? (
@@ -988,20 +988,20 @@ export default function CitizenReportPage() {
 
             {/* Live Recording Sound Wave Visualizer & Status */}
             {isRecording && (
-              <div className="p-3.5 rounded-xl bg-red-50/80 border border-red-200 flex items-center justify-between gap-3 animate-in fade-in duration-200">
+              <div className="p-3.5 rounded-xl bg-red-50/80 dark:bg-red-950/40 border border-red-200 dark:border-red-800 flex items-center justify-between gap-3 animate-in fade-in duration-200">
                 <div className="flex items-center space-x-3">
-                  <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-red-100">
+                  <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50">
                     <span className="absolute w-full h-full rounded-full bg-red-400 animate-ping opacity-40"></span>
-                    <Volume2 className="w-4 h-4 text-red-600 z-10" />
+                    <Volume2 className="w-4 h-4 text-red-600 dark:text-red-400 z-10" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-red-900 flex items-center gap-1.5">
+                    <p className="text-xs font-bold text-red-900 dark:text-red-200 flex items-center gap-1.5">
                       <span>Listening... Speak into microphone</span>
-                      <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-200 text-red-800">
+                      <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-200 dark:bg-red-800 text-red-800 dark:text-red-100">
                         {voiceLang === "hi" ? "Hindi (हिंदी)" : "English (India)"}
                       </span>
                     </p>
-                    <p className="text-[11px] text-red-700">
+                    <p className="text-[11px] text-red-700 dark:text-red-300">
                       {interimTranscript ? `"${interimTranscript}"` : "Say grievance details, location, and issue..."}
                     </p>
                   </div>
@@ -1020,15 +1020,15 @@ export default function CitizenReportPage() {
 
             {/* Speech Error Banner with Quick Action */}
             {speechError && (
-              <div className="p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700 text-xs text-amber-950 dark:text-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="flex items-start space-x-2">
-                  <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <span>{speechError}</span>
                 </div>
                 <button
                   type="button"
                   onClick={handleSampleAudio}
-                  className="px-3 py-1 rounded bg-amber-200/80 hover:bg-amber-300 text-amber-900 font-semibold text-[11px] whitespace-nowrap transition"
+                  className="px-3 py-1 rounded bg-amber-200/80 dark:bg-amber-800/60 hover:bg-amber-300 dark:hover:bg-amber-700 text-amber-900 dark:text-amber-100 font-semibold text-[11px] whitespace-nowrap transition"
                 >
                   Load Sample Voice Audio
                 </button>
@@ -1037,17 +1037,17 @@ export default function CitizenReportPage() {
 
             {/* Speech-to-Text Transcribed Result Bar */}
             {audioTranscript && (
-              <div className="p-3.5 rounded-xl bg-orange-50/70 border border-orange-200 text-xs text-orange-950 flex items-start justify-between gap-2">
+              <div className="p-3.5 rounded-xl bg-orange-50/70 dark:bg-amber-950/30 border border-orange-200 dark:border-amber-800/50 text-xs text-orange-950 dark:text-amber-200 flex items-start justify-between gap-2">
                 <div className="flex items-start space-x-2.5">
                   <Sparkles className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-slate-900">Speech-to-Text Live Transcript:</span>
-                      <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded">
+                      <span className="font-bold text-slate-900 dark:text-white">Speech-to-Text Live Transcript:</span>
+                      <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold px-1.5 py-0.2 rounded">
                         Transcribed
                       </span>
                     </div>
-                    <p className="text-slate-800 leading-relaxed italic">"{audioTranscript}"</p>
+                    <p className="text-slate-800 dark:text-slate-200 leading-relaxed italic">"{audioTranscript}"</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-1.5 flex-shrink-0">
@@ -1055,7 +1055,7 @@ export default function CitizenReportPage() {
                     type="button"
                     onClick={clearVoiceInput}
                     title="Clear Voice Input"
-                    className="p-1 rounded text-slate-500 hover:text-red-600 hover:bg-red-50 transition text-[11px] flex items-center gap-1"
+                    className="p-1 rounded text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition text-[11px] flex items-center gap-1"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Clear</span>
@@ -1066,12 +1066,12 @@ export default function CitizenReportPage() {
 
             {/* Quick Demo Test Option */}
             {!audioTranscript && !isRecording && (
-              <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
+              <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 px-1">
                 <span>Microphone not connected? You can test with a sample voice note:</span>
                 <button
                   type="button"
                   onClick={handleSampleAudio}
-                  className="text-gov-navy hover:text-gov-saffron font-semibold underline underline-offset-2 transition"
+                  className="text-gov-navy dark:text-sky-400 hover:text-gov-saffron dark:hover:text-sky-300 font-semibold underline underline-offset-2 transition"
                 >
                   Insert Sample Voice Grievance ({voiceLang === "hi" ? "हिंदी" : "English"})
                 </button>
@@ -1080,10 +1080,10 @@ export default function CitizenReportPage() {
           </div>
 
           {/* Core Grievance Fields */}
-          <div className="gov-card p-6 bg-white border border-slate-200 space-y-4">
+          <div className="gov-card p-6 bg-white dark:bg-slate-800/95 border border-slate-200 dark:border-slate-700 space-y-4 transition-colors">
             {/* Title / Subject (Mandatory) */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Grievance Title / Subject <span className="text-red-500 font-bold">*</span>
               </label>
               <input
@@ -1102,12 +1102,12 @@ export default function CitizenReportPage() {
                 placeholder="e.g. Critical Pier Crack on Dham River Bridge"
                 className={`w-full px-3.5 py-2.5 rounded-lg border text-xs font-medium focus:outline-none transition ${
                   errors.title
-                    ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
-                    : "border-slate-300 focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+                    ? "border-red-500 ring-1 ring-red-500 bg-red-50/20 dark:bg-red-950/30 text-slate-900 dark:text-white"
+                    : "border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 focus:border-gov-navy dark:focus:border-sky-500 focus:ring-1 focus:ring-gov-navy dark:focus:ring-sky-500"
                 }`}
               />
               {errors.title && (
-                <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                <p className="text-[11px] text-red-600 dark:text-red-400 font-medium mt-1 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3 flex-shrink-0" />
                   <span>{errors.title}</span>
                 </p>
@@ -1116,7 +1116,7 @@ export default function CitizenReportPage() {
 
             {/* Description (Mandatory) */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Description of the Issue & Impact <span className="text-red-500 font-bold">*</span>
               </label>
               <textarea
@@ -1135,12 +1135,12 @@ export default function CitizenReportPage() {
                 placeholder="Describe the issue in detail or record a voice note above..."
                 className={`w-full px-3.5 py-2.5 rounded-lg border text-xs focus:outline-none transition ${
                   errors.description
-                    ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
-                    : "border-slate-300 focus:border-gov-navy focus:ring-1 focus:ring-gov-navy"
+                    ? "border-red-500 ring-1 ring-red-500 bg-red-50/20 dark:bg-red-950/30 text-slate-900 dark:text-white"
+                    : "border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 focus:border-gov-navy dark:focus:border-sky-500 focus:ring-1 focus:ring-gov-navy dark:focus:ring-sky-500"
                 }`}
               />
               {errors.description && (
-                <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                <p className="text-[11px] text-red-600 dark:text-red-400 font-medium mt-1 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3 flex-shrink-0" />
                   <span>{errors.description}</span>
                 </p>
@@ -1150,7 +1150,7 @@ export default function CitizenReportPage() {
             {/* Location (Mandatory) */}
             {/* Geotag Photo Auto-fill Banner */}
             {detectedPhotoGeotag && (
-              <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-emerald-900 shadow-xs mb-3 animate-fadeIn">
+              <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-emerald-900 dark:text-emerald-200 shadow-xs mb-3 animate-fadeIn">
                 <div className="flex items-center space-x-2">
                   <Sparkles className="w-4 h-4 text-gov-saffron shrink-0" />
                   <div>
@@ -1189,15 +1189,15 @@ export default function CitizenReportPage() {
               </div>
             )}
 
-            <div className="pt-2 border-t border-slate-100">
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-700">
               <div className="flex items-center justify-between mb-1">
-                <label className="block text-xs font-bold text-slate-700">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                   Location / Village / District Landmark <span className="text-red-500 font-bold">*</span>
                 </label>
                 <Link
                   href="/geotag"
                   target="_blank"
-                  className="text-[11px] text-gov-navy hover:text-gov-saffron font-medium flex items-center gap-1 transition"
+                  className="text-[11px] text-gov-navy dark:text-sky-400 hover:text-gov-saffron dark:hover:text-sky-300 font-medium flex items-center gap-1 transition"
                   title="Open Image Geotag Extractor tool in new tab"
                 >
                   <Compass className="w-3 h-3 text-gov-saffron" />
@@ -1225,8 +1225,8 @@ export default function CitizenReportPage() {
                   placeholder="Enter village, landmark, or click GPS"
                   className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition ${
                     errors.address
-                      ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
-                      : "border-slate-300 focus:border-gov-navy"
+                      ? "border-red-500 ring-1 ring-red-500 bg-red-50/20 dark:bg-red-950/30 text-slate-900 dark:text-white"
+                      : "border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 focus:border-gov-navy dark:focus:border-sky-500"
                   }`}
                 />
                 <button
@@ -1242,25 +1242,25 @@ export default function CitizenReportPage() {
                   }
                   className={`px-2.5 py-2 rounded-lg border text-[11px] font-semibold flex items-center space-x-1 whitespace-nowrap transition cursor-pointer disabled:cursor-not-allowed ${
                     isDetectingLocation
-                      ? "bg-slate-100 border-slate-300 text-slate-500"
+                      ? "bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400"
                       : locationStatus === "success"
-                      ? "bg-emerald-50 border-emerald-300 text-emerald-700 hover:bg-emerald-100"
-                      : "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
+                      ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/40"
+                      : "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200"
                   }`}
                 >
                   {isDetectingLocation ? (
                     <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin text-gov-navy" />
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-gov-navy dark:text-sky-400" />
                       <span>Detecting...</span>
                     </>
                   ) : locationStatus === "success" ? (
                     <>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       <span>Location Detected</span>
                     </>
                   ) : (
                     <>
-                      <MapPin className="w-3.5 h-3.5 text-gov-navy" />
+                      <MapPin className="w-3.5 h-3.5 text-gov-navy dark:text-sky-400" />
                       <span>GPS</span>
                     </>
                   )}
@@ -1269,13 +1269,13 @@ export default function CitizenReportPage() {
 
               {/* GPS Success feedback with subtle coordinate info */}
               {locationStatus === "success" && (
-                <div className="flex items-center justify-between mt-1.5 text-[11px] text-emerald-700 font-medium animate-in fade-in duration-150">
+                <div className="flex items-center justify-between mt-1.5 text-[11px] text-emerald-700 dark:text-emerald-400 font-medium animate-in fade-in duration-150">
                   <span className="flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                     <span>{locationSuccessMessage || "✓ GPS location detected"}</span>
                   </span>
                   {latitude != null && longitude != null && (
-                    <span className="text-[10px] text-slate-400 font-mono" title="Device GPS Coordinates">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono" title="Device GPS Coordinates">
                       ({latitude.toFixed(4)}°, {longitude.toFixed(4)}°)
                     </span>
                   )}
@@ -1284,15 +1284,15 @@ export default function CitizenReportPage() {
 
               {/* GPS Error feedback */}
               {locationStatus === "error" && locationErrorMessage && (
-                <div className="flex items-start gap-1.5 mt-1.5 text-[11px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200 animate-in fade-in duration-150">
-                  <AlertCircle className="w-3.5 h-3.5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div className="flex items-start gap-1.5 mt-1.5 text-[11px] text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 p-2 rounded-lg border border-amber-200 dark:border-amber-800 animate-in fade-in duration-150">
+                  <AlertCircle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <span>{locationErrorMessage}</span>
                 </div>
               )}
 
               {/* Validation Error feedback */}
               {errors.address && (
-                <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                <p className="text-[11px] text-red-600 dark:text-red-400 font-medium mt-1 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3 flex-shrink-0" />
                   <span>{errors.address}</span>
                 </p>
@@ -1300,17 +1300,17 @@ export default function CitizenReportPage() {
             </div>
 
             {/* Evidence Media Attachment (Real File Upload System) */}
-            <div className="pt-3 border-t border-slate-100 space-y-3">
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-700 space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700">
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                       Evidence Media Attachment (Optional)
                     </label>
-                    <span className="text-[11px] text-slate-500">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
                       Attach real photos, videos, documents, or audio from your device to corroborate your grievance.
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono font-semibold text-slate-500">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400">
                     {attachments.length} / 10 files
                   </span>
                 </div>
@@ -1335,8 +1335,8 @@ export default function CitizenReportPage() {
                       }}
                       className={`flex items-center space-x-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition ${
                         activeCategoryFilter === key
-                          ? "bg-gov-navy text-white shadow-sm"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                          ? "bg-gov-navy dark:bg-sky-600 text-white shadow-sm"
+                          : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                       }`}
                     >
                       <Icon className="w-3 h-3" />
@@ -1377,18 +1377,18 @@ export default function CitizenReportPage() {
                   onClick={() => fileInputRef.current?.click()}
                   className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition flex flex-col items-center justify-center space-y-2 select-none ${
                     isDragging
-                      ? "border-gov-navy bg-blue-50/60 scale-[1.005]"
-                      : "border-slate-300 hover:border-gov-navy bg-slate-50/50 hover:bg-slate-50"
+                      ? "border-gov-navy dark:border-sky-500 bg-blue-50/60 dark:bg-sky-950/40 scale-[1.005]"
+                      : "border-slate-300 dark:border-slate-600 hover:border-gov-navy dark:hover:border-sky-500 bg-slate-50/50 dark:bg-slate-900/40 hover:bg-slate-50 dark:hover:bg-slate-900/60"
                   }`}
                 >
-                  <div className="w-10 h-10 rounded-full bg-blue-50 text-gov-navy flex items-center justify-center shadow-xs">
-                    <Upload className="w-5 h-5 text-gov-navy" />
+                  <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-950/60 text-gov-navy dark:text-sky-400 flex items-center justify-center shadow-xs">
+                    <Upload className="w-5 h-5 text-gov-navy dark:text-sky-400" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-slate-800">
-                      <span className="text-gov-navy font-bold underline">Choose files from device</span> or drag and drop here
+                    <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                      <span className="text-gov-navy dark:text-sky-400 font-bold underline">Choose files from device</span> or drag and drop here
                     </p>
-                    <p className="text-[10px] text-slate-500 mt-0.5">
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
                       {getCategoryLimitHint(activeCategoryFilter)} • Max 10 files (100 MB total)
                     </p>
                   </div>
@@ -1396,8 +1396,8 @@ export default function CitizenReportPage() {
 
                 {/* Attachment Error Banner */}
                 {attachmentError && (
-                  <div className="flex items-start gap-1.5 text-[11px] text-rose-800 bg-rose-50 p-2.5 rounded-lg border border-rose-200 animate-in fade-in duration-150">
-                    <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex items-start gap-1.5 text-[11px] text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 p-2.5 rounded-lg border border-rose-200 dark:border-rose-800 animate-in fade-in duration-150">
+                    <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
                       <span className="font-semibold">{attachmentError}</span>
                     </div>
@@ -1407,8 +1407,8 @@ export default function CitizenReportPage() {
                 {/* Selected Attachments List / Grid */}
                 {attachments.length > 0 && (
                   <div className="space-y-2 pt-1">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 px-0.5">
-                      <span className="font-semibold text-slate-700">
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 px-0.5">
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
                         Attached Evidence ({attachments.length}/10)
                       </span>
                       <span className="font-mono">
@@ -1430,17 +1430,17 @@ export default function CitizenReportPage() {
                         return (
                           <div
                             key={item.id}
-                            className={`p-3 rounded-xl border flex flex-col justify-between transition bg-white shadow-2xs gap-2 overflow-hidden ${
+                            className={`p-3 rounded-xl border flex flex-col justify-between transition bg-white dark:bg-slate-900/70 shadow-2xs gap-2 overflow-hidden ${
                               item.status === "error"
-                                ? "border-rose-300 bg-rose-50/30"
+                                ? "border-rose-300 dark:border-rose-800 bg-rose-50/30 dark:bg-rose-950/20"
                                 : item.status === "success"
-                                ? "border-emerald-200"
-                                : "border-slate-200"
+                                ? "border-emerald-200 dark:border-emerald-800"
+                                : "border-slate-200 dark:border-slate-700"
                             }`}
                           >
                             <div className="flex items-center gap-3 min-w-0">
                               {/* Thumbnail / Icon Preview */}
-                              <div className="w-12 h-12 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0 flex items-center justify-center border border-slate-200 relative">
+                              <div className="w-12 h-12 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 flex items-center justify-center border border-slate-200 dark:border-slate-700 relative">
                                 {item.previewUrl ? (
                                   item.category === "IMAGE" ? (
                                     <img
@@ -1455,7 +1455,7 @@ export default function CitizenReportPage() {
                                     />
                                   )
                                 ) : (
-                                  <CategoryIcon className="w-5 h-5 text-slate-500" />
+                                  <CategoryIcon className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                                 )}
                                 <span className="absolute bottom-0 inset-x-0 bg-slate-900/80 text-white text-[8px] font-mono px-0.5 text-center truncate">
                                   {item.category}
@@ -1465,31 +1465,31 @@ export default function CitizenReportPage() {
                               {/* Details */}
                               <div className="flex-1 min-w-0 pr-1">
                                 <p
-                                  className="text-xs font-semibold text-slate-800 truncate"
+                                  className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate"
                                   title={item.name}
                                 >
                                   {item.name}
                                 </p>
-                                <div className="flex items-center gap-2 text-[10px] text-slate-500 mt-1 font-mono">
-                                  <span className="whitespace-nowrap font-medium text-slate-600">
+                                <div className="flex items-center gap-2 text-[10px] text-slate-500 dark:text-slate-400 mt-1 font-mono">
+                                  <span className="whitespace-nowrap font-medium text-slate-600 dark:text-slate-300">
                                     {item.formattedSize}
                                   </span>
-                                  <span className="text-slate-300">•</span>
+                                  <span className="text-slate-300 dark:text-slate-600">•</span>
                                   {item.status === "uploading" && (
-                                    <span className="text-blue-600 font-semibold flex items-center gap-1 whitespace-nowrap">
+                                    <span className="text-blue-600 dark:text-sky-400 font-semibold flex items-center gap-1 whitespace-nowrap">
                                       <Loader2 className="w-2.5 h-2.5 animate-spin flex-shrink-0" />
                                       <span>Uploading {item.progress}%</span>
                                     </span>
                                   )}
                                   {item.status === "success" && (
-                                    <span className="text-emerald-700 font-semibold flex items-center gap-1 whitespace-nowrap bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/70">
-                                      <CheckCircle2 className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+                                    <span className="text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1 whitespace-nowrap bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-200/70 dark:border-emerald-800/60">
+                                      <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                                       <span>Uploaded</span>
                                     </span>
                                   )}
                                   {item.status === "error" && (
-                                    <span className="text-rose-600 font-semibold flex items-center gap-1 whitespace-nowrap bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200/70">
-                                      <AlertCircle className="w-3 h-3 text-rose-600 flex-shrink-0" />
+                                    <span className="text-rose-600 dark:text-rose-400 font-semibold flex items-center gap-1 whitespace-nowrap bg-rose-50 dark:bg-rose-950/50 px-1.5 py-0.5 rounded border border-rose-200/70 dark:border-rose-800/60">
+                                      <AlertCircle className="w-3 h-3 text-rose-600 dark:text-rose-400 flex-shrink-0" />
                                       <span>Upload Failed</span>
                                     </span>
                                   )}
@@ -1501,7 +1501,7 @@ export default function CitizenReportPage() {
                                 type="button"
                                 onClick={() => handleRemoveAttachment(item.id)}
                                 title="Remove file"
-                                className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition flex-shrink-0"
+                                className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition flex-shrink-0"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -1509,9 +1509,9 @@ export default function CitizenReportPage() {
 
                             {/* Progress bar when uploading */}
                             {item.status === "uploading" && (
-                              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mt-0.5 border border-slate-200">
+                              <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mt-0.5 border border-slate-200 dark:border-slate-700">
                                 <div
-                                  className="h-full bg-gov-navy transition-all duration-200"
+                                  className="h-full bg-gov-navy dark:bg-sky-500 transition-all duration-200"
                                   style={{ width: `${item.progress}%` }}
                                 />
                               </div>
@@ -1519,15 +1519,15 @@ export default function CitizenReportPage() {
 
                             {/* Error message & Action */}
                             {item.status === "error" && (
-                              <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-rose-100/80 text-[11px]">
-                                <span className="text-rose-700 font-medium break-words flex-1 leading-tight">
+                              <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-rose-100/80 dark:border-rose-900/60 text-[11px]">
+                                <span className="text-rose-700 dark:text-rose-300 font-medium break-words flex-1 leading-tight">
                                   {item.errorMessage || "Failed to upload file."}
                                 </span>
                                 <button
                                   type="button"
                                   onClick={() => handleRetryAttachment(item.id)}
                                   title="Retry upload"
-                                  className="px-2 py-1 bg-white hover:bg-rose-50 border border-rose-300 text-rose-700 rounded-md text-[11px] font-semibold flex items-center gap-1 shadow-2xs transition flex-shrink-0"
+                                  className="px-2 py-1 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 rounded-md text-[11px] font-semibold flex items-center gap-1 shadow-2xs transition flex-shrink-0"
                                 >
                                   <RefreshCw className="w-3 h-3" />
                                   <span>Retry</span>
@@ -1543,9 +1543,9 @@ export default function CitizenReportPage() {
               </div>
 
             {/* Citizen Identity Details */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-700">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Complainant Name (Optional)
                 </label>
                 <input
@@ -1553,13 +1553,13 @@ export default function CitizenReportPage() {
                   value={reporterName}
                   onChange={(e) => setReporterName(e.target.value)}
                   placeholder="Ramesh Pawar"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:outline-none focus:border-gov-navy"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 text-xs focus:outline-none focus:border-gov-navy dark:focus:border-sky-500"
                 />
               </div>
 
               {/* Mobile Number (Mandatory) */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Mobile Number (For SMS Tracking Updates) <span className="text-red-500 font-bold">*</span>
                 </label>
                 <input
@@ -1579,12 +1579,12 @@ export default function CitizenReportPage() {
                   maxLength={10}
                   className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none font-mono transition ${
                     errors.reporterPhone
-                      ? "border-red-500 ring-1 ring-red-500 bg-red-50/20"
-                      : "border-slate-300 focus:border-gov-navy"
+                      ? "border-red-500 ring-1 ring-red-500 bg-red-50/20 dark:bg-red-950/30 text-slate-900 dark:text-white"
+                      : "border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500 focus:border-gov-navy dark:focus:border-sky-500"
                   }`}
                 />
                 {errors.reporterPhone && (
-                  <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                  <p className="text-[11px] text-red-600 dark:text-red-400 font-medium mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3 flex-shrink-0" />
                     <span>{errors.reporterPhone}</span>
                   </p>
@@ -1596,7 +1596,7 @@ export default function CitizenReportPage() {
           {/* Submit CTA */}
           <button
             type="submit"
-            className="w-full py-3.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2"
+            className="w-full py-3.5 rounded-lg bg-gov-navy dark:bg-sky-600 hover:bg-[#002b80] dark:hover:bg-sky-500 text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2"
           >
             <CheckCircle2 className="w-4 h-4" />
             <span>Submit Grievance to National Portal</span>
@@ -1604,57 +1604,57 @@ export default function CitizenReportPage() {
         </form>
       ) : (
         /* Immediate Post-Submission Receipt Card */
-        <div className="gov-card p-8 bg-white border border-slate-200 gov-border-t-emerald space-y-6">
-          <div className="flex items-start justify-between pb-4 border-b border-slate-200">
+        <div className="gov-card p-8 bg-white dark:bg-slate-800/95 border border-slate-200 dark:border-slate-700 gov-border-t-emerald space-y-6 transition-colors">
+          <div className="flex items-start justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-xl bg-emerald-100 text-gov-emerald flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-gov-emerald dark:text-emerald-400 flex items-center justify-center">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
               <div>
-                <span className="text-[10px] uppercase font-mono font-bold text-gov-emerald">
+                <span className="text-[10px] uppercase font-mono font-bold text-gov-emerald dark:text-emerald-400">
                   Acknowledgment Generated
                 </span>
-                <h2 className="text-xl font-bold text-gov-navy font-serif">
+                <h2 className="text-xl font-bold text-gov-navy dark:text-white font-serif">
                   Grievance Registered Successfully
                 </h2>
               </div>
             </div>
 
             <div className="text-right">
-              <span className="text-[10px] uppercase font-mono text-slate-500 block">
+              <span className="text-[10px] uppercase font-mono text-slate-500 dark:text-slate-400 block">
                 Registration / Complaint ID
               </span>
-              <p className="text-lg font-mono font-extrabold text-gov-navy">
+              <p className="text-lg font-mono font-extrabold text-gov-navy dark:text-sky-400">
                 {submittedResult.data?.publicProblemId || submittedResult.data?.id}
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-[10px] text-slate-500 uppercase font-semibold block">Category</span>
-              <p className="font-bold text-slate-900 mt-0.5">{submittedResult.data?.category || "General Grievance"}</p>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Category</span>
+              <p className="font-bold text-slate-900 dark:text-white mt-0.5">{submittedResult.data?.category || "General Grievance"}</p>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-[10px] text-slate-500 uppercase font-semibold block">Priority Index</span>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Priority Index</span>
               <p className="font-bold text-gov-saffron font-mono mt-0.5">
                 {submittedResult.data?.priorityScore ?? 0} / 100
               </p>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-[10px] text-slate-500 uppercase font-semibold block">Status</span>
-              <p className="font-bold text-blue-800 font-mono mt-0.5">{submittedResult.data?.status || "UNDER_REVIEW"}</p>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Status</span>
+              <p className="font-bold text-blue-800 dark:text-sky-400 font-mono mt-0.5">{submittedResult.data?.status || "UNDER_REVIEW"}</p>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-[10px] text-slate-500 uppercase font-semibold block">Nodal Dept</span>
-              <p className="font-bold text-slate-900 mt-0.5 truncate">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold block">Nodal Dept</span>
+              <p className="font-bold text-slate-900 dark:text-white mt-0.5 truncate">
                 {submittedResult.data?.departmentName || "Pending Department Assignment"}
               </p>
             </div>
           </div>
 
           {submittedResult.duplicatesFound && (
-            <div className="p-3.5 rounded-lg bg-orange-50 border border-orange-200 text-xs text-orange-950 flex items-start space-x-2">
+            <div className="p-3.5 rounded-lg bg-orange-50 dark:bg-amber-950/40 border border-orange-200 dark:border-amber-800 text-xs text-orange-950 dark:text-amber-200 flex items-start space-x-2">
               <AlertCircle className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold">Corroborating Reports Detected: </span>
@@ -1665,7 +1665,7 @@ export default function CitizenReportPage() {
             </div>
           )}
 
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
             <button
               type="button"
               onClick={() => {
@@ -1686,14 +1686,14 @@ export default function CitizenReportPage() {
                 setAttachments([]);
                 setAttachmentError(null);
               }}
-              className="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
+              className="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
             >
               Lodge Another Grievance
             </button>
 
             <Link
               href={`/track?id=${submittedResult.data?.publicProblemId || submittedResult.data?.id}`}
-              className="px-5 py-2 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm"
+              className="px-5 py-2 rounded-lg bg-gov-navy dark:bg-sky-600 hover:bg-[#002b80] dark:hover:bg-sky-500 text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-sm"
             >
               <span>View Full SmadhanX Dossier</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -1705,18 +1705,18 @@ export default function CitizenReportPage() {
       {/* Confirmation & Final Verification Modal */}
       {showConfirmModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-xl w-full max-h-[90vh] overflow-y-auto flex flex-col">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 max-w-xl w-full max-h-[90vh] overflow-y-auto flex flex-col">
             {/* Modal Header */}
-            <div className="p-5 border-b border-slate-200 bg-slate-50/80 flex items-start justify-between rounded-t-2xl">
+            <div className="p-5 border-b border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-900/60 flex items-start justify-between rounded-t-2xl">
               <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-gov-navy text-white flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">
+                <div className="w-10 h-10 rounded-xl bg-gov-navy dark:bg-sky-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm mt-0.5">
                   <Shield className="w-5 h-5 text-gov-saffron" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gov-navy font-serif">
+                  <h3 className="text-lg font-bold text-gov-navy dark:text-white font-serif">
                     Review Your Information
                   </h3>
-                  <p className="text-xs text-slate-600 mt-0.5">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
                     Please check your grievance details and credentials carefully before submitting. Once submitted, the information will be sent to the National Portal.
                   </p>
                 </div>
@@ -1725,7 +1725,7 @@ export default function CitizenReportPage() {
                 type="button"
                 onClick={() => setShowConfirmModal(false)}
                 disabled={loading}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/60 transition disabled:opacity-50"
+                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition disabled:opacity-50"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1733,34 +1733,34 @@ export default function CitizenReportPage() {
 
             {/* Modal Content / Summary Data */}
             <div className="p-6 space-y-4 text-xs">
-              <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div className="space-y-3 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
                 {/* Title */}
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
+                  <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider block">
                     Grievance Subject / Title
                   </span>
-                  <p className="text-sm font-bold text-gov-navy mt-0.5">{title}</p>
+                  <p className="text-sm font-bold text-gov-navy dark:text-white mt-0.5">{title}</p>
                 </div>
 
                 {/* Description */}
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
+                  <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider block">
                     Problem Description & Impact
                   </span>
-                  <p className="text-slate-800 mt-0.5 whitespace-pre-wrap leading-relaxed">
+                  <p className="text-slate-800 dark:text-slate-200 mt-0.5 whitespace-pre-wrap leading-relaxed">
                     {description || audioTranscript}
                   </p>
                 </div>
 
                 {/* Location & Contact Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200 dark:border-slate-700">
                   <div className="flex items-start space-x-2">
                     <MapPin className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">
                         Location / Landmark
                       </span>
-                      <p className="font-semibold text-slate-900">{address}</p>
+                      <p className="font-semibold text-slate-900 dark:text-white">{address}</p>
                       {latitude != null && longitude != null && (
                         <p className="text-[10px] text-slate-400 font-mono mt-0.5">
                           GPS: {latitude.toFixed(4)}°, {longitude.toFixed(4)}°
@@ -1772,36 +1772,34 @@ export default function CitizenReportPage() {
                   <div className="flex items-start space-x-2">
                     <Phone className="w-4 h-4 text-gov-saffron flex-shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">
                         Contact Mobile (For SMS)
                       </span>
-                      <p className="font-semibold font-mono text-slate-900">{reporterPhone}</p>
+                      <p className="font-semibold font-mono text-slate-900 dark:text-white">{reporterPhone}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Citizen Name & Method */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200 dark:border-slate-700">
                   <div className="flex items-start space-x-2">
-                    <User className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                    <User className="w-4 h-4 text-slate-500 dark:text-slate-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">
                         Complainant Name
                       </span>
-                      <p className="font-medium text-slate-700">
+                      <p className="font-medium text-slate-700 dark:text-slate-300">
                         {reporterName.trim() ? reporterName : <span className="italic text-slate-400">Anonymous (Optional)</span>}
                       </p>
                     </div>
                   </div>
                 </div>
 
-
-
                 {/* Evidence Attachments in Modal */}
                 {attachments.length > 0 && (
-                  <div className="pt-2 border-t border-slate-200">
+                  <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                      <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">
                         Attached Evidence ({attachments.length} {attachments.length === 1 ? "file" : "files"})
                       </span>
                       <span className="text-[10px] font-mono text-slate-400">
@@ -1812,21 +1810,21 @@ export default function CitizenReportPage() {
                       {attachments.map((att) => (
                         <div
                           key={att.id}
-                          className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200"
+                          className="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
                         >
-                          <div className="w-7 h-7 rounded bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
+                          <div className="w-7 h-7 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 text-slate-600 dark:text-slate-300">
                             {att.category === "IMAGE" && <Camera className="w-3.5 h-3.5" />}
                             {att.category === "VIDEO" && <Video className="w-3.5 h-3.5" />}
                             {att.category === "DOCUMENT" && <FileText className="w-3.5 h-3.5" />}
                             {att.category === "AUDIO" && <Music className="w-3.5 h-3.5" />}
                           </div>
                           <div className="flex-1 min-w-0 text-[11px]">
-                            <p className="font-medium text-slate-800 truncate">{att.name}</p>
+                            <p className="font-medium text-slate-800 dark:text-slate-200 truncate">{att.name}</p>
                             <p className="text-[10px] text-slate-400 font-mono truncate">
                               <span>{att.category}</span> • <span className="whitespace-nowrap">{att.formattedSize}</span>
                             </p>
                           </div>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                         </div>
                       ))}
                     </div>
@@ -1834,8 +1832,8 @@ export default function CitizenReportPage() {
                 )}
               </div>
 
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-[11px] flex items-center space-x-2">
-                <AlertCircle className="w-4 h-4 text-amber-700 flex-shrink-0" />
+              <div className="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-[11px] flex items-center space-x-2">
+                <AlertCircle className="w-4 h-4 text-amber-700 dark:text-amber-400 flex-shrink-0" />
                 <span>
                   By confirming, you certify that the provided information is true to the best of your knowledge and will be dispatched to the national grievance pipeline.
                 </span>
@@ -1843,12 +1841,12 @@ export default function CitizenReportPage() {
             </div>
 
             {/* Modal Actions */}
-            <div className="p-4 border-t border-slate-200 bg-slate-50/80 flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5 rounded-b-2xl">
+            <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-900/60 flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5 rounded-b-2xl">
               <button
                 type="button"
                 onClick={() => setShowConfirmModal(false)}
                 disabled={loading}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition disabled:opacity-50"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition disabled:opacity-50"
               >
                 Go Back / Edit
               </button>
@@ -1856,7 +1854,7 @@ export default function CitizenReportPage() {
                 type="button"
                 onClick={handleFinalSubmit}
                 disabled={loading}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm disabled:opacity-75"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-navy dark:bg-sky-600 hover:bg-[#002b80] dark:hover:bg-sky-500 text-white text-xs font-bold transition flex items-center justify-center space-x-2 shadow-sm disabled:opacity-75"
               >
                 {loading ? (
                   <>

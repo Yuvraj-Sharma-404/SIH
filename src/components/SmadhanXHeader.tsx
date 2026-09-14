@@ -12,7 +12,6 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
-import SmadhanXQrModal from "./SmadhanXQrModal";
 import UserProfileModal, { UserProfileData } from "./UserProfileModal";
 import SmadhanXLogo from "./SmadhanXLogo";
 import { useDarkMode } from "./DarkModeProvider";
@@ -20,7 +19,6 @@ import { useDarkMode } from "./DarkModeProvider";
 export default function SmadhanXHeader() {
   const pathname = usePathname();
   const { theme, toggle: toggleTheme } = useDarkMode();
-  const [isQrOpen, setIsQrOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("English");
@@ -172,14 +170,6 @@ export default function SmadhanXHeader() {
                 <img src="/Images/ico_home.png" alt="Home" className="w-3.5 h-3.5 object-contain" />
                 <span>Home</span>
               </Link>
-              <button
-                type="button"
-                onClick={() => setIsQrOpen(true)}
-                className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition"
-              >
-                <img src="/Images/dwnld.png" alt="Download" className="w-3.5 h-3.5 object-contain" />
-                <span>Download</span>
-              </button>
               <Link href="/contact" className="flex items-center space-x-1.5 hover:text-gov-navy dark:hover:text-amber-400 transition">
                 <img src="/Images/ico_contact.png" alt="Contact" className="w-3.5 h-3.5 object-contain" />
                 <span>Contact Us</span>
@@ -484,16 +474,6 @@ export default function SmadhanXHeader() {
               >
                 <span>Appeals Authority</span>
               </Link>
-
-              {/* Mobile App Modal Trigger */}
-              <button
-                type="button"
-                onClick={() => setIsQrOpen(true)}
-                className="flex items-center space-x-1 px-2.5 py-2 rounded hover:bg-white/15 transition"
-              >
-                <img src="/Images/mobile.png" alt="Mobile App" className="w-3.5 h-4 object-contain" />
-                <span>Mobile App</span>
-              </button>
             </div>
 
             {/* Right: Language Dropdown & Sign In Button */}
@@ -761,16 +741,6 @@ export default function SmadhanXHeader() {
               </div>
 
               <div className="pt-2 border-t border-white/10 flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsQrOpen(true);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="flex-1 py-2 px-3 bg-white/10 hover:bg-white/20 rounded text-center text-xs font-semibold"
-                >
-                  Download Mobile App
-                </button>
                 {currentUser ? (
                   <>
                     <button
@@ -812,7 +782,6 @@ export default function SmadhanXHeader() {
       </nav>
 
       {/* Popups & Modals */}
-      <SmadhanXQrModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
       <UserProfileModal
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}

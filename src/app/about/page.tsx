@@ -11,25 +11,25 @@ export default function AboutPage() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="gov-card p-6 gov-border-t-navy bg-white">
+      <div className="gov-card p-6 gov-border-t-navy bg-white dark:bg-slate-800/95 dark:border-slate-700 transition-colors">
         <div className="max-w-4xl mx-auto text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
+          <span className="text-xs font-bold uppercase tracking-wider text-gov-saffron bg-orange-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-full border border-orange-200 dark:border-amber-800/60">
             About the Platform
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy font-serif tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gov-navy dark:text-white font-serif tracking-tight">
             Centralized Public Grievance Redress And Monitoring System (SmadhanX)
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Department of Administrative Reforms & Public Grievances (DARPG), Ministry of Personnel, Public Grievances & Pensions, Government of India.
           </p>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="gov-card p-6 sm:p-8 bg-white space-y-6">
-        <div className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed text-slate-700 space-y-4 text-justify">
+      <div className="gov-card p-6 sm:p-8 bg-white dark:bg-slate-800/95 dark:border-slate-700 space-y-6 transition-colors">
+        <div className="prose prose-slate dark:prose-invert max-w-none text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-300 space-y-4 text-justify">
           <p>
-            <strong>SmadhanX</strong> is an online web-enabled system developed in association with DARPG with the objective of speedy redress, intelligent deduplication, and effective monitoring of grievances by Ministries/Departments/Organizations of Government of India and State Governments.
+            <strong className="text-slate-900 dark:text-white">SmadhanX</strong> is an online web-enabled system developed in association with DARPG with the objective of speedy redress, intelligent deduplication, and effective monitoring of grievances by Ministries/Departments/Organizations of Government of India and State Governments.
           </p>
           <p>
             The system enables a citizen to lodge their grievance from anywhere, anytime 24x7 to the concerned Ministry/Department/Organization, which assigns it to the designated field officer. Each grievance is provided with a unique registration number which can be used to track the status of the grievance online.
@@ -40,33 +40,33 @@ export default function AboutPage() {
         </div>
 
         {/* Core Pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-200">
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 text-gov-navy flex items-center justify-center font-bold">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-gov-navy dark:text-blue-300 flex items-center justify-center font-bold">
               <Globe className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900">24x7 Universal Access</h3>
-            <p className="text-xs text-slate-600">
-              Citizens can lodge public grievances round the clock from web, mobile app, UMANG, and community service centres.
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">24x7 Universal Access</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300">
+              Citizens can lodge public grievances round the clock from modern web browsers, public kiosks, and community service centres.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 flex items-center justify-center font-bold">
               <Shield className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900">Appellate Mechanism</h3>
-            <p className="text-xs text-slate-600">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Appellate Mechanism</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300">
               Complainants not satisfied with the resolution can file an appeal with the designated Appellate Authority.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-            <div className="w-10 h-10 rounded-lg bg-orange-100 text-gov-saffron flex items-center justify-center font-bold">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 space-y-2">
+            <div className="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/50 text-gov-saffron flex items-center justify-center font-bold">
               <Shield className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900">Role-Based Access</h3>
-            <p className="text-xs text-slate-600">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Role-Based Access</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300">
               Every Ministry, Central Department, and State Government has dedicated role-based officer access for rapid monitoring and resolution.
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function AboutPage() {
           </Link>
           <Link
             href="/process-flow"
-            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-gov-navy-dark text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5 text-center"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-gov-navy hover:bg-[#002b80] dark:bg-sky-600 dark:hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5 text-center"
           >
             <span>View Process Flow</span>
             <ArrowRight className="w-3.5 h-3.5" />
