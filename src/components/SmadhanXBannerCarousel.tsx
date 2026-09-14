@@ -14,13 +14,6 @@ interface BannerSlide {
 
 const banners: BannerSlide[] = [
   {
-    id: 0,
-    src: "/Images/bannerHome/baner-cpgrams_9.png",
-    alt: "AI Powered SmadhanX - Instant Grievance Redressal Assistant",
-    href: "/citizen/report",
-    badge: "AI Powered Assistant",
-  },
-  {
     id: 1,
     src: "/Images/bannerHome/baner-cpgrams_1.jpg",
     alt: "SmadhanX National Public Grievance Redressal Portal",
