@@ -12,19 +12,36 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    // Extract files from formData - accept both "files" (multiple) and "file" (single)
+    // Extract files from formData - robust against "files", "file", "evidence" or any file entries
     const rawFiles: File[] = [];
-    const filesList = formData.getAll("files");
-    const singleFile = formData.get("file");
 
-    if (filesList.length > 0) {
-      for (const item of filesList) {
-        if (item instanceof File) {
+    const isFileLike = (item: any): item is File => {
+      return (
+        item &&
+        typeof item === "object" &&
+        typeof item.arrayBuffer === "function" &&
+        typeof item.size === "number"
+      );
+    };
+
+    // First check standard keys
+    const standardKeys = ["files", "file", "attachment", "attachments", "evidence"];
+    for (const key of standardKeys) {
+      const items = formData.getAll(key);
+      for (const item of items) {
+        if (isFileLike(item) && !rawFiles.includes(item)) {
           rawFiles.push(item);
         }
       }
-    } else if (singleFile instanceof File) {
-      rawFiles.push(singleFile);
+    }
+
+    // If nothing found in standard keys, search all formData entries
+    if (rawFiles.length === 0) {
+      for (const [, value] of formData.entries()) {
+        if (isFileLike(value) && !rawFiles.includes(value)) {
+          rawFiles.push(value);
+        }
+      }
     }
 
     if (rawFiles.length === 0) {
