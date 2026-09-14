@@ -243,10 +243,10 @@ export default function SmadhanXHeader() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile Sticky Bar on screens < xl */}
           <div className="xl:hidden flex items-center justify-between h-11">
-            <Link href="/" className="flex items-center gap-1.5 text-white font-bold text-sm">
-              <span className="text-amber-400 font-extrabold tracking-wide">Smadhan</span>
-              <span className="text-gov-saffron font-black">X</span>
-              <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">| Beyond Grievances. Towards Solutions</span>
+            <Link href="/" className="flex items-center gap-1.5 text-white font-bold text-sm notranslate" translate="no">
+              <span className="text-amber-400 font-extrabold tracking-wide notranslate" translate="no">Smadhan</span>
+              <span className="text-gov-saffron font-black notranslate" translate="no">X</span>
+              <span className="text-[10px] text-slate-300 font-normal hidden sm:inline notranslate" translate="no">| Beyond Grievances. Towards Solutions</span>
             </Link>
 
             <div className="flex items-center gap-2">

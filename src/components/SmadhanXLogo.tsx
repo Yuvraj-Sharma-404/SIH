@@ -35,7 +35,7 @@ export default function SmadhanXLogo({
   };
 
   const logoContent = (
-    <div className={`flex items-center gap-2.5 sm:gap-3.5 group ${className}`}>
+    <div className={`flex items-center gap-2.5 sm:gap-3.5 group notranslate ${className}`} translate="no">
       {/* Official SamadhanX Emblem Icon without box */}
       <div
         className={`${iconSizes[size]} relative flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-105 duration-200`}
@@ -49,18 +49,18 @@ export default function SmadhanXLogo({
 
       {/* Website Written Typography & Subtitle */}
       {showText && (
-        <div className="space-y-0.5">
-          <div className="flex items-center">
-            <h1 className={`${titleSizes[size]} font-normal tracking-wide text-gov-navy font-cursive flex items-center leading-none select-none`}>
-              <span>Smadhan</span>
-              <span className="text-gov-saffron ml-1">
+        <div className="space-y-0.5 notranslate" translate="no">
+          <div className="flex items-center notranslate" translate="no">
+            <h1 className={`${titleSizes[size]} font-normal tracking-wide text-gov-navy font-cursive flex items-center leading-none select-none notranslate`} translate="no">
+              <span className="notranslate" translate="no">Smadhan</span>
+              <span className="text-gov-saffron ml-1 notranslate" translate="no">
                 X
               </span>
             </h1>
           </div>
-          <p className={`${subtitleSizes[size]} font-sans tracking-wide leading-tight select-none flex items-center flex-wrap gap-x-1.5 pt-0.5`}>
-            <span className="text-slate-500 font-medium italic">Beyond Grievances.</span>
-            <span className="font-bold tracking-tight bg-gradient-to-r from-gov-navy to-gov-saffron bg-clip-text text-transparent not-italic">
+          <p className={`${subtitleSizes[size]} font-sans tracking-wide leading-tight select-none flex items-center flex-wrap gap-x-1.5 pt-0.5 notranslate`} translate="no">
+            <span className="text-slate-500 font-medium italic notranslate" translate="no">Beyond Grievances.</span>
+            <span className="font-bold tracking-tight bg-gradient-to-r from-gov-navy to-gov-saffron bg-clip-text text-transparent not-italic notranslate" translate="no">
               Towards Solutions
             </span>
           </p>
@@ -71,7 +71,7 @@ export default function SmadhanXLogo({
 
   if (href) {
     return (
-      <Link href={href} className="inline-flex items-center">
+      <Link href={href} className="inline-flex items-center notranslate" translate="no">
         {logoContent}
       </Link>
     );
