@@ -1,211 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { Building2, Mail, MapPin, Phone, Search, ShieldCheck } from "lucide-react";
+import { Building2, Search } from "lucide-react";
 
-const centralOfficers = [
-  {
-    sno: 1,
-    org: "Administrative Reforms and Public Grievances - PG Division",
-    officer: "Sardendu Kumar Pandey",
-    designation: "Director",
-    address: "5th Floor Sardar Patel Bhawan Sansad Marg, New Delhi",
-    phone: "011-23401455",
-    email: "director-pg@gov.in",
-  },
-  {
-    sno: 2,
-    org: "Agriculture and Farmers Welfare",
-    officer: "Shri Rajesh Kumar",
-    designation: "Deputy Secretary PG",
-    address: "Room No. 434 Krishi Bhavan New Delhi",
-    phone: "011-23074238",
-    email: "rajesh.kumar67@nic.in",
-  },
-  {
-    sno: 3,
-    org: "Agriculture Research and Education",
-    officer: "Narendra Kumar",
-    designation: "Deputy Secretary",
-    address: "R No. 207, Krishi Bhawan, New Delhi",
-    phone: "011-23046678",
-    email: "narendra.kumar74@nic.in",
-  },
-  {
-    sno: 4,
-    org: "Animal Husbandry, Dairying",
-    officer: "RPS Rathore",
-    designation: "Director",
-    address: "Room No. 297, 2nd Floor, Krishi Bhavan, New Delhi",
-    phone: "011-23385797",
-    email: "r.rathore@gov.in",
-  },
-  {
-    sno: 5,
-    org: "Atomic Energy",
-    officer: "Shri K.V. Madhavadas",
-    designation: "Deputy Secretary",
-    address: "D/o Atomic Energy, Anushakti Bhavan, 3rd Floor, C S M Marg, Mumbai",
-    phone: "022-22862516",
-    email: "dsscs@dae.gov.in",
-  },
-  {
-    sno: 6,
-    org: "Ayush",
-    officer: "Dr Srinivas Rao Chinta",
-    designation: "Joint Adviser",
-    address: "AYUSH BHAWAN, GPO COMPLEX, B BLOCK, INA, New Delhi",
-    phone: "011-24656948",
-    email: "ayush-cdn@gov.in",
-  },
-  {
-    sno: 7,
-    org: "Bio Technology",
-    officer: "Rajesh Kumar Singh",
-    designation: "Director",
-    address: "Room No. 504, Block No. 3, 5th Floor, CGO Complex, Lodi Road, New Delhi",
-    phone: "011-24363656",
-    email: "rajesh.kumar@gov.in",
-  },
-  {
-    sno: 8,
-    org: "Central Board of Direct Taxes (Income Tax)",
-    officer: "Swapna Devireddy",
-    designation: "Addl. Director of Income Tax TPS-II",
-    address: "4th Floor, Mayur Bhawan, Connaught Circus, New Delhi",
-    phone: "011-23416133",
-    email: "delhi.addldit.eservices@incometax.gov.in",
-  },
-  {
-    sno: 9,
-    org: "Central Board of Indirect Taxes and Customs",
-    officer: "Ms. Ranjana Chaudhary",
-    designation: "Joint Director",
-    address: "Directorate General of Taxpayer Services, Central Revenue Building, I.P. Estate, New Delhi",
-    phone: "011-23370576",
-    email: "ranjana.chaudhary@gov.in",
-  },
-  {
-    sno: 10,
-    org: "Chemicals and Petrochemicals",
-    officer: "Shri Chitvan Singh Dhillon",
-    designation: "Deputy Director",
-    address: "Room No. 223 A, Shastri Bhavan, New Delhi",
-    phone: "011-23386083",
-    email: "chitvan.dhillon@gov.in",
-  },
-  {
-    sno: 11,
-    org: "Civil Aviation",
-    officer: "Shri S. K. Mishra",
-    designation: "Joint Secretary",
-    address: "Rajiv Gandhi Bhawan, Safdarjung Airport, New Delhi",
-    phone: "011-24610368",
-    email: "sk.mishra@nic.in",
-  },
-  {
-    sno: 12,
-    org: "Consumer Affairs",
-    officer: "Shri Vineet Mathur",
-    designation: "Joint Secretary",
-    address: "Krishi Bhawan, New Delhi",
-    phone: "011-23384416",
-    email: "js-ca@nic.in",
-  },
-];
+interface NodalOfficer {
+  sno: number;
+  org: string;
+  officer: string;
+  designation: string;
+  address: string;
+  phone: string;
+  email: string;
+}
 
-const stateOfficers = [
-  {
-    sno: 1,
-    org: "Andhra Pradesh",
-    officer: "Chinna Rao",
-    designation: "CGO-CMO",
-    address: "Public Grievance Redressal Cell, CMO Block-01, Ground Floor, A.P. State Secretariat, Velagapudi, Amaravathi",
-    phone: "09154267973",
-    email: "pgrs-helpdesk@ap.gov.in",
-  },
-  {
-    sno: 2,
-    org: "Arunachal Pradesh",
-    officer: "Shri Mari Angu",
-    designation: "Joint Secretary",
-    address: "Civil Secretariat Block No. 04, Floor No. 05, Room No.08, Itanagar",
-    phone: "0360-2222222",
-    email: "mari.angu@gov.in",
-  },
-  {
-    sno: 3,
-    org: "Assam",
-    officer: "Shri Utpal Borah ACS",
-    designation: "State Nodal Officer",
-    address: "Joint Secretary to the Govt. of Assam, Administrative Reforms, Training, Pension and Public Grievances Department, Assam Secretariat, Dispur",
-    phone: "0361-2237323",
-    email: "artassamdept@gmail.com",
-  },
-  {
-    sno: 4,
-    org: "Bihar",
-    officer: "Miss Vineeta",
-    designation: "Deputy Secretary",
-    address: "General Administration Department, Old Secretariat, Patna",
-    phone: "0612-2215409",
-    email: "publicgrievances-bih@gov.in",
-  },
-  {
-    sno: 5,
-    org: "Chhattisgarh",
-    officer: "Shri Hemant Kumar Pandey",
-    designation: "Under Secretary",
-    address: "Public Grievance Redressal Department, Mantralaya Mahanadi Bhavan, Nava Raipur Atal Nagar",
-    phone: "0771-2510974",
-    email: "pgc-gad.cg@gov.in",
-  },
-  {
-    sno: 6,
-    org: "Goa",
-    officer: "Diksha N Tari",
-    designation: "Under Secretary PG",
-    address: "2nd Floor, Secretariat, Porvorim, Goa",
-    phone: "0832-2419864",
-    email: "us-pgc.goa@nic.in",
-  },
-  {
-    sno: 7,
-    org: "Gujarat",
-    officer: "Shri H. K. Patel, IAS",
-    designation: "Secretary (Grievances)",
-    address: "Chief Minister's Office, Swarnim Sankul-1, New Sachivalaya, Gandhinagar",
-    phone: "079-23250001",
-    email: "sec-swagat@gujarat.gov.in",
-  },
-  {
-    sno: 8,
-    org: "Haryana",
-    officer: "Shri Rameshwar Mehra",
-    designation: "Special Secretary",
-    address: "Chief Minister's Grievance Cell, Haryana Civil Secretariat, Sector 1, Chandigarh",
-    phone: "0172-2740001",
-    email: "cmgrievance-hry@nic.in",
-  },
-  {
-    sno: 9,
-    org: "Karnataka",
-    officer: "Shri P. Ravi Kumar, IAS",
-    designation: "Chief Nodal Officer",
-    address: "DPAR (e-Governance), Vidhana Soudha, Bengaluru",
-    phone: "080-22252442",
-    email: "pg.dpar@karnataka.gov.in",
-  },
-  {
-    sno: 10,
-    org: "Maharashtra",
-    officer: "Smt. Manisha Patankar-Mhaiskar, IAS",
-    designation: "Principal Secretary & State PG Nodal Officer",
-    address: "General Administration Department, Mantralaya, Mumbai",
-    phone: "022-22025114",
-    email: "pg.gad@maharashtra.gov.in",
-  },
-];
+const centralOfficers: NodalOfficer[] = [];
+
+const stateOfficers: NodalOfficer[] = [];
+
 
 export default function NodalOfficersPage() {
   const [activeTab, setActiveTab] = useState<"central" | "state">("central");
@@ -319,8 +130,18 @@ export default function NodalOfficersPage() {
               ))}
               {filteredList.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-slate-500 dark:text-slate-400 text-xs">
-                    No nodal officers found matching &quot;{searchTerm}&quot;.
+                  <td colSpan={5} className="py-12 text-center text-slate-500 dark:text-slate-400 text-xs">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <Building2 className="w-8 h-8 text-slate-300 dark:text-slate-600" />
+                      <p className="font-medium text-sm text-slate-600 dark:text-slate-300">
+                        {searchTerm
+                          ? `No nodal officers found matching "${searchTerm}".`
+                          : "No nodal public grievance officers listed at this time."}
+                      </p>
+                      <p className="text-slate-400 dark:text-slate-500 text-xs">
+                        Official directory records will be displayed once published.
+                      </p>
+                    </div>
                   </td>
                 </tr>
               )}
