@@ -193,6 +193,18 @@ exports.Prisma.EvidenceScalarFieldEnum = {
   fileName: 'fileName',
   fileSize: 'fileSize',
   mimeType: 'mimeType',
+  hasGpsData: 'hasGpsData',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  altitude: 'altitude',
+  locationName: 'locationName',
+  city: 'city',
+  district: 'district',
+  state: 'state',
+  country: 'country',
+  gpsSource: 'gpsSource',
+  gpsAccuracy: 'gpsAccuracy',
+  capturedAt: 'capturedAt',
   createdAt: 'createdAt'
 };
 

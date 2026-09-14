@@ -97,14 +97,29 @@ model Problem {
 }
 
 model Evidence {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   problemId String
-  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problem   Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
   type      String // IMAGE, VIDEO, AUDIO, DOCUMENT, TEXT
   fileUrl   String
   fileName  String?
   fileSize  Int?
   mimeType  String?
+
+  // Geotag / GPS EXIF fields
+  hasGpsData   Boolean?  @default(false)
+  latitude     Float?
+  longitude    Float?
+  altitude     Float?
+  locationName String?
+  city         String?
+  district     String?
+  state        String?
+  country      String?
+  gpsSource    String? // "EXIF"
+  gpsAccuracy  Float?
+  capturedAt   DateTime?
+
   createdAt DateTime @default(now())
 }
 

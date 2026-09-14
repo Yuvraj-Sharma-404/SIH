@@ -6116,10 +6116,18 @@ export namespace Prisma {
 
   export type EvidenceAvgAggregateOutputType = {
     fileSize: number | null
+    latitude: number | null
+    longitude: number | null
+    altitude: number | null
+    gpsAccuracy: number | null
   }
 
   export type EvidenceSumAggregateOutputType = {
     fileSize: number | null
+    latitude: number | null
+    longitude: number | null
+    altitude: number | null
+    gpsAccuracy: number | null
   }
 
   export type EvidenceMinAggregateOutputType = {
@@ -6130,6 +6138,18 @@ export namespace Prisma {
     fileName: string | null
     fileSize: number | null
     mimeType: string | null
+    hasGpsData: boolean | null
+    latitude: number | null
+    longitude: number | null
+    altitude: number | null
+    locationName: string | null
+    city: string | null
+    district: string | null
+    state: string | null
+    country: string | null
+    gpsSource: string | null
+    gpsAccuracy: number | null
+    capturedAt: Date | null
     createdAt: Date | null
   }
 
@@ -6141,6 +6161,18 @@ export namespace Prisma {
     fileName: string | null
     fileSize: number | null
     mimeType: string | null
+    hasGpsData: boolean | null
+    latitude: number | null
+    longitude: number | null
+    altitude: number | null
+    locationName: string | null
+    city: string | null
+    district: string | null
+    state: string | null
+    country: string | null
+    gpsSource: string | null
+    gpsAccuracy: number | null
+    capturedAt: Date | null
     createdAt: Date | null
   }
 
@@ -6152,6 +6184,18 @@ export namespace Prisma {
     fileName: number
     fileSize: number
     mimeType: number
+    hasGpsData: number
+    latitude: number
+    longitude: number
+    altitude: number
+    locationName: number
+    city: number
+    district: number
+    state: number
+    country: number
+    gpsSource: number
+    gpsAccuracy: number
+    capturedAt: number
     createdAt: number
     _all: number
   }
@@ -6159,10 +6203,18 @@ export namespace Prisma {
 
   export type EvidenceAvgAggregateInputType = {
     fileSize?: true
+    latitude?: true
+    longitude?: true
+    altitude?: true
+    gpsAccuracy?: true
   }
 
   export type EvidenceSumAggregateInputType = {
     fileSize?: true
+    latitude?: true
+    longitude?: true
+    altitude?: true
+    gpsAccuracy?: true
   }
 
   export type EvidenceMinAggregateInputType = {
@@ -6173,6 +6225,18 @@ export namespace Prisma {
     fileName?: true
     fileSize?: true
     mimeType?: true
+    hasGpsData?: true
+    latitude?: true
+    longitude?: true
+    altitude?: true
+    locationName?: true
+    city?: true
+    district?: true
+    state?: true
+    country?: true
+    gpsSource?: true
+    gpsAccuracy?: true
+    capturedAt?: true
     createdAt?: true
   }
 
@@ -6184,6 +6248,18 @@ export namespace Prisma {
     fileName?: true
     fileSize?: true
     mimeType?: true
+    hasGpsData?: true
+    latitude?: true
+    longitude?: true
+    altitude?: true
+    locationName?: true
+    city?: true
+    district?: true
+    state?: true
+    country?: true
+    gpsSource?: true
+    gpsAccuracy?: true
+    capturedAt?: true
     createdAt?: true
   }
 
@@ -6195,6 +6271,18 @@ export namespace Prisma {
     fileName?: true
     fileSize?: true
     mimeType?: true
+    hasGpsData?: true
+    latitude?: true
+    longitude?: true
+    altitude?: true
+    locationName?: true
+    city?: true
+    district?: true
+    state?: true
+    country?: true
+    gpsSource?: true
+    gpsAccuracy?: true
+    capturedAt?: true
     createdAt?: true
     _all?: true
   }
@@ -6293,6 +6381,18 @@ export namespace Prisma {
     fileName: string | null
     fileSize: number | null
     mimeType: string | null
+    hasGpsData: boolean | null
+    latitude: number | null
+    longitude: number | null
+    altitude: number | null
+    locationName: string | null
+    city: string | null
+    district: string | null
+    state: string | null
+    country: string | null
+    gpsSource: string | null
+    gpsAccuracy: number | null
+    capturedAt: Date | null
     createdAt: Date
     _count: EvidenceCountAggregateOutputType | null
     _avg: EvidenceAvgAggregateOutputType | null
@@ -6323,6 +6423,18 @@ export namespace Prisma {
     fileName?: boolean
     fileSize?: boolean
     mimeType?: boolean
+    hasGpsData?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    altitude?: boolean
+    locationName?: boolean
+    city?: boolean
+    district?: boolean
+    state?: boolean
+    country?: boolean
+    gpsSource?: boolean
+    gpsAccuracy?: boolean
+    capturedAt?: boolean
     createdAt?: boolean
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["evidence"]>
@@ -6335,6 +6447,18 @@ export namespace Prisma {
     fileName?: boolean
     fileSize?: boolean
     mimeType?: boolean
+    hasGpsData?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    altitude?: boolean
+    locationName?: boolean
+    city?: boolean
+    district?: boolean
+    state?: boolean
+    country?: boolean
+    gpsSource?: boolean
+    gpsAccuracy?: boolean
+    capturedAt?: boolean
     createdAt?: boolean
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["evidence"]>
@@ -6347,6 +6471,18 @@ export namespace Prisma {
     fileName?: boolean
     fileSize?: boolean
     mimeType?: boolean
+    hasGpsData?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    altitude?: boolean
+    locationName?: boolean
+    city?: boolean
+    district?: boolean
+    state?: boolean
+    country?: boolean
+    gpsSource?: boolean
+    gpsAccuracy?: boolean
+    capturedAt?: boolean
     createdAt?: boolean
   }
 
@@ -6370,6 +6506,18 @@ export namespace Prisma {
       fileName: string | null
       fileSize: number | null
       mimeType: string | null
+      hasGpsData: boolean | null
+      latitude: number | null
+      longitude: number | null
+      altitude: number | null
+      locationName: string | null
+      city: string | null
+      district: string | null
+      state: string | null
+      country: string | null
+      gpsSource: string | null
+      gpsAccuracy: number | null
+      capturedAt: Date | null
       createdAt: Date
     }, ExtArgs["result"]["evidence"]>
     composites: {}
@@ -6772,6 +6920,18 @@ export namespace Prisma {
     readonly fileName: FieldRef<"Evidence", 'String'>
     readonly fileSize: FieldRef<"Evidence", 'Int'>
     readonly mimeType: FieldRef<"Evidence", 'String'>
+    readonly hasGpsData: FieldRef<"Evidence", 'Boolean'>
+    readonly latitude: FieldRef<"Evidence", 'Float'>
+    readonly longitude: FieldRef<"Evidence", 'Float'>
+    readonly altitude: FieldRef<"Evidence", 'Float'>
+    readonly locationName: FieldRef<"Evidence", 'String'>
+    readonly city: FieldRef<"Evidence", 'String'>
+    readonly district: FieldRef<"Evidence", 'String'>
+    readonly state: FieldRef<"Evidence", 'String'>
+    readonly country: FieldRef<"Evidence", 'String'>
+    readonly gpsSource: FieldRef<"Evidence", 'String'>
+    readonly gpsAccuracy: FieldRef<"Evidence", 'Float'>
+    readonly capturedAt: FieldRef<"Evidence", 'DateTime'>
     readonly createdAt: FieldRef<"Evidence", 'DateTime'>
   }
     
@@ -20500,6 +20660,18 @@ export namespace Prisma {
     fileName: 'fileName',
     fileSize: 'fileSize',
     mimeType: 'mimeType',
+    hasGpsData: 'hasGpsData',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    altitude: 'altitude',
+    locationName: 'locationName',
+    city: 'city',
+    district: 'district',
+    state: 'state',
+    country: 'country',
+    gpsSource: 'gpsSource',
+    gpsAccuracy: 'gpsAccuracy',
+    capturedAt: 'capturedAt',
     createdAt: 'createdAt'
   };
 
@@ -21182,6 +21354,18 @@ export namespace Prisma {
     fileName?: StringNullableFilter<"Evidence"> | string | null
     fileSize?: IntNullableFilter<"Evidence"> | number | null
     mimeType?: StringNullableFilter<"Evidence"> | string | null
+    hasGpsData?: BoolNullableFilter<"Evidence"> | boolean | null
+    latitude?: FloatNullableFilter<"Evidence"> | number | null
+    longitude?: FloatNullableFilter<"Evidence"> | number | null
+    altitude?: FloatNullableFilter<"Evidence"> | number | null
+    locationName?: StringNullableFilter<"Evidence"> | string | null
+    city?: StringNullableFilter<"Evidence"> | string | null
+    district?: StringNullableFilter<"Evidence"> | string | null
+    state?: StringNullableFilter<"Evidence"> | string | null
+    country?: StringNullableFilter<"Evidence"> | string | null
+    gpsSource?: StringNullableFilter<"Evidence"> | string | null
+    gpsAccuracy?: FloatNullableFilter<"Evidence"> | number | null
+    capturedAt?: DateTimeNullableFilter<"Evidence"> | Date | string | null
     createdAt?: DateTimeFilter<"Evidence"> | Date | string
     problem?: XOR<ProblemRelationFilter, ProblemWhereInput>
   }
@@ -21194,6 +21378,18 @@ export namespace Prisma {
     fileName?: SortOrderInput | SortOrder
     fileSize?: SortOrderInput | SortOrder
     mimeType?: SortOrderInput | SortOrder
+    hasGpsData?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    altitude?: SortOrderInput | SortOrder
+    locationName?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    district?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    gpsSource?: SortOrderInput | SortOrder
+    gpsAccuracy?: SortOrderInput | SortOrder
+    capturedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     problem?: ProblemOrderByWithRelationInput
   }
@@ -21209,6 +21405,18 @@ export namespace Prisma {
     fileName?: StringNullableFilter<"Evidence"> | string | null
     fileSize?: IntNullableFilter<"Evidence"> | number | null
     mimeType?: StringNullableFilter<"Evidence"> | string | null
+    hasGpsData?: BoolNullableFilter<"Evidence"> | boolean | null
+    latitude?: FloatNullableFilter<"Evidence"> | number | null
+    longitude?: FloatNullableFilter<"Evidence"> | number | null
+    altitude?: FloatNullableFilter<"Evidence"> | number | null
+    locationName?: StringNullableFilter<"Evidence"> | string | null
+    city?: StringNullableFilter<"Evidence"> | string | null
+    district?: StringNullableFilter<"Evidence"> | string | null
+    state?: StringNullableFilter<"Evidence"> | string | null
+    country?: StringNullableFilter<"Evidence"> | string | null
+    gpsSource?: StringNullableFilter<"Evidence"> | string | null
+    gpsAccuracy?: FloatNullableFilter<"Evidence"> | number | null
+    capturedAt?: DateTimeNullableFilter<"Evidence"> | Date | string | null
     createdAt?: DateTimeFilter<"Evidence"> | Date | string
     problem?: XOR<ProblemRelationFilter, ProblemWhereInput>
   }, "id">
@@ -21221,6 +21429,18 @@ export namespace Prisma {
     fileName?: SortOrderInput | SortOrder
     fileSize?: SortOrderInput | SortOrder
     mimeType?: SortOrderInput | SortOrder
+    hasGpsData?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    altitude?: SortOrderInput | SortOrder
+    locationName?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    district?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    gpsSource?: SortOrderInput | SortOrder
+    gpsAccuracy?: SortOrderInput | SortOrder
+    capturedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: EvidenceCountOrderByAggregateInput
     _avg?: EvidenceAvgOrderByAggregateInput
@@ -21240,6 +21460,18 @@ export namespace Prisma {
     fileName?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
     fileSize?: IntNullableWithAggregatesFilter<"Evidence"> | number | null
     mimeType?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    hasGpsData?: BoolNullableWithAggregatesFilter<"Evidence"> | boolean | null
+    latitude?: FloatNullableWithAggregatesFilter<"Evidence"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Evidence"> | number | null
+    altitude?: FloatNullableWithAggregatesFilter<"Evidence"> | number | null
+    locationName?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    city?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    district?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    state?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    country?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    gpsSource?: StringNullableWithAggregatesFilter<"Evidence"> | string | null
+    gpsAccuracy?: FloatNullableWithAggregatesFilter<"Evidence"> | number | null
+    capturedAt?: DateTimeNullableWithAggregatesFilter<"Evidence"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Evidence"> | Date | string
   }
 
@@ -22806,6 +23038,18 @@ export namespace Prisma {
     fileName?: string | null
     fileSize?: number | null
     mimeType?: string | null
+    hasGpsData?: boolean | null
+    latitude?: number | null
+    longitude?: number | null
+    altitude?: number | null
+    locationName?: string | null
+    city?: string | null
+    district?: string | null
+    state?: string | null
+    country?: string | null
+    gpsSource?: string | null
+    gpsAccuracy?: number | null
+    capturedAt?: Date | string | null
     createdAt?: Date | string
     problem: ProblemCreateNestedOneWithoutEvidenceInput
   }
@@ -22818,6 +23062,18 @@ export namespace Prisma {
     fileName?: string | null
     fileSize?: number | null
     mimeType?: string | null
+    hasGpsData?: boolean | null
+    latitude?: number | null
+    longitude?: number | null
+    altitude?: number | null
+    locationName?: string | null
+    city?: string | null
+    district?: string | null
+    state?: string | null
+    country?: string | null
+    gpsSource?: string | null
+    gpsAccuracy?: number | null
+    capturedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -22828,6 +23084,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problem?: ProblemUpdateOneRequiredWithoutEvidenceNestedInput
   }
@@ -22840,6 +23108,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22851,6 +23131,18 @@ export namespace Prisma {
     fileName?: string | null
     fileSize?: number | null
     mimeType?: string | null
+    hasGpsData?: boolean | null
+    latitude?: number | null
+    longitude?: number | null
+    altitude?: number | null
+    locationName?: string | null
+    city?: string | null
+    district?: string | null
+    state?: string | null
+    country?: string | null
+    gpsSource?: string | null
+    gpsAccuracy?: number | null
+    capturedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -22861,6 +23153,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22872,6 +23176,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24521,6 +24837,11 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type ProblemRelationFilter = {
     is?: ProblemWhereInput
     isNot?: ProblemWhereInput
@@ -24534,11 +24855,27 @@ export namespace Prisma {
     fileName?: SortOrder
     fileSize?: SortOrder
     mimeType?: SortOrder
+    hasGpsData?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    altitude?: SortOrder
+    locationName?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    state?: SortOrder
+    country?: SortOrder
+    gpsSource?: SortOrder
+    gpsAccuracy?: SortOrder
+    capturedAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type EvidenceAvgOrderByAggregateInput = {
     fileSize?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    altitude?: SortOrder
+    gpsAccuracy?: SortOrder
   }
 
   export type EvidenceMaxOrderByAggregateInput = {
@@ -24549,6 +24886,18 @@ export namespace Prisma {
     fileName?: SortOrder
     fileSize?: SortOrder
     mimeType?: SortOrder
+    hasGpsData?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    altitude?: SortOrder
+    locationName?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    state?: SortOrder
+    country?: SortOrder
+    gpsSource?: SortOrder
+    gpsAccuracy?: SortOrder
+    capturedAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -24560,11 +24909,27 @@ export namespace Prisma {
     fileName?: SortOrder
     fileSize?: SortOrder
     mimeType?: SortOrder
+    hasGpsData?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    altitude?: SortOrder
+    locationName?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    state?: SortOrder
+    country?: SortOrder
+    gpsSource?: SortOrder
+    gpsAccuracy?: SortOrder
+    capturedAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type EvidenceSumOrderByAggregateInput = {
     fileSize?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    altitude?: SortOrder
+    gpsAccuracy?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -24581,6 +24946,14 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type AIAnalysisCountOrderByAggregateInput = {
@@ -25783,6 +26156,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
   export type ProblemUpdateOneRequiredWithoutEvidenceNestedInput = {
     create?: XOR<ProblemCreateWithoutEvidenceInput, ProblemUncheckedCreateWithoutEvidenceInput>
     connectOrCreate?: ProblemCreateOrConnectWithoutEvidenceInput
@@ -26529,6 +26906,11 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -26543,6 +26925,14 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -26988,6 +27378,18 @@ export namespace Prisma {
     fileName?: string | null
     fileSize?: number | null
     mimeType?: string | null
+    hasGpsData?: boolean | null
+    latitude?: number | null
+    longitude?: number | null
+    altitude?: number | null
+    locationName?: string | null
+    city?: string | null
+    district?: string | null
+    state?: string | null
+    country?: string | null
+    gpsSource?: string | null
+    gpsAccuracy?: number | null
+    capturedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -26998,6 +27400,18 @@ export namespace Prisma {
     fileName?: string | null
     fileSize?: number | null
     mimeType?: string | null
+    hasGpsData?: boolean | null
+    latitude?: number | null
+    longitude?: number | null
+    altitude?: number | null
+    locationName?: string | null
+    city?: string | null
+    district?: string | null
+    state?: string | null
+    country?: string | null
+    gpsSource?: string | null
+    gpsAccuracy?: number | null
+    capturedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -27296,6 +27710,18 @@ export namespace Prisma {
     fileName?: StringNullableFilter<"Evidence"> | string | null
     fileSize?: IntNullableFilter<"Evidence"> | number | null
     mimeType?: StringNullableFilter<"Evidence"> | string | null
+    hasGpsData?: BoolNullableFilter<"Evidence"> | boolean | null
+    latitude?: FloatNullableFilter<"Evidence"> | number | null
+    longitude?: FloatNullableFilter<"Evidence"> | number | null
+    altitude?: FloatNullableFilter<"Evidence"> | number | null
+    locationName?: StringNullableFilter<"Evidence"> | string | null
+    city?: StringNullableFilter<"Evidence"> | string | null
+    district?: StringNullableFilter<"Evidence"> | string | null
+    state?: StringNullableFilter<"Evidence"> | string | null
+    country?: StringNullableFilter<"Evidence"> | string | null
+    gpsSource?: StringNullableFilter<"Evidence"> | string | null
+    gpsAccuracy?: FloatNullableFilter<"Evidence"> | number | null
+    capturedAt?: DateTimeNullableFilter<"Evidence"> | Date | string | null
     createdAt?: DateTimeFilter<"Evidence"> | Date | string
   }
 
@@ -30293,6 +30719,18 @@ export namespace Prisma {
     fileName?: string | null
     fileSize?: number | null
     mimeType?: string | null
+    hasGpsData?: boolean | null
+    latitude?: number | null
+    longitude?: number | null
+    altitude?: number | null
+    locationName?: string | null
+    city?: string | null
+    district?: string | null
+    state?: string | null
+    country?: string | null
+    gpsSource?: string | null
+    gpsAccuracy?: number | null
+    capturedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -30377,6 +30815,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30387,6 +30837,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30397,6 +30859,18 @@ export namespace Prisma {
     fileName?: NullableStringFieldUpdateOperationsInput | string | null
     fileSize?: NullableIntFieldUpdateOperationsInput | number | null
     mimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    hasGpsData?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    altitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    locationName?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsSource?: NullableStringFieldUpdateOperationsInput | string | null
+    gpsAccuracy?: NullableFloatFieldUpdateOperationsInput | number | null
+    capturedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

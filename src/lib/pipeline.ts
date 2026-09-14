@@ -10,6 +10,18 @@ export interface AttachmentInput {
   fileName: string;
   fileSize?: number;
   mimeType?: string;
+  hasGpsData?: boolean;
+  latitude?: number | null;
+  longitude?: number | null;
+  altitude?: number | null;
+  locationName?: string | null;
+  city?: string | null;
+  district?: string | null;
+  state?: string | null;
+  country?: string | null;
+  gpsSource?: string | null;
+  gpsAccuracy?: number | null;
+  capturedAt?: string | Date | null;
 }
 
 export interface PipelineInput {
@@ -129,6 +141,18 @@ export async function processIngestionPipeline(input: PipelineInput) {
         fileName: att.fileName || "attachment",
         fileSize: att.fileSize || null,
         mimeType: att.mimeType || null,
+        hasGpsData: att.hasGpsData ?? false,
+        latitude: att.latitude ?? null,
+        longitude: att.longitude ?? null,
+        altitude: att.altitude ?? null,
+        locationName: att.locationName ?? null,
+        city: att.city ?? null,
+        district: att.district ?? null,
+        state: att.state ?? null,
+        country: att.country ?? null,
+        gpsSource: att.gpsSource ?? (att.hasGpsData ? "EXIF" : null),
+        gpsAccuracy: att.gpsAccuracy ?? null,
+        capturedAt: att.capturedAt ? new Date(att.capturedAt) : null,
       })),
     });
   } else if (input.evidenceUrl) {

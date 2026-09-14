@@ -30,6 +30,7 @@ import {
   Upload,
   Trash2,
   RefreshCw,
+  Compass,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -46,6 +47,7 @@ export interface AttachmentItem {
   storageKey?: string;
   fileUrl?: string;
   previewUrl?: string;
+  geotag?: any;
 }
 
 export default function CitizenReportPage() {
@@ -98,6 +100,38 @@ export default function CitizenReportPage() {
   // Loading & Submission State
   const [loading, setLoading] = useState(false);
   const [submittedResult, setSubmittedResult] = useState<any | null>(null);
+
+  // Photo EXIF Geotag Detection State
+  const [detectedPhotoGeotag, setDetectedPhotoGeotag] = useState<{
+    latitude: number;
+    longitude: number;
+    locationName: string;
+    district?: string;
+    state?: string;
+    fileName: string;
+  } | null>(null);
+
+  // Check URL query parameters for pre-populated coordinates from /geotag
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const latParam = params.get("lat");
+      const lngParam = params.get("lng");
+      const addrParam = params.get("address");
+
+      if (latParam && lngParam) {
+        const lat = parseFloat(latParam);
+        const lng = parseFloat(lngParam);
+        if (!isNaN(lat) && !isNaN(lng)) {
+          setLatitude(lat);
+          setLongitude(lng);
+          if (addrParam) setAddress(decodeURIComponent(addrParam));
+          setLocationSuccessMessage("✓ Location filled from Geotag Extractor");
+          setLocationStatus("success");
+        }
+      }
+    }
+  }, []);
 
   // Clean up speech recognition on unmount
   useEffect(() => {
@@ -554,6 +588,32 @@ export default function CitizenReportPage() {
                   : att
               )
             );
+
+            // Automatically check for GPS metadata in uploaded images or videos to assist location entry
+            if (item.category === "IMAGE" || item.category === "VIDEO") {
+              const geoForm = new FormData();
+              geoForm.append("media", item.file);
+              fetch("/api/media/geotag", { method: "POST", body: geoForm })
+                .then((r) => r.json())
+                .then((geo) => {
+                  if (geo.success && geo.hasGpsData && geo.latitude && geo.longitude) {
+                    setDetectedPhotoGeotag({
+                      latitude: geo.latitude,
+                      longitude: geo.longitude,
+                      locationName: geo.locationName || `${geo.latitude.toFixed(4)}, ${geo.longitude.toFixed(4)}`,
+                      district: geo.district || undefined,
+                      state: geo.state || undefined,
+                      fileName: item.name,
+                    });
+
+                    setAttachments((curr) =>
+                      curr.map((a) => (a.id === item.id ? { ...a, geotag: geo } : a))
+                    );
+                  }
+                })
+                .catch(() => {});
+            }
+
             return;
           }
         } catch {}
@@ -779,6 +839,17 @@ export default function CitizenReportPage() {
         fileName: a.name,
         fileSize: a.size,
         mimeType: a.file.type || "application/octet-stream",
+        hasGpsData: Boolean(a.geotag?.hasGpsData),
+        latitude: a.geotag?.latitude ?? null,
+        longitude: a.geotag?.longitude ?? null,
+        altitude: a.geotag?.altitude ?? null,
+        locationName: a.geotag?.locationName ?? null,
+        city: a.geotag?.city ?? null,
+        district: a.geotag?.district ?? null,
+        state: a.geotag?.state ?? null,
+        country: a.geotag?.country ?? null,
+        gpsSource: a.geotag?.hasGpsData ? "EXIF" : null,
+        capturedAt: a.geotag?.capturedAt ?? null,
       }));
 
     try {
@@ -1077,10 +1148,62 @@ export default function CitizenReportPage() {
             </div>
 
             {/* Location (Mandatory) */}
+            {/* Geotag Photo Auto-fill Banner */}
+            {detectedPhotoGeotag && (
+              <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-emerald-900 shadow-xs mb-3 animate-fadeIn">
+                <div className="flex items-center space-x-2">
+                  <Sparkles className="w-4 h-4 text-gov-saffron shrink-0" />
+                  <div>
+                    <span className="font-bold">Photo Geotag Detected: </span>
+                    <span>
+                      {detectedPhotoGeotag.locationName} ({detectedPhotoGeotag.latitude.toFixed(4)}°, {detectedPhotoGeotag.longitude.toFixed(4)}°) from "{detectedPhotoGeotag.fileName}"
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLatitude(detectedPhotoGeotag.latitude);
+                      setLongitude(detectedPhotoGeotag.longitude);
+                      setAddress(detectedPhotoGeotag.locationName);
+                      if (detectedPhotoGeotag.district) setDistrict(detectedPhotoGeotag.district);
+                      if (detectedPhotoGeotag.state) setStateName(detectedPhotoGeotag.state);
+                      setLocationSuccessMessage("✓ Auto-filled from photo EXIF GPS");
+                      setLocationStatus("success");
+                      setDetectedPhotoGeotag(null);
+                    }}
+                    className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded shadow-xs transition text-[11px]"
+                  >
+                    Auto-fill Location
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDetectedPhotoGeotag(null)}
+                    className="p-1 text-slate-400 hover:text-slate-600 rounded"
+                    title="Dismiss"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="pt-2 border-t border-slate-100">
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Location / Village / District Landmark <span className="text-red-500 font-bold">*</span>
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-bold text-slate-700">
+                  Location / Village / District Landmark <span className="text-red-500 font-bold">*</span>
+                </label>
+                <Link
+                  href="/geotag"
+                  target="_blank"
+                  className="text-[11px] text-gov-navy hover:text-gov-saffron font-medium flex items-center gap-1 transition"
+                  title="Open Image Geotag Extractor tool in new tab"
+                >
+                  <Compass className="w-3 h-3 text-gov-saffron" />
+                  <span>Extract from Photo EXIF</span>
+                </Link>
+              </div>
               <div className="flex space-x-1.5">
                 <input
                   type="text"
