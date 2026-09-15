@@ -33,6 +33,21 @@ import {
   Compass,
 } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import type { CapturedLiveMedia } from "@/components/LiveGeotagCapture";
+
+const LiveGeotagCapture = dynamic(
+  () => import("@/components/LiveGeotagCapture"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full aspect-[4/3] bg-slate-900 rounded-2xl flex flex-col items-center justify-center border border-slate-800 text-slate-400">
+        <Loader2 className="w-8 h-8 text-gov-saffron animate-spin mb-2" />
+        <span className="text-xs font-mono">Initializing Camera & GPS Telemetry...</span>
+      </div>
+    ),
+  }
+);
 
 export interface AttachmentItem {
   id: string;
@@ -75,6 +90,7 @@ export default function CitizenReportPage() {
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<"ALL" | "IMAGE" | "VIDEO" | "DOCUMENT" | "AUDIO">("ALL");
   const [isDragging, setIsDragging] = useState(false);
   const [attachmentError, setAttachmentError] = useState<string | null>(null);
+  const [showLiveCameraModal, setShowLiveCameraModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Audio Recording State with Real Multilingual Web Speech API (English & Hindi)
@@ -737,6 +753,69 @@ export default function CitizenReportPage() {
     }
   };
 
+  const handleLiveMediaCaptured = (captured: CapturedLiveMedia) => {
+    setShowLiveCameraModal(false);
+
+    const category = captured.mediaType === "video" ? "VIDEO" : "IMAGE";
+    const item: AttachmentItem = {
+      id: `att_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+      file: captured.file,
+      category,
+      name: captured.file.name,
+      size: captured.file.size,
+      formattedSize: formatFileSize(captured.file.size),
+      progress: 0,
+      status: "ready",
+      previewUrl: captured.previewUrl,
+      geotag: {
+        success: true,
+        hasGpsData: true,
+        latitude: captured.telemetry.latitude,
+        longitude: captured.telemetry.longitude,
+        locationName:
+          captured.telemetry.formattedAddress ||
+          `${captured.telemetry.latitude.toFixed(4)}, ${captured.telemetry.longitude.toFixed(4)}`,
+        district: captured.telemetry.district,
+        state: captured.telemetry.state,
+      },
+    };
+
+    setAttachments((prev) => [...prev, item]);
+    uploadAttachment(item);
+
+    // Auto-populate grievance incident location directly from the live GPS fix
+    setLatitude(captured.telemetry.latitude);
+    setLongitude(captured.telemetry.longitude);
+    if (captured.telemetry.formattedAddress) {
+      setAddress(captured.telemetry.formattedAddress);
+    }
+    if (captured.telemetry.district) {
+      setDistrict(captured.telemetry.district);
+    }
+    if (captured.telemetry.state) {
+      setStateName(captured.telemetry.state);
+    }
+
+    setLocationStatus("success");
+    setLocationSuccessMessage("✓ Incident location auto-filled from live geotagged capture");
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.address;
+      return next;
+    });
+
+    setDetectedPhotoGeotag({
+      latitude: captured.telemetry.latitude,
+      longitude: captured.telemetry.longitude,
+      locationName:
+        captured.telemetry.formattedAddress ||
+        `${captured.telemetry.latitude.toFixed(4)}, ${captured.telemetry.longitude.toFixed(4)}`,
+      district: captured.telemetry.district,
+      state: captured.telemetry.state,
+      fileName: captured.file.name,
+    });
+  };
+
   const handleRemoveAttachment = async (id: string) => {
     const item = attachments.find((a) => a.id === id);
     if (!item) return;
@@ -1315,6 +1394,34 @@ export default function CitizenReportPage() {
                   </span>
                 </div>
 
+                {/* Live Camera & Geotag Capture Action Banner */}
+                <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-gradient-to-r from-slate-950 via-gov-navy to-slate-900 text-white rounded-xl shadow-md border border-slate-800">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-9 h-9 rounded-lg bg-gov-saffron/20 border border-gov-saffron/40 flex items-center justify-center text-gov-saffron">
+                      <Camera className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white flex items-center gap-1.5">
+                        <span>Click & Record Live Geotagged Evidence</span>
+                        <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded">
+                          AUTO-GEOTAG
+                        </span>
+                      </p>
+                      <p className="text-[11px] text-slate-300 mt-0.5">
+                        Capture live photo or record video directly with device GPS — auto-fills grievance location
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowLiveCameraModal(true)}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gov-saffron hover:bg-orange-600 text-slate-950 font-bold text-xs shadow-md transition active:scale-95"
+                  >
+                    <Camera className="w-4 h-4" />
+                    <span>Open Live Camera</span>
+                  </button>
+                </div>
+
                 {/* Category Filter Buttons with dynamic accept */}
                 <div className="flex flex-wrap items-center gap-1.5">
                   <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Filter Type:</span>
@@ -1392,6 +1499,17 @@ export default function CitizenReportPage() {
                       {getCategoryLimitHint(activeCategoryFilter)} • Max 10 files (100 MB total)
                     </p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowLiveCameraModal(true);
+                    }}
+                    className="mt-1 px-3 py-1 text-xs font-semibold text-gov-saffron bg-gov-saffron/10 hover:bg-gov-saffron/20 border border-gov-saffron/30 rounded-lg transition flex items-center gap-1"
+                  >
+                    <Camera className="w-3.5 h-3.5" />
+                    <span>Or Click Live Photo / Video with GPS</span>
+                  </button>
                 </div>
 
                 {/* Attachment Error Banner */}
@@ -1869,6 +1987,21 @@ export default function CitizenReportPage() {
                 )}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Live Geotag Camera & Video Recorder Modal */}
+      {showLiveCameraModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-in fade-in duration-200">
+          <div className="relative w-full max-w-2xl bg-slate-950 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden">
+            <LiveGeotagCapture
+              onCapture={handleLiveMediaCaptured}
+              onCancel={() => setShowLiveCameraModal(false)}
+              initialMode="photo"
+              allowModeSwitch={true}
+              title="Live Geotagged Evidence Capture"
+            />
           </div>
         </div>
       )}

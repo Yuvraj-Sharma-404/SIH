@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { defaultLocationProvider } from "@/lib/geotag/location-provider";
-import { MediaType } from "@/lib/geotag/types";
+import { MediaType, isValidCoordinate, decimalToDms } from "@/lib/geotag/types";
 import { reverseGeocodeCoordinates } from "@/lib/geocoding";
 
 export const dynamic = "force-dynamic";
@@ -186,7 +186,43 @@ export async function POST(req: NextRequest) {
       mediaType,
     });
 
-    // 5. If no GPS data present
+    // 5. Check if live coordinates were supplied via form data (Live Camera / Video capture)
+    const rawLiveLat = formData.get("latitude");
+    const rawLiveLng = formData.get("longitude");
+    let isLiveCapture = formData.get("isLiveCapture") === "true" || formData.get("source") === "LIVE_GPS";
+
+    if ((!result.hasGpsData || result.latitude === undefined || result.longitude === undefined) && rawLiveLat && rawLiveLng) {
+      const liveLat = parseFloat(String(rawLiveLat));
+      const liveLng = parseFloat(String(rawLiveLng));
+      if (!isNaN(liveLat) && !isNaN(liveLng) && isValidCoordinate(liveLat, liveLng)) {
+        result.hasGpsData = true;
+        result.latitude = liveLat;
+        result.longitude = liveLng;
+        result.dmsLatitude = decimalToDms(liveLat, true);
+        result.dmsLongitude = decimalToDms(liveLng, false);
+
+        const rawAlt = formData.get("altitude");
+        if (rawAlt && !isNaN(parseFloat(String(rawAlt)))) {
+          result.altitude = parseFloat(String(rawAlt));
+        }
+
+        const rawHdg = formData.get("heading");
+        if (rawHdg && !isNaN(parseFloat(String(rawHdg)))) {
+          result.heading = parseFloat(String(rawHdg));
+        }
+
+        const rawCapturedAt = formData.get("capturedAt");
+        if (rawCapturedAt) {
+          result.capturedAt = String(rawCapturedAt);
+        } else {
+          result.capturedAt = new Date().toISOString();
+        }
+
+        isLiveCapture = true;
+      }
+    }
+
+    // 6. If still no GPS data present
     if (!result.hasGpsData || result.latitude === undefined || result.longitude === undefined) {
       return NextResponse.json({
         success: true,
@@ -204,7 +240,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 6. Perform Reverse Geocoding with Fallback Resilience
+    // 7. Perform Reverse Geocoding with Fallback Resilience
     const lat = result.latitude;
     const lng = result.longitude;
 
@@ -228,7 +264,7 @@ export async function POST(req: NextRequest) {
       // Valid coordinates are kept even if reverse geocoding is temporarily unavailable
     }
 
-    // 7. Structured Response according to Section 7 specification
+    // 8. Structured Response according to Section 7 specification
     return NextResponse.json({
       success: true,
       hasGpsData: true,
@@ -245,7 +281,11 @@ export async function POST(req: NextRequest) {
       district: district || null,
       state: state || null,
       country: country || null,
-      source: mediaType === "video" ? "embedded_metadata" : "EXIF",
+      source: isLiveCapture
+        ? "LIVE_DEVICE_GPS"
+        : mediaType === "video"
+        ? "embedded_metadata"
+        : "EXIF",
       duration: result.duration || null,
       width: result.width || null,
       height: result.height || null,

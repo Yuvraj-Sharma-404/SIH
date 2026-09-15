@@ -27,9 +27,25 @@ import {
   Search,
   Video,
   Navigation,
+  Camera,
 } from "lucide-react";
 import MediaPreview from "@/components/MediaPreview";
 import { MediaType } from "@/lib/geotag/types";
+import type { LiveGpsTelemetry } from "@/components/LiveGeotagCapture";
+
+// Dynamically import LiveGeotagCapture to avoid SSR camera errors
+const LiveGeotagCapture = dynamic(
+  () => import("@/components/LiveGeotagCapture"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full aspect-[4/3] bg-slate-900 rounded-2xl flex flex-col items-center justify-center border border-slate-800 text-slate-400">
+        <Loader2 className="w-8 h-8 text-gov-saffron animate-spin mb-2" />
+        <span className="text-xs font-mono">Initializing Camera & GPS Telemetry...</span>
+      </div>
+    ),
+  }
+);
 
 // Dynamically import Leaflet Map to avoid SSR errors
 const ImageLocationMap = dynamic(
@@ -90,6 +106,7 @@ export default function MediaGeotagPage() {
   const [geotagData, setGeotagData] = useState<GeotagResponseData | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [uploadMode, setUploadMode] = useState<"live" | "storage">("live");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const mapSectionRef = useRef<HTMLDivElement>(null);
@@ -141,8 +158,8 @@ export default function MediaGeotagPage() {
     return null;
   };
 
-  // Process uploaded media file
-  const processMedia = useCallback(async (file: File) => {
+  // Process uploaded or captured media file
+  const processMedia = useCallback(async (file: File, liveTelemetry?: LiveGpsTelemetry) => {
     if (previewUrl) {
       URL.revokeObjectURL(previewUrl);
     }
@@ -181,15 +198,29 @@ export default function MediaGeotagPage() {
       const formData = new FormData();
       formData.append("media", file);
 
+      if (liveTelemetry) {
+        formData.append("latitude", liveTelemetry.latitude.toString());
+        formData.append("longitude", liveTelemetry.longitude.toString());
+        if (liveTelemetry.altitude !== null && liveTelemetry.altitude !== undefined) {
+          formData.append("altitude", liveTelemetry.altitude.toString());
+        }
+        if (liveTelemetry.heading !== null && liveTelemetry.heading !== undefined) {
+          formData.append("heading", liveTelemetry.heading.toString());
+        }
+        formData.append("capturedAt", liveTelemetry.timestamp || new Date().toISOString());
+        formData.append("isLiveCapture", "true");
+        formData.append("source", "LIVE_GPS");
+      }
+
       // State transition: extractingMetadata
       setTimeout(() => {
         setState((curr) => (curr === "uploading" ? "extractingMetadata" : curr));
-      }, 300);
+      }, 200);
 
       // State transition: extractingGPS
       setTimeout(() => {
         setState((curr) => (curr === "extractingMetadata" ? "extractingGPS" : curr));
-      }, 650);
+      }, 450);
 
       const response = await fetch("/api/media/geotag", {
         method: "POST",
@@ -215,7 +246,7 @@ export default function MediaGeotagPage() {
         setState("reverseGeocoding");
         setTimeout(() => {
           setState("success");
-        }, 350);
+        }, 300);
       } else {
         setState("noGpsData");
       }
@@ -268,52 +299,6 @@ export default function MediaGeotagPage() {
   const scrollToMap = () => {
     if (mapSectionRef.current) {
       mapSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
-  // Helper to load sample media for immediate testing
-  const loadTestSample = async (type: "image_gps" | "image_nogps" | "video_gps" | "video_nogps" | "corrupt" | "unsupported") => {
-    if (type === "corrupt") {
-      const blob = new Blob(["CORRUPT_BYTES_NOT_AN_IMAGE_OR_VIDEO_1234567890"], { type: "video/mp4" });
-      const corruptFile = new File([blob], "corrupted-test-media.mp4", { type: "video/mp4" });
-      processMedia(corruptFile);
-      return;
-    }
-
-    if (type === "unsupported") {
-      const blob = new Blob(["UNSUPPORTED_DATA_TEST_FILE"], { type: "application/x-msdownload" });
-      const unsupportedFile = new File([blob], "binary-executable-file.exe", { type: "application/x-msdownload" });
-      processMedia(unsupportedFile);
-      return;
-    }
-
-    try {
-      setState("uploading");
-      let sampleEndpoint = "/api/images/geotag/sample";
-      let sampleName = "sample.jpg";
-
-      if (type === "image_gps") {
-        sampleEndpoint = "/api/images/geotag/sample?type=gps";
-        sampleName = "india-gate-geotagged.jpg";
-      } else if (type === "image_nogps") {
-        sampleEndpoint = "/api/images/geotag/sample?type=nogps";
-        sampleName = "plain-image-no-gps.jpg";
-      } else if (type === "video_gps") {
-        sampleEndpoint = "/api/images/geotag/sample?type=video_gps";
-        sampleName = "geotagged-video-delhi.mp4";
-      } else if (type === "video_nogps") {
-        sampleEndpoint = "/api/images/geotag/sample?type=video_nogps";
-        sampleName = "standard-video-no-gps.mp4";
-      }
-
-      const res = await fetch(sampleEndpoint);
-      if (!res.ok) throw new Error("Sample fetch failed");
-      const blob = await res.blob();
-      const file = new File([blob], sampleName, { type: blob.type });
-      processMedia(file);
-    } catch (err: any) {
-      setState("error");
-      setErrorMessage("Could not load sample media: " + err.message);
     }
   };
 
@@ -389,113 +374,118 @@ export default function MediaGeotagPage() {
               </span>
             </div>
 
-            {/* Hidden native input */}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*,video/*,.jpg,.jpeg,.png,.webp,.mp4,.mov,.m4v,.3gp"
-              onChange={handleFileInputChange}
-              className="hidden"
-              id="geotag-media-file-input"
-            />
+            {/* Mode Switcher Tabs */}
+            <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 dark:bg-slate-700/60 rounded-xl text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => setUploadMode("live")}
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg transition ${
+                  uploadMode === "live"
+                    ? "bg-white dark:bg-slate-800 text-gov-navy dark:text-sky-400 shadow-sm border border-slate-200 dark:border-slate-700"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+              >
+                <Camera className="w-3.5 h-3.5 text-gov-saffron" />
+                <span>Live Camera & Video</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setUploadMode("storage")}
+                className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg transition ${
+                  uploadMode === "storage"
+                    ? "bg-white dark:bg-slate-800 text-gov-navy dark:text-sky-400 shadow-sm border border-slate-200 dark:border-slate-700"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+              >
+                <Upload className="w-3.5 h-3.5" />
+                <span>Upload from Storage</span>
+              </button>
+            </div>
 
-            {/* Drag & Drop Zone */}
-            <div
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onClick={() => fileInputRef.current?.click()}
-              className={`relative cursor-pointer rounded-xl border-2 border-dashed p-6 text-center transition-all ${
-                isDragOver
-                  ? "border-gov-saffron bg-gov-saffron-light/50 dark:bg-amber-950/30 scale-[0.99]"
-                  : "border-slate-300 dark:border-slate-600 hover:border-gov-navy dark:hover:border-sky-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
-              }`}
-            >
-              <div className="flex flex-col items-center justify-center space-y-2">
-                <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-gov-navy dark:text-sky-400 shadow-inner">
-                  <Upload className="w-6 h-6 text-gov-navy dark:text-sky-400" />
+            {uploadMode === "live" ? (
+              /* LIVE CAMERA & VIDEO RECORDER VIEWPORT */
+              <div className="space-y-3">
+                <LiveGeotagCapture
+                  onCapture={(captured) => {
+                    processMedia(captured.file, captured.telemetry);
+                  }}
+                  initialMode="photo"
+                  allowModeSwitch={true}
+                  title="Live Field Viewfinder"
+                />
+
+                <div className="p-3 bg-blue-50/60 dark:bg-slate-900/40 rounded-xl border border-blue-200/60 dark:border-slate-700 text-[11px] text-slate-600 dark:text-slate-300 flex items-start gap-2">
+                  <Info className="w-4 h-4 text-gov-navy dark:text-sky-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-slate-800 dark:text-slate-200">
+                      Live Geotagged Field Evidence Active
+                    </p>
+                    <p className="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+                      Use <strong>Photo Mode</strong> to click an authenticated photo with burned-in telemetry, or switch to <strong>Video Mode</strong> to record a live video clip. Real-time GPS coordinates, altitude, heading, and address are automatically locked.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-                    Click to browse or drag & drop file here
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    Images: JPG, PNG, WebP • Videos: MP4, MOV, M4V
-                  </p>
+              </div>
+            ) : (
+              /* STORAGE FILE DROPZONE & SAMPLES */
+              <>
+                {/* Hidden native input */}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*,video/*,.jpg,.jpeg,.png,.webp,.mp4,.mov,.m4v,.3gp"
+                  onChange={handleFileInputChange}
+                  className="hidden"
+                  id="geotag-media-file-input"
+                />
+
+                {/* Drag & Drop Zone */}
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`relative cursor-pointer rounded-xl border-2 border-dashed p-6 text-center transition-all ${
+                    isDragOver
+                      ? "border-gov-saffron bg-gov-saffron-light/50 dark:bg-amber-950/30 scale-[0.99]"
+                      : "border-slate-300 dark:border-slate-600 hover:border-gov-navy dark:hover:border-sky-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
+                  }`}
+                >
+                  <div className="flex flex-col items-center justify-center space-y-2">
+                    <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-gov-navy dark:text-sky-400 shadow-inner">
+                      <Upload className="w-6 h-6 text-gov-navy dark:text-sky-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        Click to browse or drag & drop file here
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                        Images: JPG, PNG, WebP • Videos: MP4, MOV, M4V
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        type="button"
+                        className="px-4 py-1.5 text-xs font-bold text-white bg-gov-navy hover:bg-gov-navy-dark rounded-lg shadow-sm transition"
+                      >
+                        + Upload Image / Video
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setUploadMode("live");
+                        }}
+                        className="px-3 py-1.5 text-xs font-semibold text-gov-saffron bg-gov-saffron/10 hover:bg-gov-saffron/20 border border-gov-saffron/30 rounded-lg transition flex items-center gap-1"
+                      >
+                        <Camera className="w-3.5 h-3.5" />
+                        <span>Use Live Camera</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <button
-                  type="button"
-                  className="mt-2 px-4 py-1.5 text-xs font-bold text-white bg-gov-navy hover:bg-gov-navy-dark rounded-lg shadow-sm transition"
-                >
-                  + Upload Image / Video
-                </button>
-              </div>
-            </div>
-
-            {/* Supported Formats & Security Badges */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-700 text-[11px] text-slate-500 dark:text-slate-400">
-              <div className="flex items-center gap-1 font-medium">
-                <Shield className="w-3.5 h-3.5 text-gov-emerald" />
-                <span>Zero-fabrication metadata parsing</span>
-              </div>
-              <div className="flex items-center gap-1 font-mono text-[10px] text-slate-600 dark:text-slate-300">
-                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">JPG</span>
-                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">PNG</span>
-                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">MP4</span>
-                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded">MOV</span>
-              </div>
-            </div>
-
-            {/* Comprehensive Quick Test Verification Bar */}
-            <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
-              <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1.5">
-                🧪 Instant Test Samples:
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px] font-semibold">
-                <button
-                  type="button"
-                  onClick={() => loadTestSample("image_gps")}
-                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 rounded transition text-center shadow-xs"
-                >
-                  ✓ Photo with GPS
-                </button>
-                <button
-                  type="button"
-                  onClick={() => loadTestSample("video_gps")}
-                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 rounded transition text-center shadow-xs"
-                >
-                  ✓ Video with GPS
-                </button>
-                <button
-                  type="button"
-                  onClick={() => loadTestSample("image_nogps")}
-                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 rounded transition text-center shadow-xs"
-                >
-                  ∅ Photo without GPS
-                </button>
-                <button
-                  type="button"
-                  onClick={() => loadTestSample("video_nogps")}
-                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 rounded transition text-center shadow-xs"
-                >
-                  ∅ Video without GPS
-                </button>
-                <button
-                  type="button"
-                  onClick={() => loadTestSample("corrupt")}
-                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700 rounded transition text-center shadow-xs"
-                >
-                  ✕ Corrupt Media
-                </button>
-                <button
-                  type="button"
-                  onClick={() => loadTestSample("unsupported")}
-                  className="px-2 py-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded transition text-center shadow-xs"
-                >
-                  ✕ Unsupported File
-                </button>
-              </div>
-            </div>
+              </>
+            )}
           </div>
 
           {/* Media Preview Card */}
@@ -793,24 +783,6 @@ export default function MediaGeotagPage() {
                       Captured: {formatDate(geotagData.capturedAt)}
                     </span>
                   </div>
-                </div>
-
-                {/* Grievance Integration Link */}
-                <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Sparkles className="w-4 h-4 text-gov-saffron shrink-0" />
-                    <span className="text-xs text-amber-900 dark:text-amber-200 font-medium">
-                      Lodge grievance using this verified capture location?
-                    </span>
-                  </div>
-                  <Link
-                    href={`/citizen/report?lat=${geotagData.latitude}&lng=${geotagData.longitude}&address=${encodeURIComponent(
-                      geotagData.locationName || ""
-                    )}`}
-                    className="px-3 py-1 bg-gov-navy hover:bg-gov-navy-dark text-white rounded text-[11px] font-bold transition shadow-xs whitespace-nowrap"
-                  >
-                    Auto-fill Grievance Form
-                  </Link>
                 </div>
               </div>
             )}
