@@ -43,12 +43,6 @@ const banners: BannerSlide[] = [
     alt: "Smart Governance under DARPG Government of India",
     href: "/about",
   },
-  {
-    id: 6,
-    src: "/Images/bannerHome/baner-cpgrams_7.jpg",
-    alt: "Collaborative Problem Solving & Public Participation",
-    href: "/challenges",
-  },
 ];
 
 export default function SmadhanXBannerCarousel() {
